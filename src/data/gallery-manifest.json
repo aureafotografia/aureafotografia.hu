@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-21T14:03:13.359Z",
+  "galleries": {
+    "eskuvo": [
+      {
+        "id": "eskuvo/DSC01999.jpg--ef59f67286",
+        "file": "eskuvo/DSC01999.jpg",
+        "width": 1482,
+        "height": 2223,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--480w--ef59f67286.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--480w--ef59f67286.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--480w--ef59f67286.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--800w--ef59f67286.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--800w--ef59f67286.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--800w--ef59f67286.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1200w--ef59f67286.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1200w--ef59f67286.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1200w--ef59f67286.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1482w--ef59f67286.avif",
+              "width": 1482,
+              "height": 2223
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1482w--ef59f67286.webp",
+              "width": 1482,
+              "height": 2223
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc01999--1482w--ef59f67286.jpg",
+              "width": 1482,
+              "height": 2223
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/eskuvo/dsc01999--full--ef59f67286.avif",
+            "width": 1482,
+            "height": 2223
+          },
+          "webp": {
+            "src": "/images/generated/galleries/eskuvo/dsc01999--full--ef59f67286.webp",
+            "width": 1482,
+            "height": 2223
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/eskuvo/dsc01999--full--ef59f67286.jpg",
+            "width": 1482,
+            "height": 2223
+          }
+        }
+      },
+      {
+        "id": "eskuvo/DSC02141.jpg--3ab188aa62",
+        "file": "eskuvo/DSC02141.jpg",
+        "width": 1357,
+        "height": 2036,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--480w--3ab188aa62.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--480w--3ab188aa62.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--480w--3ab188aa62.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--800w--3ab188aa62.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--800w--3ab188aa62.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--800w--3ab188aa62.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1200w--3ab188aa62.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1200w--3ab188aa62.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1200w--3ab188aa62.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1357w--3ab188aa62.avif",
+              "width": 1357,
+              "height": 2036
+            },
+            "webp": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1357w--3ab188aa62.webp",
+              "width": 1357,
+              "height": 2036
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/eskuvo/dsc02141--1357w--3ab188aa62.jpg",
+              "width": 1357,
+              "height": 2036
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/eskuvo/dsc02141--full--3ab188aa62.avif",
+            "width": 1357,
+            "height": 2036
+          },
+          "webp": {
+            "src": "/images/generated/galleries/eskuvo/dsc02141--full--3ab188aa62.webp",
+            "width": 1357,
+            "height": 2036
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/eskuvo/dsc02141--full--3ab188aa62.jpg",
+            "width": 1357,
+            "height": 2036
+          }
+        }
+      }
+    ]
+  }
+}

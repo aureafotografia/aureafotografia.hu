@@ -1,0 +1,36 @@
+---
+import { categories } from "../data/categories";
+import { copy, photographer, type Locale } from "../data/site";
+
+interface Props {
+  locale: Locale;
+  categorySlug?: string;
+}
+
+const { locale, categorySlug } = Astro.props;
+const isHungarian = locale === "hu";
+const content = copy[locale];
+const homeHref = isHungarian ? "/" : "/en";
+const bookingHref = categorySlug ? "#category-contact" : (isHungarian ? "#csomagok" : "#packages");
+const alternateHref = categorySlug
+  ? (isHungarian ? `/en/work/${categories.find((item) => item.slug === categorySlug)?.slugEn}` : `/munkak/${categorySlug}`)
+  : content.alternateHref;
+---
+
+<header class="site-header container shared-site-header">
+  <a class="wordmark" href={homeHref}>Aurea <span>Fotográfia</span></a>
+  <nav class="site-nav" aria-label={isHungarian ? "Fő navigáció" : "Main navigation"}>
+    <details class="nav-menu">
+      <summary>{isHungarian ? "Munkák" : "Work"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+      <div class="nav-menu__panel">
+        {categories.map((category) => <a href={isHungarian ? `/munkak/${category.slug}` : `/en/work/${category.slugEn}`}>{category[locale].title}</a>)}
+      </div>
+    </details>
+    <a href={isHungarian ? (categorySlug ? "/#rolam" : "#rolam") : (categorySlug ? "/en#about" : "#about")}>{isHungarian ? "Rólam" : "About"}</a>
+    <a class="nav-booking" href={bookingHref}>{isHungarian ? "Foglalás" : "Booking"}</a>
+    <details class="language-menu">
+      <summary aria-label={isHungarian ? "Nyelv választása" : "Choose language"}>{isHungarian ? "HU" : "EN"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+      <div class="language-menu__panel"><a href={alternateHref}>{isHungarian ? "EN" : "HU"}</a></div>
+    </details>
+  </nav>
+</header>

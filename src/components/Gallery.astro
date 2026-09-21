@@ -1,0 +1,104 @@
+---
+import type { Locale } from "../data/site";
+import galleryManifest from "../data/gallery-manifest.json";
+
+interface Variant {
+  src: string;
+  width: number;
+  height: number;
+}
+
+interface FormatSet {
+  avif: Variant;
+  webp: Variant;
+  fallback: Variant;
+}
+
+interface GalleryImage {
+  id: string;
+  file: string;
+  width: number;
+  height: number;
+  regular: FormatSet[];
+  full: FormatSet;
+}
+
+interface Props {
+  locale: Locale;
+  slug: string;
+  title: string;
+}
+
+const { locale, slug, title } = Astro.props;
+const images = (galleryManifest.galleries?.[slug as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
+const isHungarian = locale === "hu";
+const imageAlt = (index: number) => isHungarian ? `${title} fotó ${index + 1}` : `${title} photograph ${index + 1}`;
+const sizes = "(min-width: 801px) 33vw, 92vw";
+const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.map((set) => `${set[format].src} ${set[format].width}w`).join(", ");
+---
+
+{images.length ? (
+  <>
+    <div class="gallery-grid" aria-label={isHungarian ? `${title} képgaléria` : `${title} photo gallery`}>
+      {images.map((image, index) => {
+        const alt = imageAlt(index);
+        return (
+          <button
+            class={`gallery-tile gallery-tile--${(index % 4) + 1}`}
+            type="button"
+            data-lightbox-open
+            data-lightbox-src={image.full.fallback.src}
+            data-lightbox-alt={alt}
+            aria-label={isHungarian ? `${alt} megnyitása` : `Open ${alt}`}
+          >
+            <picture>
+              <source type="image/avif" srcset={srcset(image, "avif")} sizes={sizes} />
+              <source type="image/webp" srcset={srcset(image, "webp")} sizes={sizes} />
+              <img src={image.full.fallback.src} width={image.width} height={image.height} alt={alt} loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+            </picture>
+          </button>
+        );
+      })}
+    </div>
+
+    <dialog class="gallery-lightbox" data-gallery-dialog aria-labelledby="gallery-lightbox-title">
+      <div class="gallery-lightbox-inner">
+        <p id="gallery-lightbox-title" class="sr-only">{isHungarian ? "Kép nagy méretben" : "Image preview"}</p>
+        <button class="gallery-lightbox-close" type="button" data-lightbox-close aria-label={isHungarian ? "Bezárás" : "Close"}>×</button>
+        <img data-lightbox-image alt="" />
+      </div>
+    </dialog>
+  </>
+) : (
+  <div class="gallery-empty" role="status">
+    <span class="section-label">{isHungarian ? "A galéria előkészítve" : "Gallery ready"}</span>
+    <p>{isHungarian ? "Alexandra válogatott képei hamarosan itt jelennek meg." : "Alexandra’s selected photographs will appear here soon."}</p>
+  </div>
+)}
+
+{images.length > 0 && (
+  <script>
+    const dialog = document.querySelector("[data-gallery-dialog]");
+    const lightboxImage = dialog?.querySelector("[data-lightbox-image]");
+
+    if (dialog instanceof HTMLDialogElement && lightboxImage instanceof HTMLImageElement) {
+      document.querySelectorAll("[data-lightbox-open]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const source = trigger.getAttribute("data-lightbox-src");
+          const alt = trigger.getAttribute("data-lightbox-alt") || "";
+          if (!source) return;
+          lightboxImage.src = source;
+          lightboxImage.alt = alt;
+          dialog.showModal();
+        });
+      });
+
+      dialog.querySelectorAll("[data-lightbox-close]").forEach((closeButton) => {
+        closeButton.addEventListener("click", () => dialog.close());
+      });
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    }
+  </script>
+)}

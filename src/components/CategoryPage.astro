@@ -1,0 +1,95 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { photographer, type Locale } from "../data/site";
+import type { Category } from "../data/categories";
+import Gallery from "./Gallery.astro";
+import SiteNav from "./SiteNav.astro";
+import ContactForm from "./ContactForm.astro";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  category: Category;
+}
+
+const { locale, category } = Astro.props;
+const content = category[locale];
+const isHungarian = locale === "hu";
+const description = `${photographer.brand} — ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
+const image = "/images/aurea-hero-wedding.png";
+const testimonials = isHungarian
+  ? [
+      "A képekben nemcsak a napunk, hanem az egész hangulata visszaköszön.",
+      "Alexandra úgy vezetett minket, hogy közben végig természetesek maradtunk.",
+      "Minden alkalommal találunk egy új részletet, ami visszavisz ahhoz a pillanathoz.",
+    ]
+  : [
+      "The photographs hold more than the day itself — they hold how it felt.",
+      "Alexandra guided us gently while everything still felt completely natural.",
+      "Every time we look again, we find another detail that brings us back.",
+    ];
+---
+
+<SiteLayout locale={locale} title={`${content.title} · ${photographer.brand}`} description={description}>
+  <div class="site-shell category-shell">
+    <SiteNav locale={locale} categorySlug={category.slug} />
+
+    <main>
+      <section class="reference-intro category-reference-intro" aria-labelledby="category-title">
+        <p class="eyebrow">{content.eyebrow} · {content.meta}</p>
+        <h1 id="category-title">{content.title}</h1>
+        <p>{content.intro}</p>
+        <a class="reference-link" href="#category-gallery">{isHungarian ? "Megnézem a képeket" : "Explore the photographs"} <span>→</span></a>
+      </section>
+
+      <section class="category-story-section container" aria-labelledby="category-story-title">
+        <div class="category-story-image">
+          <img src={image} alt={content.title} loading="lazy" />
+        </div>
+        <div class="category-story-copy">
+          <p class="eyebrow">{isHungarian ? "A történetetek ritmusa" : "The rhythm of your story"}</p>
+          <h2 id="category-story-title">{content.detail}</h2>
+          <p>{content.intro}</p>
+          <p class="category-story-meta">{content.meta}</p>
+        </div>
+      </section>
+
+      <section class="category-reference-gallery container" id="category-gallery" aria-labelledby="gallery-title">
+        <div class="category-reference-gallery-heading">
+          <p class="eyebrow">{isHungarian ? "Válogatott képek" : "Selected images"}</p>
+          <h2 id="gallery-title">{isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
+          <p>{content.detail}</p>
+        </div>
+        <Gallery locale={locale} slug={category.slug} title={content.title} />
+        <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>
+      </section>
+
+      <section class="testimonials-section category-reference-testimonials" aria-labelledby="category-testimonials-title">
+        <div class="container">
+          <p class="eyebrow">{isHungarian ? "Visszajelzések" : "Testimonials"}</p>
+          <h2 id="category-testimonials-title">{isHungarian ? "A történetetekből maradandó emlék lesz." : "Your story becomes something to keep."}</h2>
+          <div class="testimonial-grid">
+            {testimonials.map((testimonial) => <blockquote>“{testimonial}”</blockquote>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section container category-reference-contact" id="category-contact" aria-labelledby="category-contact-title">
+        <p class="eyebrow">{isHungarian ? "Foglalás" : "Booking"}</p>
+        <h2 id="category-contact-title">{isHungarian ? "Meséljetek arról, ami most fontos." : "Tell me what matters right now."}</h2>
+        <p class="contact-lead">{isHungarian ? "Írjatok pár sort erről az időszakról, és megtaláljuk együtt a hozzátok illő ritmust." : "Write a few lines about this season, and we will find the right rhythm together."}</p>
+        <ContactForm locale={locale} />
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <div class="footer-row">
+        <span class="footer-meta">{isHungarian ? "Budapest · Magyarország · 2026" : "Budapest · Hungary · 2026"}</span>
+        <div class="footer-links">
+          <a href={photographer.instagram}>Instagram</a>
+          <a href={`mailto:${photographer.email}`}>E-mail</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</SiteLayout>

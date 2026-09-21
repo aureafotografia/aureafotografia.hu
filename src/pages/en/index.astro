@@ -1,0 +1,38 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { copy, photographer } from "../../data/site";
+import { categories } from "../../data/categories";
+import ContactForm from "../../components/ContactForm.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import "../../styles/global.css";
+
+const content = copy.en;
+const description = "Aurea Fotográfia — wedding, portrait and lifestyle photography in Budapest and beyond.";
+const image = "/images/aurea-hero-wedding.png";
+const homepageCategorySlugs = ["eskuvo-fotozas", "kismama-fotozas", "uzleti-portre", "csaladi-fotozas", "paros-fotozas"];
+const homepageCategories = homepageCategorySlugs.map((slug) => categories.find((category) => category.slug === slug)!);
+const categoryImages: Record<string, string> = {
+  "eskuvo-fotozas": "/images/homepage/wedding.jpg",
+  "kismama-fotozas": "/images/homepage/maternity.jpg",
+  "uzleti-portre": "/images/homepage/business.jpg",
+  "csaladi-fotozas": "/images/homepage/family.jpg",
+  "paros-fotozas": "/images/homepage/couple.jpg",
+};
+const testimonials = ["Alexandra was present as if she had always belonged there. Every important moment is waiting for us in the photographs.", "Natural, sensitive and wonderfully attentive work. These are exactly the memories we hoped to bring home.", "We did not just receive photographs, but a story about how it felt to be together that day."];
+---
+
+<SiteLayout locale="en" title={`${photographer.brand} · Photography`} description={description}>
+  <div class="site-shell reference-home">
+    <SiteNav locale="en" />
+    <main>
+      <section class="reference-hero" aria-label="Aurea Fotográfia"><div class="hero-panel hero-panel--side" style={`background-image: url(${image})`}></div><div class="hero-panel hero-panel--main" style={`background-image: url(${image})`}></div><div class="hero-panel hero-panel--side hero-panel--right" style={`background-image: url(${image})`}></div></section>
+      <section class="reference-intro" id="about" aria-labelledby="hero-title"><p class="eyebrow">{content.heroEyebrow}</p><h1 id="hero-title">{content.heroTitle.replaceAll("\n", " ")}</h1><p>{content.heroBody}</p><a class="reference-link" href="#work">{content.heroCta} <span>→</span></a></section>
+      <section class="story-grid container" id="work" aria-label="Selected stories">{homepageCategories.map((category, index) => <a class={`story-card story-card--${index + 1}`} href={`/en/work/${category.slugEn}`}><img src={categoryImages[category.slug]} alt={`${category.en.title} photograph`} loading={index > 1 ? "lazy" : "eager"} /><span>{category.en.title} · {category.en.meta}</span></a>)}</section>
+      <section class="about-section container" aria-labelledby="about-title"><div class="about-image"><img src={image} alt="Alexandra's photographic work" loading="lazy" /></div><div class="about-copy"><p class="eyebrow">{content.introLabel}</p><p class="about-kicker" id="about-title">{content.introTitle}</p><p>{content.introBody}</p><a class="reference-link" href={`mailto:${photographer.email}`}>{content.introLink} <span>→</span></a></div></section>
+      <section class="services-section container" aria-labelledby="services-title"><div class="section-heading"><p class="eyebrow">{content.workLabel}</p><h2 id="services-title">{content.workTitle}</h2></div><div class="services-list">{homepageCategories.slice(0, 3).map((category) => <a class="service-row" href={`/en/work/${category.slugEn}`}><img src={categoryImages[category.slug]} alt="" loading="lazy" /><div><span>{category.en.meta}</span><h3>{category.en.title}</h3></div><span class="service-arrow">↗</span></a>)}</div></section>
+      <section class="testimonials-section" aria-labelledby="testimonials-title"><div class="container"><p class="eyebrow">Testimonials</p><h2 id="testimonials-title">What couples say</h2><div class="testimonial-grid">{testimonials.map((testimonial) => <blockquote>“{testimonial}”</blockquote>)}</div></div></section>
+      <section class="contact-section container" id="packages" aria-labelledby="contact-title"><p class="eyebrow">Contact</p><h2 id="contact-title">Tell me what matters right now.</h2><p class="contact-lead">Every session has its own rhythm. Write a few lines and we will find the right story together.</p><ContactForm locale="en" /></section>
+    </main>
+    <footer class="site-footer container"><div class="footer-row"><span class="footer-meta">{content.footerNote}</span><div class="footer-links"><a href={photographer.instagram}>Instagram</a><a href={`mailto:${photographer.email}`}>E-mail</a></div></div></footer>
+  </div>
+</SiteLayout>

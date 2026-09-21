@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Aurea Fotográfia</title>
+  <rect width="64" height="64" rx="18" fill="#10b9bd"/>
+  <path d="M17 46 28.8 17h6.4L47 46h-6.4l-2.7-7.2H25.9L23.3 46H17Zm11-12.8h7.8L32 22.7l-4 10.5Z" fill="#fff"/>
+  <circle cx="47" cy="17" r="5" fill="#c49b4c"/>
+</svg>

@@ -1,0 +1,63 @@
+---
+import { photographer, type Locale } from "../data/site";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+}
+
+const { locale, title, description } = Astro.props;
+const canonical = locale === "hu" ? "https://aureafotografia.hu/" : "https://aureafotografia.hu/en";
+const alternate = locale === "hu" ? "https://aureafotografia.hu/en" : "https://aureafotografia.hu/";
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <link rel="alternate" hreflang={locale === "hu" ? "en" : "hu"} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href="https://aureafotografia.hu/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={photographer.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      document.querySelectorAll("details.nav-menu, details.language-menu").forEach((menu) => {
+        let closeTimer;
+        const openMenu = () => {
+          window.clearTimeout(closeTimer);
+          menu.open = true;
+        };
+        const closeMenu = () => {
+          window.clearTimeout(closeTimer);
+          closeTimer = window.setTimeout(() => {
+            if (!menu.matches(":focus-within")) menu.open = false;
+          }, 260);
+        };
+
+        menu.addEventListener("pointerenter", openMenu);
+        menu.addEventListener("pointerleave", closeMenu);
+        menu.addEventListener("focusin", openMenu);
+        menu.addEventListener("focusout", (event) => {
+          if (!menu.contains(event.relatedTarget)) closeMenu();
+        });
+      });
+    </script>
+  </body>
+</html>
