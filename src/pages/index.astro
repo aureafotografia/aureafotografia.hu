@@ -27,12 +27,12 @@ const testimonials = ["Alexandra úgy volt jelen, mintha mindig is hozzánk tart
   <div class="site-shell reference-home">
     <SiteNav locale="hu" />
     <main>
-      <section class="reference-hero" aria-label="Aurea Fotográfia"><div class="hero-panel hero-panel--main" style={`background-image: url(${heroImage})`}></div><div class="hero-overlay"><p class="eyebrow">{content.heroEyebrow}</p><h1 id="hero-title">{content.heroTitle.replaceAll("\n", " ")}</h1></div></section>
-      <section class="reference-intro" id="rolam" aria-labelledby="hero-title"><p>{content.heroBody}</p></section>
+      <section class="reference-hero" aria-label="Aurea Fotográfia"><div class="hero-panel hero-panel--main" style={`background-image: url(${heroImage})`}></div><div class="hero-overlay"><p class="eyebrow">{content.heroEyebrow}</p><h1 id="hero-title">{content.heroTitle.replaceAll("\n", " ")}</h1><p class="hero-subtitle">{content.heroSubtitle}</p></div></section>
+      <section class="reference-intro" aria-labelledby="hero-title"><p>{content.heroBody}</p></section>
       <section class="story-grid container" id="munkak" aria-label="Válogatott történetek">
         {homepageCategories.map((category, index) => <a class={`story-card story-card--${index + 1}`} href={`/munkak/${category.slug}`}><img src={categoryImages[category.slug]} alt={`${category.hu.title} fotó`} loading={index > 1 ? "lazy" : "eager"} /><span>{category.hu.title}</span><small>{category.hu.meta}</small></a>)}
       </section>
-      <section class="about-section container" aria-labelledby="about-title"><div class="about-image"><img src={image} alt="Alexandra fényképezőgéppel a szabadban" loading="lazy" /></div><div class="about-copy"><p class="eyebrow">{content.introLabel}</p><p class="about-kicker" id="about-title">{content.introTitle}</p><p>{content.introBody}</p></div></section>
+      <section class="about-section container" id="rolam" aria-labelledby="about-title"><div class="about-image"><img src={image} alt="Alexandra fényképezőgéppel a szabadban" loading="lazy" /></div><div class="about-copy"><p class="eyebrow">{content.introLabel}</p><p class="about-kicker" id="about-title">{content.introTitle}</p><p>{content.introBody}</p></div></section>
       <section class="testimonials-section" aria-labelledby="testimonials-title"><div class="container"><p class="eyebrow">Visszajelzések</p><h2 id="testimonials-title">Amit a párok mondanak</h2><div class="testimonial-grid">{testimonials.map((testimonial) => <blockquote>“{testimonial}”</blockquote>)}</div></div></section>
       <ContactSection locale="hu" />
     </main>

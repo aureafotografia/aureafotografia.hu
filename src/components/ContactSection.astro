@@ -14,7 +14,8 @@ const contactId = id ?? (isHungarian ? "csomagok" : "packages");
 
 <section class="contact-section container" id={contactId} aria-labelledby={`${contactId}-title`}>
   <p class="eyebrow">{isHungarian ? "Kapcsolat" : "Contact"}</p>
-  <h2 id={`${contactId}-title`}>{isHungarian ? "Meséljetek arról, ami most fontos." : "Tell me what matters right now."}</h2>
-  <p class="contact-lead">{isHungarian ? "Minden fotózás más ritmusú. Írjatok pár sort, és találjuk meg együtt a hozzátok illő történetet." : "Every session has its own rhythm. Write a few lines and we will find the right story together."}</p>
+  <h2 id={`${contactId}-title`}>{isHungarian ? "Van egy történeted. Mesélj róla." : "Tell me what matters right now."}</h2>
+  <p class="contact-lead">{isHungarian ? "Fotózást tervezel? Írj nekem, és beszéljük át, hogyan képzelted el." : "Every session has its own rhythm. Write a few lines and we will find the right story together."}</p>
+  {isHungarian && <p class="contact-closing">A többit majd együtt kitaláljuk.</p>}
   <ContactForm locale={locale} />
 </section>

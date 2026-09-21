@@ -21,10 +21,11 @@ const alternateHref = categorySlug
   <a class="wordmark" href={homeHref} aria-label="Aurea Fotográfia">
     <img src="/images/aurea-logo.png" alt="Aurea" />
     <span class="wordmark-subtitle">FOTOGRÁFIA</span>
+    <span class="wordmark-byline">by Alexandra</span>
   </a>
   <nav class="site-nav" aria-label={isHungarian ? "Fő navigáció" : "Main navigation"}>
     <details class="nav-menu">
-      <summary>{isHungarian ? "Munkák" : "Work"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+      <summary>{isHungarian ? "Portfólió" : "Work"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
       <div class="nav-menu__panel">
         {categories.map((category) => <a href={isHungarian ? `/munkak/${category.slug}` : `/en/work/${category.slugEn}`}>{category[locale].title}</a>)}
       </div>

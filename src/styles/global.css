@@ -28,6 +28,7 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
 .wordmark { align-items: flex-start; color: var(--ink); display: flex; flex-direction: column; font-size: 0.9rem; font-weight: 700; gap: 0; letter-spacing: 0.17em; text-transform: uppercase; }
 .wordmark img { display: block; height: auto; width: 132px; }
 .wordmark .wordmark-subtitle { align-self: center; color: var(--gold); font-size: 0.52rem; font-weight: 600; letter-spacing: 0.42em; line-height: 1; margin-top: -25px; padding-left: 0; text-align: center; }
+.wordmark .wordmark-byline { align-self: center; color: var(--gold); font-family: var(--serif); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.08em; line-height: 1; margin-top: 5px; text-transform: none; }
 .site-nav { align-items: center; display: flex; gap: 30px; }
 .site-nav a { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 180ms ease; }
 .site-nav a:hover { color: var(--aqua-deep); }
@@ -956,6 +957,34 @@ body .shared-site-header .site-nav a.nav-booking:hover {
 .category-shell .site-header::before { background: #dbe8e6; content: ""; inset: 0 -100vw; pointer-events: none; position: absolute; z-index: -1; }
 .category-shell .site-header > * { position: relative; z-index: 1; }
 .category-shell .wordmark, .category-shell .wordmark span, .category-shell .site-nav a { color: var(--ink); }
+.shared-site-header .wordmark .wordmark-byline {
+  font-family: var(--serif) !important;
+  font-size: .5rem !important;
+  letter-spacing: .08em !important;
+  margin: 5px 0 0 !important;
+  text-transform: none !important;
+}
+.reference-home .about-copy > p:not(.eyebrow):not(.about-kicker) {
+  font-family: var(--sans);
+  font-size: .95rem;
+  line-height: 1.8;
+  max-width: 470px;
+}
+.reference-home .hero-overlay .hero-subtitle {
+  color: #fff;
+  font-family: var(--sans);
+  font-size: clamp(.85rem, 1.4vw, 1.1rem);
+  letter-spacing: .08em;
+  margin: 24px auto 0;
+}
+.reference-home .contact-closing {
+  color: #c3e7f1;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 18px auto 0;
+  max-width: 600px;
+}
 .category-shell .site-nav a:hover { color: #c98f7a; }
 .category-shell .language-link { border: 0; color: var(--ink); padding: 0; }
 .category-shell .category-hero h1, .category-shell .category-gallery-heading > p:last-child { color: var(--ink); }
