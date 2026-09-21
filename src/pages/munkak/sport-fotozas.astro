@@ -1,0 +1,9 @@
+---
+import CategoryPage from "../../components/CategoryPage.astro";
+import { getCategory } from "../../data/categories";
+
+const category = getCategory("hu", "sport-fotozas");
+if (!category) throw new Error("Missing category");
+---
+
+<CategoryPage locale="hu" category={category} />

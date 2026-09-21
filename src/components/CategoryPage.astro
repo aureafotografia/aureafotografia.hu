@@ -4,7 +4,7 @@ import { photographer, type Locale } from "../data/site";
 import type { Category } from "../data/categories";
 import Gallery from "./Gallery.astro";
 import SiteNav from "./SiteNav.astro";
-import ContactForm from "./ContactForm.astro";
+import ContactSection from "./ContactSection.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -16,17 +16,25 @@ const { locale, category } = Astro.props;
 const content = category[locale];
 const isHungarian = locale === "hu";
 const description = `${photographer.brand} — ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
-const image = "/images/aurea-hero-wedding.png";
-const testimonials = isHungarian
+const categoryImages: Record<string, string> = {
+  "eskuvo-fotozas": "/images/homepage/wedding.jpg",
+  "kismama-fotozas": "/images/homepage/maternity.jpg",
+  "uzleti-portre": "/images/homepage/business.jpg",
+  "csaladi-fotozas": "/images/homepage/family.jpg",
+  "paros-fotozas": "/images/homepage/couple.jpg",
+  "sport-fotozas": "/images/homepage/sport.jpg",
+};
+const image = categoryImages[category.slug] ?? "/images/aurea-hero-wedding.png";
+const packages = isHungarian
   ? [
-      "A képekben nemcsak a napunk, hanem az egész hangulata visszaköszön.",
-      "Alexandra úgy vezetett minket, hogy közben végig természetesek maradtunk.",
-      "Minden alkalommal találunk egy új részletet, ami visszavisz ahhoz a pillanathoz.",
+      { name: "Mini", price: "39 000 HUF", description: "Rövidebb, könnyed fotózás néhány fontos pillanatra.", includes: ["1 szett", "10–12 szerkesztett fotó", "Online galéria"] },
+      { name: "Standard", price: "59 000 HUF", description: "A legnépszerűbb csomag egy teljesebb történethez.", includes: ["2–3 szett", "20–24 szerkesztett fotó", "Online galéria"] },
+      { name: "Signature", price: "79 000 HUF", description: "Részletesebb jelenlét, több idő és több megőrzött emlék.", includes: ["Több szett", "36+ szerkesztett fotó", "Online galéria"] },
     ]
   : [
-      "The photographs hold more than the day itself — they hold how it felt.",
-      "Alexandra guided us gently while everything still felt completely natural.",
-      "Every time we look again, we find another detail that brings us back.",
+      { name: "Mini", price: "39 000 HUF", description: "A short, relaxed session for a few meaningful moments.", includes: ["1 outfit", "10–12 edited photographs", "Online gallery"] },
+      { name: "Standard", price: "59 000 HUF", description: "The most popular package for a fuller story.", includes: ["2–3 outfits", "20–24 edited photographs", "Online gallery"] },
+      { name: "Signature", price: "79 000 HUF", description: "More time, more presence and more of the story kept.", includes: ["Multiple outfits", "36+ edited photographs", "Online gallery"] },
     ];
 ---
 
@@ -39,10 +47,9 @@ const testimonials = isHungarian
         <p class="eyebrow">{content.eyebrow} · {content.meta}</p>
         <h1 id="category-title">{content.title}</h1>
         <p>{content.intro}</p>
-        <a class="reference-link" href="#category-gallery">{isHungarian ? "Megnézem a képeket" : "Explore the photographs"} <span>→</span></a>
       </section>
 
-      <section class="category-story-section container" aria-labelledby="category-story-title">
+      <section class="category-story-section" aria-labelledby="category-story-title">
         <div class="category-story-image">
           <img src={image} alt={content.title} loading="lazy" />
         </div>
@@ -64,22 +71,29 @@ const testimonials = isHungarian
         <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>
       </section>
 
-      <section class="testimonials-section category-reference-testimonials" aria-labelledby="category-testimonials-title">
-        <div class="container">
-          <p class="eyebrow">{isHungarian ? "Visszajelzések" : "Testimonials"}</p>
-          <h2 id="category-testimonials-title">{isHungarian ? "A történetetekből maradandó emlék lesz." : "Your story becomes something to keep."}</h2>
-          <div class="testimonial-grid">
-            {testimonials.map((testimonial) => <blockquote>“{testimonial}”</blockquote>)}
-          </div>
+      <section class="category-packages container" aria-labelledby="category-packages-title">
+        <div class="category-packages-heading">
+          <p class="eyebrow">{isHungarian ? "Csomagok" : "Packages"}</p>
+          <h2 id="category-packages-title">{isHungarian ? "Válasszátok azt, ami hozzátok illik." : "Choose what feels right for you."}</h2>
+        </div>
+        <div class="category-packages-grid">
+          {packages.map((pkg, index) => (
+            <article class={`category-package-card${index === 1 ? " category-package-card--featured" : ""}`}>
+              <h3>{pkg.name}</h3>
+              <p class="category-package-description">{pkg.description}</p>
+              <p class="category-package-price">{pkg.price}</p>
+              <div class="category-package-details">
+                <ul>
+                  {pkg.includes.map((item) => <li>{item}</li>)}
+                </ul>
+                <a class="button-link" href="#category-contact">{isHungarian ? "Foglalás" : "Book now"}</a>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section class="contact-section container category-reference-contact" id="category-contact" aria-labelledby="category-contact-title">
-        <p class="eyebrow">{isHungarian ? "Foglalás" : "Booking"}</p>
-        <h2 id="category-contact-title">{isHungarian ? "Meséljetek arról, ami most fontos." : "Tell me what matters right now."}</h2>
-        <p class="contact-lead">{isHungarian ? "Írjatok pár sort erről az időszakról, és megtaláljuk együtt a hozzátok illő ritmust." : "Write a few lines about this season, and we will find the right rhythm together."}</p>
-        <ContactForm locale={locale} />
-      </section>
+      <ContactSection locale={locale} id="category-contact" />
     </main>
 
     <footer class="site-footer container">

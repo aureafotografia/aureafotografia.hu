@@ -34,6 +34,11 @@ export const categories: Category[] = [
     hu: { title: "Üzleti portré", meta: "karakter · márka", eyebrow: "Üzleti portré", intro: "Hiteles portrék rólad és a munkádról, amelyekben a szakmaiság mellett az ember is látszik.", detail: "Természetes, pontos és használható képek weboldalra, közösségi felületekre és a márkád történetéhez.", slots: ["portré", "munka", "részlet", "tér", "karakter", "márka"] },
     en: { title: "Business portraits", meta: "character · brand", eyebrow: "Business portraits", intro: "Honest portraits of you and your work, where the person behind the expertise remains visible.", detail: "Natural, considered images for your website, social channels and the story of your brand.", slots: ["portrait", "work", "detail", "space", "character", "brand"] },
   },
+  {
+    slug: "sport-fotozas", slugEn: "sports-photography", tone: "sky",
+    hu: { title: "Sport fotózás", meta: "mozgás · energia", eyebrow: "Sport fotózás", intro: "Erő, mozdulat és koncentráció olyan képekben, amelyek megmutatják, mi történik a teljesítmény mögött.", detail: "Dinamikus, karakteres portrék és mozgás közben elkapott pillanatok sportolóknak, csapatoknak és márkáknak.", slots: ["mozdulat", "erő", "fókusz", "ritmus", "energia", "karakter"] },
+    en: { title: "Sports photography", meta: "movement · energy", eyebrow: "Sports photography", intro: "Strength, movement and focus in photographs that show what lives behind the performance.", detail: "Dynamic portraits and in-motion moments for athletes, teams and brands.", slots: ["movement", "strength", "focus", "rhythm", "energy", "character"] },
+  },
 ];
 
 export function getCategory(locale: Locale, slug: string) {

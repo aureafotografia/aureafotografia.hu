@@ -18,7 +18,10 @@ const alternateHref = categorySlug
 ---
 
 <header class="site-header container shared-site-header">
-  <a class="wordmark" href={homeHref}>Aurea <span>Fotográfia</span></a>
+  <a class="wordmark" href={homeHref} aria-label="Aurea Fotográfia">
+    <img src="/images/aurea-logo.png" alt="Aurea" />
+    <span class="wordmark-subtitle">FOTOGRÁFIA</span>
+  </a>
   <nav class="site-nav" aria-label={isHungarian ? "Fő navigáció" : "Main navigation"}>
     <details class="nav-menu">
       <summary>{isHungarian ? "Munkák" : "Work"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
