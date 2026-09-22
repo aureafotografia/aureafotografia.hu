@@ -3,9 +3,10 @@ import type { Locale } from "../data/site";
 
 interface Props {
   locale: Locale;
+  buttonLabel?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, buttonLabel } = Astro.props;
 const isHungarian = locale === "hu";
 // Web3Forms access keys are intentionally public client-side form identifiers.
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || "433e436b-65eb-404c-a3aa-d66827662729";
@@ -24,7 +25,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || "433e436b-65eb-
       <input type="text" name="name" autocomplete="name" required />
     </label>
     <label>
-      <span>{isHungarian ? "E-mail" : "Email"}</span>
+      <span>{isHungarian ? "E MAIL" : "Email"}</span>
       <input type="email" name="email" autocomplete="email" required />
     </label>
   </div>
@@ -32,5 +33,5 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || "433e436b-65eb-
     <span>{isHungarian ? "Miben segíthetek?" : "Tell me about your plans"}</span>
     <textarea name="message" rows="5" required></textarea>
   </label>
-  <button class="button-link contact-form__submit" type="submit">{isHungarian ? "Üzenet küldése" : "Send inquiry"}</button>
+  <button class="button-link contact-form__submit" type="submit">{buttonLabel ?? (isHungarian ? "Üzenet küldése" : "Send inquiry")}</button>
 </form>

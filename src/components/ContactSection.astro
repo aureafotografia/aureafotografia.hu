@@ -5,9 +5,10 @@ import ContactForm from "./ContactForm.astro";
 interface Props {
   locale: Locale;
   id?: string;
+  buttonLabel?: string;
 }
 
-const { locale, id } = Astro.props;
+const { locale, id, buttonLabel } = Astro.props;
 const isHungarian = locale === "hu";
 const contactId = id ?? (isHungarian ? "csomagok" : "packages");
 ---
@@ -17,5 +18,5 @@ const contactId = id ?? (isHungarian ? "csomagok" : "packages");
   <h2 id={`${contactId}-title`}>{isHungarian ? "Van egy történeted. Mesélj róla." : "Tell me what matters right now."}</h2>
   <p class="contact-lead">{isHungarian ? "Fotózást tervezel? Írj nekem, és beszéljük át, hogyan képzelted el." : "Every session has its own rhythm. Write a few lines and we will find the right story together."}</p>
   {isHungarian && <p class="contact-closing">A többit majd együtt kitaláljuk.</p>}
-  <ContactForm locale={locale} />
+  <ContactForm locale={locale} buttonLabel={buttonLabel} />
 </section>

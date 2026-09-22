@@ -939,6 +939,94 @@ body .shared-site-header .site-nav a.nav-booking:hover {
   .category-reference-gallery-heading .eyebrow { grid-row: auto; }
 }
 
+/* Business portrait copy keeps the existing editorial rhythm while giving the
+   personal story room to breathe between the image, gallery and packages. */
+.category-business-story {
+  background: #fff;
+}
+.category-business-story-section {
+  background: #fff;
+  padding-bottom: 150px;
+  padding-top: 150px;
+}
+.category-business-story-section--accent {
+  background: #fbfaf6;
+}
+.category-business-story-copy {
+  max-width: 820px;
+}
+.category-business-story-copy h2 {
+  color: #294b4f;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5.6vw, 6.1rem);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .92;
+  margin: 28px 0 42px;
+  max-width: 900px;
+}
+.category-business-story-copy > p:not(.eyebrow):not(.category-business-intro) {
+  color: #5f7373;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.65;
+  margin: 0 0 18px;
+  max-width: 680px;
+}
+.category-business-intro {
+  color: #5f7373;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.45;
+  margin: 0 0 28px;
+}
+.category-business-story-section--closing {
+  background: #fbfaf6;
+  padding-bottom: 170px;
+  padding-top: 170px;
+}
+.category-package-support {
+  color: #5f7373;
+  font-family: var(--serif);
+  font-size: .98rem;
+  line-height: 1.55;
+  margin: -8px 0 18px;
+  max-width: 360px;
+}
+.category-package-support p { margin: 0 0 14px; }
+.category-business-seo {
+  background: #f1eee7;
+  border-top: 1px solid rgba(41,75,79,.18);
+  color: #5f7373;
+  margin-bottom: 0;
+  padding-bottom: 110px;
+  padding-top: 110px;
+}
+.category-business-seo h2 {
+  color: #294b4f;
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: .95;
+  margin: 24px 0 34px;
+  max-width: 700px;
+}
+.category-business-seo > p:not(.eyebrow) {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0 0 18px;
+  max-width: 820px;
+}
+@media (max-width: 800px) {
+  .category-business-story-section,
+  .category-business-story-section--closing { padding-bottom: 100px; padding-top: 100px; }
+  .category-business-story-copy h2 { font-size: clamp(2.7rem, 11vw, 4.5rem); }
+  .category-package-support { max-width: none; }
+  .category-business-seo { padding-bottom: 80px; padding-top: 80px; }
+}
+
 /* Castella theme for every category page */
 .category-shell {
   --ink: #294b4f;

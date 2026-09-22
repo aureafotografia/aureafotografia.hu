@@ -15,7 +15,7 @@ interface Props {
 const { locale, category } = Astro.props;
 const content = category[locale];
 const isHungarian = locale === "hu";
-const description = `${photographer.brand} — ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
+const description = `${photographer.brand}, ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
 const categoryImages: Record<string, string> = {
   "eskuvo-fotozas": "/images/homepage/wedding.jpg",
   "kismama-fotozas": "/images/homepage/maternity.jpg",
@@ -25,7 +25,14 @@ const categoryImages: Record<string, string> = {
   "sport-fotozas": "/images/homepage/sport.jpg",
 };
 const image = categoryImages[category.slug] ?? "/images/aurea-hero-wedding.png";
-const packages = isHungarian
+const isBusinessPage = isHungarian && category.slug === "uzleti-portre";
+const packages = isBusinessPage
+  ? [
+      { name: "PROFILE", price: "39 000 HUF", description: "Néhány jól használható portré a szakmai megjelenésedhez.", support: "Ha új CVt készítesz, frissítenéd a LinkedIn profilodat, vagy egyszerűen szeretnél néhány friss, professzionális képet magadról, ez a csomag neked szól.\n\nLetisztult, természetes portrék, amelyeket használhatsz CVben, LinkedInen, szakmai bemutatkozásban vagy akár a céges profilodon.", includes: ["1 szett", "10 és 12 közötti szerkesztett fotó", "Online galéria"] },
+      { name: "STANDARD", price: "59 000 HUF", description: "Több, mint egy portré. Képek rólad és arról, ahogyan dolgozol.", support: "Ha szeretnéd, hogy a képeidben ne csak a szakmai oldalad, hanem a személyiséged is megjelenjen, ez a csomag több lehetőséget ad a kibontakozásra.\n\nTöbb szett, több hangulat és többféle portré készülhet rólad, hogy a képeket különböző szakmai felületeken is használhasd.", includes: ["2 vagy 3 szett", "20 és 24 közötti szerkesztett fotó", "Online galéria"] },
+      { name: "SIGNATURE", price: "79 000 HUF", description: "A teljes szakmai történeted képekben.", support: "A SIGNATURE akkor születik, amikor már nem csupán néhány portréra van szükséged, hanem szeretnéd tudatosan felépíteni a rólad szóló vizuális világot.\n\nA business portrék mellett personal branding képek is készülnek rólad, amelyek megmutatják, ki vagy, mivel foglalkozol és hogyan dolgozol.\n\nOlyan változatos képsorozatot kapsz, amelyet használhatsz a weboldaladon, social media felületeiden, LinkedInen, bemutatkozó anyagokban és később is, amikor új tartalmakhoz vagy szakmai megjelenésekhez van szükséged friss képekre.\n\nEz nem néhány jól sikerült portré. Ez egy olyan képi készlet, amely hosszabb távon veled és a márkáddal együtt tud működni.", includes: ["TÖBB SZETT", "36+ SZERKESZTETT FOTÓ", "BUSINESS ÉS PERSONAL BRANDING KÉPEK", "ONLINE GALÉRIA"] },
+    ]
+  : isHungarian
   ? [
       { name: "Mini", price: "39 000 HUF", description: "Rövidebb, könnyed fotózás néhány fontos pillanatra.", includes: ["1 szett", "10–12 szerkesztett fotó", "Online galéria"] },
       { name: "Standard", price: "59 000 HUF", description: "A legnépszerűbb csomag egy teljesebb történethez.", includes: ["2–3 szett", "20–24 szerkesztett fotó", "Online galéria"] },
@@ -44,28 +51,75 @@ const packages = isHungarian
 
     <main>
       <section class="reference-intro category-reference-intro" aria-labelledby="category-title">
-        <p class="eyebrow">{content.eyebrow} · {content.meta}</p>
+        <p class="eyebrow">{isBusinessPage ? "ÜZLETI PORTRÉ FOTÓZÁS · ÖNBIZALOM · HIVATÁS" : `${content.eyebrow} · ${content.meta}`}</p>
         <h1 id="category-title">{content.title}</h1>
-        <p>{content.intro}</p>
+        <p>{isBusinessPage ? "Mert mielőtt megszólalnál, a képed már mesél rólad." : content.intro}</p>
       </section>
 
-      <section class="category-story-section" aria-labelledby="category-story-title">
+      <section class={`category-story-section${isBusinessPage ? " category-business-story-section" : ""}`} aria-labelledby="category-story-title">
         <div class="category-story-image">
           <img src={image} alt={content.title} loading="lazy" />
         </div>
         <div class="category-story-copy">
-          <p class="eyebrow">{isHungarian ? "A történetetek ritmusa" : "The rhythm of your story"}</p>
-          <h2 id="category-story-title">{content.detail}</h2>
-          <p>{content.intro}</p>
-          <p class="category-story-meta">{content.meta}</p>
+          <p class="eyebrow">{isBusinessPage ? "ELSŐ BENYOMÁS" : isHungarian ? "A történetetek ritmusa" : "The rhythm of your story"}</p>
+          <h2 id="category-story-title">{isBusinessPage ? "Szerinted számít az első benyomás?" : content.detail}</h2>
+          {isBusinessPage ? (
+            <>
+              <p>És szerinted megtörténhet az első benyomás már online, vagy akár egy CV láttán?</p>
+              <p>Én azt gondolom, hogy igen.</p>
+              <p>A munkáltatók, az üzleti partnerek és a kliensek már azelőtt érzéseket és benyomásokat társítanak hozzánk, hogy egyáltalán találkoznánk velünk. A megjelenésünk az online térben, a LinkedIn profilunk, a CVnk vagy éppen egy rólunk készült fénykép mind hozzájárul ahhoz, milyen kép alakul ki rólunk.</p>
+            </>
+          ) : (
+            <>
+              <p>{content.intro}</p>
+              <p class="category-story-meta">{content.meta}</p>
+            </>
+          )}
         </div>
       </section>
 
+      {isBusinessPage && (
+        <div class="category-business-story">
+          <section class="category-business-story-section container" aria-labelledby="business-story-confidence">
+            <div class="category-business-story-copy">
+              <p class="eyebrow">ÖNBIZALOM · HIVATÁS</p>
+              <h2 id="business-story-confidence">Éppen ezért egy business portré számomra sokkal többről szól, mint egy jó profilképről.</h2>
+              <p>Ahogy a közösségi médiában tudatosan válogatjuk meg, mit szeretnénk megmutatni magunkból, úgy a professzionális megjelenésünk is egyfajta vizuális kommunikáció.</p>
+              <p>Megmutatja, kik vagyunk, mivel foglalkozunk, milyen értékeket képviselünk, és legfőképpen azt, hogyan szeretnénk jelen lenni a világban.</p>
+              <p>Több mint tíz év szakmai és üzleti környezetben szerzett tapasztalatom alapján azt látom, hogy a megjelenésnek ma is fontos szerepe van.</p>
+              <p>Nem azért, mert egy fényképnek mindent el kell mondania rólunk, hanem mert képes megteremteni azt az első kapcsolódási pontot, amelyre később a személyiségünk és a szakmai tudásunk épülhet.</p>
+            </div>
+          </section>
+          <section class="category-business-story-section category-business-story-section--accent container" aria-labelledby="business-story-authenticity">
+            <div class="category-business-story-copy">
+              <h2 id="business-story-authenticity">A business fotózásban ezért szeretem azt megmutatni, ami valóban a tiéd.</h2>
+              <p>Játszhatsz az öltözködéseddel, a környezettel, a gesztusokkal és a hangulattal, és mindezekkel finoman alakíthatod azt a képet, amit magadról szeretnél közvetíteni.</p>
+              <p>Lehetsz elegáns, határozott, kreatív, közvetlen vagy éppen visszafogott.</p>
+              <p>A cél nem az, hogy egy rád húzott üzleti szerepet játssz, hanem hogy a lehető legjobb és leghitelesebb formádban jelenj meg.</p>
+            </div>
+          </section>
+          <section class="category-business-story-section container" aria-labelledby="business-story-confidence-effect">
+            <div class="category-business-story-copy">
+              <p class="category-business-intro">És van még valami, amit különösen fontosnak tartok.</p>
+              <h2 id="business-story-confidence-effect">Amikor jól érzed magad abban, ahogyan megjelensz, az nem csupán a képeken látszik.</h2>
+              <p>Magabiztosabbnak érzed magad.</p>
+              <p>Erőt ad, hogy komfortosan vagy a saját bőrödben, és ez a magabiztosság a kisugárzásodon keresztül is megjelenik.</p>
+            </div>
+          </section>
+          <section class="category-business-story-section category-business-story-section--closing container" aria-labelledby="business-story-closing">
+            <div class="category-business-story-copy">
+              <p>Egy állásinterjú, egy üzleti találkozó, egy új ügyfél vagy egy szakmai bemutatkozás esetében a professzionális megjelenés ennek fontos része lehet.</p>
+              <h2 id="business-story-closing">Mert mielőtt megszólalnál, a képed már mesél rólad.</h2>
+            </div>
+          </section>
+        </div>
+      )}
+
       <section class="category-reference-gallery container" id="category-gallery" aria-labelledby="gallery-title">
         <div class="category-reference-gallery-heading">
-          <p class="eyebrow">{isHungarian ? "Válogatott képek" : "Selected images"}</p>
-          <h2 id="gallery-title">{isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
-          <p>{content.detail}</p>
+          <p class="eyebrow">{isBusinessPage ? "GALÉRIA" : isHungarian ? "Válogatott képek" : "Selected images"}</p>
+          <h2 id="gallery-title">{isBusinessPage ? "A szakmaiság mellett az ember is látszik." : isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
+          <p>{isBusinessPage ? "Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban." : content.detail}</p>
         </div>
         <Gallery locale={locale} slug={category.slug} title={content.title} />
         <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>
@@ -74,13 +128,14 @@ const packages = isHungarian
       <section class="category-packages container" aria-labelledby="category-packages-title">
         <div class="category-packages-heading">
           <p class="eyebrow">{isHungarian ? "Csomagok" : "Packages"}</p>
-          <h2 id="category-packages-title">{isHungarian ? "Válasszátok azt, ami hozzátok illik." : "Choose what feels right for you."}</h2>
+          <h2 id="category-packages-title">{isBusinessPage ? "Válaszd azt, amelyik a szakmai jelenlétedhez illik." : isHungarian ? "Válasszátok azt, ami hozzátok illik." : "Choose what feels right for you."}</h2>
         </div>
         <div class="category-packages-grid">
           {packages.map((pkg, index) => (
             <article class={`category-package-card${index === 1 ? " category-package-card--featured" : ""}`}>
               <h3>{pkg.name}</h3>
               <p class="category-package-description">{pkg.description}</p>
+              {"support" in pkg && <div class="category-package-support">{pkg.support.split("\n\n").map((paragraph) => <p>{paragraph}</p>)}</div>}
               <p class="category-package-price">{pkg.price}</p>
               <div class="category-package-details">
                 <ul>
@@ -93,7 +148,18 @@ const packages = isHungarian
         </div>
       </section>
 
-      <ContactSection locale={locale} id="category-contact" />
+      {isBusinessPage && (
+        <section class="category-business-seo container" aria-labelledby="business-seo-title">
+          <p class="eyebrow">TOVÁBBI INFORMÁCIÓ</p>
+          <h2 id="business-seo-title">Business fotózás Budapesten</h2>
+          <p>A professzionális business fotózás és üzleti portré fotózás segít abban, hogy magabiztosan és hitelesen jelenj meg a szakmai felületeken. Egy igényes üzleti portré használható LinkedIn profilképként, CVhez, céges bemutatkozáshoz, weboldalhoz, közösségi média felületekre vagy személyes márka építéséhez.</p>
+          <p>A business portré fotózás során olyan természetes és professzionális képek készülnek, amelyek megmutatják a személyiségedet és illeszkednek a szakmai megjelenésedhez. A fotózás történhet Budapesten, stúdióban, irodában vagy kültéri helyszínen is.</p>
+          <p>A personal branding fotózás, az üzleti portré és a céges portréfotózás különösen fontos lehet vállalkozók, cégvezetők, szakemberek, szabadúszók és olyan szolgáltatók számára, akiknek a személyes megjelenésük a szakmai márkájuk része.</p>
+          <p>Ha professzionális LinkedIn profilképet, üzleti portrét, céges portréfotókat vagy personal branding képeket szeretnél, a business fotózás során olyan képsorozatot készítünk, amelyet hosszú távon is használhatsz a szakmai kommunikációd különböző felületein. Ez a vállalkozói fotózás és az üzleti fotózás egyik legfontosabb értéke.</p>
+        </section>
+      )}
+
+      <ContactSection locale={locale} id="category-contact" buttonLabel={isBusinessPage ? "FOGLALÁS" : undefined} />
     </main>
 
     <footer class="site-footer container">
@@ -101,7 +167,7 @@ const packages = isHungarian
         <span class="footer-meta">{isHungarian ? "Budapest · Magyarország · 2026" : "Budapest · Hungary · 2026"}</span>
         <div class="footer-links">
           <a href={photographer.instagram}>Instagram</a>
-          <a href={`mailto:${photographer.email}`}>E-mail</a>
+          <a href={`mailto:${photographer.email}`}>{isHungarian ? "E MAIL" : "E-mail"}</a>
         </div>
       </div>
     </footer>
