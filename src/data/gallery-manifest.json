@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-26T11:16:41.358Z",
+  "generatedAt": "2026-09-28T14:00:04.325Z",
   "galleries": {
     "eskuvo": [
       {
@@ -186,6 +186,1108 @@
             "src": "/images/generated/galleries/eskuvo/dsc02141--full--3ab188aa62.jpg",
             "width": 1357,
             "height": 2036
+          }
+        }
+      }
+    ],
+    "uzleti": [
+      {
+        "id": "uzleti/D8274861-4126-4987-83AA-D2C8144C3EAC.jpeg--e8dffa8024",
+        "file": "uzleti/D8274861-4126-4987-83AA-D2C8144C3EAC.jpeg",
+        "width": 2801,
+        "height": 4201,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--480w--e8dffa8024.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--480w--e8dffa8024.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--480w--e8dffa8024.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--800w--e8dffa8024.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--800w--e8dffa8024.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--800w--e8dffa8024.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1200w--e8dffa8024.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1200w--e8dffa8024.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1200w--e8dffa8024.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1600w--e8dffa8024.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1600w--e8dffa8024.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--1600w--e8dffa8024.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--2400w--e8dffa8024.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--2400w--e8dffa8024.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--2400w--e8dffa8024.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--full--e8dffa8024.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--full--e8dffa8024.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/d8274861-4126-4987-83aa-d2c8144c3eac--full--e8dffa8024.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/E5B4F36F-8633-4F46-A978-7574A50DFD58.jpeg--115330f9df",
+        "file": "uzleti/E5B4F36F-8633-4F46-A978-7574A50DFD58.jpeg",
+        "width": 2390,
+        "height": 3585,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--480w--115330f9df.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--480w--115330f9df.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--480w--115330f9df.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--800w--115330f9df.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--800w--115330f9df.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--800w--115330f9df.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1200w--115330f9df.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1200w--115330f9df.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1200w--115330f9df.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1600w--115330f9df.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1600w--115330f9df.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--1600w--115330f9df.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--2390w--115330f9df.avif",
+              "width": 2390,
+              "height": 3585
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--2390w--115330f9df.webp",
+              "width": 2390,
+              "height": 3585
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--2390w--115330f9df.jpg",
+              "width": 2390,
+              "height": 3585
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--full--115330f9df.avif",
+            "width": 2390,
+            "height": 3585
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--full--115330f9df.webp",
+            "width": 2390,
+            "height": 3585
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/e5b4f36f-8633-4f46-a978-7574a50dfd58--full--115330f9df.jpg",
+            "width": 2390,
+            "height": 3585
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_0998.jpg--c67707a12a",
+        "file": "uzleti/IMG_0998.jpg",
+        "width": 3223,
+        "height": 4835,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0998--480w--c67707a12a.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0998--480w--c67707a12a.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0998--480w--c67707a12a.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0998--800w--c67707a12a.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0998--800w--c67707a12a.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0998--800w--c67707a12a.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1200w--c67707a12a.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1200w--c67707a12a.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1200w--c67707a12a.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1600w--c67707a12a.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1600w--c67707a12a.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0998--1600w--c67707a12a.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0998--2400w--c67707a12a.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0998--2400w--c67707a12a.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0998--2400w--c67707a12a.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_0998--full--c67707a12a.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_0998--full--c67707a12a.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_0998--full--c67707a12a.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_0999.jpg--99764087cb",
+        "file": "uzleti/IMG_0999.jpg",
+        "width": 2973,
+        "height": 4459,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0999--480w--99764087cb.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0999--480w--99764087cb.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0999--480w--99764087cb.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0999--800w--99764087cb.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0999--800w--99764087cb.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0999--800w--99764087cb.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1200w--99764087cb.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1200w--99764087cb.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1200w--99764087cb.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1600w--99764087cb.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1600w--99764087cb.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0999--1600w--99764087cb.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_0999--2400w--99764087cb.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_0999--2400w--99764087cb.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_0999--2400w--99764087cb.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_0999--full--99764087cb.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_0999--full--99764087cb.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_0999--full--99764087cb.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_7066-2.jpeg--7bf139b0dc",
+        "file": "uzleti/IMG_7066-2.jpeg",
+        "width": 2973,
+        "height": 4459,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--480w--7bf139b0dc.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--480w--7bf139b0dc.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--480w--7bf139b0dc.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--800w--7bf139b0dc.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--800w--7bf139b0dc.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--800w--7bf139b0dc.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1200w--7bf139b0dc.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1200w--7bf139b0dc.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1200w--7bf139b0dc.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1600w--7bf139b0dc.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1600w--7bf139b0dc.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--1600w--7bf139b0dc.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--2400w--7bf139b0dc.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--2400w--7bf139b0dc.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7066-2--2400w--7bf139b0dc.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_7066-2--full--7bf139b0dc.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_7066-2--full--7bf139b0dc.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_7066-2--full--7bf139b0dc.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_7071-2.jpeg--6c7afe2c21",
+        "file": "uzleti/IMG_7071-2.jpeg",
+        "width": 3527,
+        "height": 5290,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--480w--6c7afe2c21.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--480w--6c7afe2c21.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--480w--6c7afe2c21.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--800w--6c7afe2c21.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--800w--6c7afe2c21.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--800w--6c7afe2c21.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1200w--6c7afe2c21.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1200w--6c7afe2c21.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1200w--6c7afe2c21.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1600w--6c7afe2c21.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1600w--6c7afe2c21.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--1600w--6c7afe2c21.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--2400w--6c7afe2c21.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--2400w--6c7afe2c21.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7071-2--2400w--6c7afe2c21.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_7071-2--full--6c7afe2c21.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_7071-2--full--6c7afe2c21.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_7071-2--full--6c7afe2c21.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_7075-2.jpeg--6f09ab0c20",
+        "file": "uzleti/IMG_7075-2.jpeg",
+        "width": 3735,
+        "height": 5602,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--480w--6f09ab0c20.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--480w--6f09ab0c20.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--480w--6f09ab0c20.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--800w--6f09ab0c20.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--800w--6f09ab0c20.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--800w--6f09ab0c20.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1200w--6f09ab0c20.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1200w--6f09ab0c20.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1200w--6f09ab0c20.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1600w--6f09ab0c20.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1600w--6f09ab0c20.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--1600w--6f09ab0c20.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--2400w--6f09ab0c20.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--2400w--6f09ab0c20.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_7075-2--2400w--6f09ab0c20.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_7075-2--full--6f09ab0c20.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_7075-2--full--6f09ab0c20.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_7075-2--full--6f09ab0c20.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_8755-E.jpeg--977e15d4ff",
+        "file": "uzleti/IMG_8755-E.jpeg",
+        "width": 4000,
+        "height": 6000,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--480w--977e15d4ff.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--480w--977e15d4ff.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--480w--977e15d4ff.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--800w--977e15d4ff.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--800w--977e15d4ff.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--800w--977e15d4ff.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1200w--977e15d4ff.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1200w--977e15d4ff.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1200w--977e15d4ff.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1600w--977e15d4ff.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1600w--977e15d4ff.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--1600w--977e15d4ff.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--2400w--977e15d4ff.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--2400w--977e15d4ff.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8755-e--2400w--977e15d4ff.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_8755-e--full--977e15d4ff.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_8755-e--full--977e15d4ff.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_8755-e--full--977e15d4ff.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_8817-E.jpeg--d1ae78679d",
+        "file": "uzleti/IMG_8817-E.jpeg",
+        "width": 3748,
+        "height": 5622,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--480w--d1ae78679d.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--480w--d1ae78679d.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--480w--d1ae78679d.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--800w--d1ae78679d.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--800w--d1ae78679d.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--800w--d1ae78679d.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1200w--d1ae78679d.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1200w--d1ae78679d.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1200w--d1ae78679d.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1600w--d1ae78679d.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1600w--d1ae78679d.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--1600w--d1ae78679d.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--2400w--d1ae78679d.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--2400w--d1ae78679d.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8817-e--2400w--d1ae78679d.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_8817-e--full--d1ae78679d.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_8817-e--full--d1ae78679d.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_8817-e--full--d1ae78679d.jpg",
+            "width": 2400,
+            "height": 3600
+          }
+        }
+      },
+      {
+        "id": "uzleti/IMG_8864-E.jpeg--346933b3bd",
+        "file": "uzleti/IMG_8864-E.jpeg",
+        "width": 3888,
+        "height": 5832,
+        "regular": [
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--480w--346933b3bd.avif",
+              "width": 480,
+              "height": 720
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--480w--346933b3bd.webp",
+              "width": 480,
+              "height": 720
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--480w--346933b3bd.jpg",
+              "width": 480,
+              "height": 720
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--800w--346933b3bd.avif",
+              "width": 800,
+              "height": 1200
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--800w--346933b3bd.webp",
+              "width": 800,
+              "height": 1200
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--800w--346933b3bd.jpg",
+              "width": 800,
+              "height": 1200
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1200w--346933b3bd.avif",
+              "width": 1200,
+              "height": 1800
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1200w--346933b3bd.webp",
+              "width": 1200,
+              "height": 1800
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1200w--346933b3bd.jpg",
+              "width": 1200,
+              "height": 1800
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1600w--346933b3bd.avif",
+              "width": 1600,
+              "height": 2400
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1600w--346933b3bd.webp",
+              "width": 1600,
+              "height": 2400
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--1600w--346933b3bd.jpg",
+              "width": 1600,
+              "height": 2400
+            }
+          },
+          {
+            "avif": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--2400w--346933b3bd.avif",
+              "width": 2400,
+              "height": 3600
+            },
+            "webp": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--2400w--346933b3bd.webp",
+              "width": 2400,
+              "height": 3600
+            },
+            "fallback": {
+              "src": "/images/generated/galleries/uzleti/img_8864-e--2400w--346933b3bd.jpg",
+              "width": 2400,
+              "height": 3600
+            }
+          }
+        ],
+        "full": {
+          "avif": {
+            "src": "/images/generated/galleries/uzleti/img_8864-e--full--346933b3bd.avif",
+            "width": 2400,
+            "height": 3600
+          },
+          "webp": {
+            "src": "/images/generated/galleries/uzleti/img_8864-e--full--346933b3bd.webp",
+            "width": 2400,
+            "height": 3600
+          },
+          "fallback": {
+            "src": "/images/generated/galleries/uzleti/img_8864-e--full--346933b3bd.jpg",
+            "width": 2400,
+            "height": 3600
           }
         }
       }

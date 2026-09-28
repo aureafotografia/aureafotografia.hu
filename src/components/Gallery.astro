@@ -30,7 +30,8 @@ interface Props {
 }
 
 const { locale, slug, title } = Astro.props;
-const images = (galleryManifest.galleries?.[slug as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
+const galleryKey = slug === "uzleti-portre" ? "uzleti" : slug;
+const images = (galleryManifest.galleries?.[galleryKey as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
 const isHungarian = locale === "hu";
 const imageAlt = (index: number) => isHungarian ? `${title} fotó ${index + 1}` : `${title} photograph ${index + 1}`;
 const sizes = "(min-width: 801px) 33vw, 92vw";
