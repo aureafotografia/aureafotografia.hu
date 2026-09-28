@@ -5,11 +5,20 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
+  canonicalPath?: string;
+  alternatePath?: string;
+  socialImage?: string;
+  socialImageAlt?: string;
+  structuredData?: Record<string, unknown>;
 }
 
-const { locale, title, description } = Astro.props;
-const canonical = locale === "hu" ? "https://aureafotografia.hu/" : "https://aureafotografia.hu/en";
-const alternate = locale === "hu" ? "https://aureafotografia.hu/en" : "https://aureafotografia.hu/";
+const { locale, title, description, canonicalPath, alternatePath, socialImage = "/images/aurea-logo.png", socialImageAlt = title, structuredData } = Astro.props;
+const siteUrl = "https://aureafotografia.hu";
+const defaultPath = locale === "hu" ? "/" : "/en";
+const defaultAlternatePath = locale === "hu" ? "/en" : "/";
+const canonical = new URL(canonicalPath ?? defaultPath, siteUrl).href;
+const alternate = new URL(alternatePath ?? defaultAlternatePath, siteUrl).href;
+const socialImageUrl = new URL(socialImage, siteUrl).href;
 ---
 
 <!doctype html>
@@ -18,6 +27,8 @@ const alternate = locale === "hu" ? "https://aureafotografia.hu/en" : "https://a
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="author" content={photographer.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +43,19 @@ const alternate = locale === "hu" ? "https://aureafotografia.hu/en" : "https://a
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:locale" content={locale === "hu" ? "hu_HU" : "en_GB"} />
+    <meta property="og:locale:alternate" content={locale === "hu" ? "en_GB" : "hu_HU"} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="2390" />
+    <meta property="og:image:height" content="3585" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <title>{title}</title>
   </head>
   <body>

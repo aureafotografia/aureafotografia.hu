@@ -15,7 +15,12 @@ interface Props {
 const { locale, category } = Astro.props;
 const content = category[locale];
 const isHungarian = locale === "hu";
-const description = `${photographer.brand}, ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
+const isBusinessCategory = category.slug === "uzleti-portre";
+const description = isBusinessCategory
+  ? isHungarian
+    ? "Üzleti portré és business fotózás Budapesten: természetes, professzionális képek LinkedInhez, CV-hez, weboldalhoz és personal brandinghez."
+    : "Business portrait photography in Budapest: natural, professional images for LinkedIn, CVs, websites and personal branding."
+  : `${photographer.brand}, ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
 const categoryImages: Record<string, string> = {
   "eskuvo-fotozas": "/images/homepage/wedding.jpg",
   "kismama-fotozas": "/images/homepage/maternity.jpg",
@@ -25,7 +30,78 @@ const categoryImages: Record<string, string> = {
   "sport-fotozas": "/images/homepage/sport.jpg",
 };
 const image = categoryImages[category.slug] ?? "/images/aurea-hero-wedding.png";
-const isBusinessPage = isHungarian && category.slug === "uzleti-portre";
+const isBusinessPage = isHungarian && isBusinessCategory;
+const canonicalPath = isHungarian ? `/munkak/${category.slug}` : `/en/work/${category.slugEn}`;
+const alternatePath = isHungarian ? `/en/work/${category.slugEn}` : `/munkak/${category.slug}`;
+const socialImageAlt = isBusinessCategory
+  ? isHungarian ? "Üzleti portré fotózás Budapesten" : "Business portrait photography in Budapest"
+  : content.title;
+const structuredData = isBusinessCategory
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://aureafotografia.hu/#website",
+          url: "https://aureafotografia.hu/",
+          name: photographer.brand,
+          publisher: { "@id": "https://aureafotografia.hu/#photographer" },
+          inLanguage: ["hu", "en"],
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aureafotografia.hu/#photographer",
+          name: photographer.name,
+          jobTitle: isHungarian ? "Fotográfus" : "Photographer",
+          url: "https://aureafotografia.hu/",
+        },
+        {
+          "@type": "WebPage",
+          "@id": `https://aureafotografia.hu${canonicalPath}#webpage`,
+          url: `https://aureafotografia.hu${canonicalPath}`,
+          name: content.title,
+          description,
+          inLanguage: locale,
+          isPartOf: { "@id": "https://aureafotografia.hu/#website" },
+          primaryImageOfPage: { "@id": `https://aureafotografia.hu${image}#primaryimage` },
+          breadcrumb: { "@id": `https://aureafotografia.hu${canonicalPath}#breadcrumb` },
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://aureafotografia.hu/#business-portrait-service",
+          name: isHungarian ? "Aurea Fotográfia · Üzleti portré fotózás" : "Aurea Fotográfia · Business portrait photography",
+          url: `https://aureafotografia.hu${canonicalPath}`,
+          description,
+          image: `https://aureafotografia.hu${image}`,
+          provider: {
+            "@type": "Person",
+            name: photographer.name,
+            jobTitle: isHungarian ? "Fotográfus" : "Photographer",
+            worksFor: { "@type": "Organization", name: photographer.brand, url: "https://aureafotografia.hu/" },
+          },
+          areaServed: { "@type": "City", name: "Budapest" },
+          serviceType: isHungarian ? ["Üzleti portré fotózás", "Business fotózás", "Personal branding fotózás"] : ["Business portrait photography", "Personal branding photography", "Corporate portrait photography"],
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `https://aureafotografia.hu${image}#primaryimage`,
+          contentUrl: `https://aureafotografia.hu${image}`,
+          url: `https://aureafotografia.hu${image}`,
+          caption: socialImageAlt,
+          width: 2390,
+          height: 3585,
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `https://aureafotografia.hu${canonicalPath}#breadcrumb`,
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: isHungarian ? "Kezdőlap" : "Home", item: `https://aureafotografia.hu${isHungarian ? "/" : "/en"}` },
+            { "@type": "ListItem", position: 2, name: content.title, item: `https://aureafotografia.hu${canonicalPath}` },
+          ],
+        },
+      ],
+    }
+  : undefined;
 const packages = isBusinessPage
   ? [
       { name: "PROFILE", price: "39 000 HUF", description: "Néhány jól használható portré a szakmai megjelenésedhez.", includes: ["1 szett", "10 és 12 közötti szerkesztett fotó", "Online galéria"] },
@@ -45,7 +121,7 @@ const packages = isBusinessPage
     ];
 ---
 
-<SiteLayout locale={locale} title={`${content.title} · ${photographer.brand}`} description={description}>
+<SiteLayout locale={locale} title={`${content.title} · ${photographer.brand}`} description={description} canonicalPath={canonicalPath} alternatePath={alternatePath} socialImage={image} socialImageAlt={socialImageAlt} structuredData={structuredData}>
   <div class="site-shell category-shell">
     <SiteNav locale={locale} categorySlug={category.slug} />
 
@@ -141,8 +217,8 @@ const packages = isBusinessPage
             <h2 id="gallery-title">{isBusinessPage ? "A szakmaiság mellett az ember is látszik." : isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
             <p>{isBusinessPage ? "Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban." : content.detail}</p>
           </div>}
-          <Gallery locale={locale} slug={category.slug} title={content.title} />
-          <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>
+          <Gallery locale={locale} slug={category.slug} title={content.title} imageLabels={content.slots} />
+        {!isBusinessPage && <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>}
         </div>
       </section>
 
@@ -190,10 +266,11 @@ const packages = isBusinessPage
 
     <footer class="site-footer container">
       <div class="footer-row">
-        <span class="footer-meta">{isHungarian ? "Budapest · Magyarország · 2026" : "Budapest · Hungary · 2026"}</span>
+        <span class="footer-meta">Copyright 2026</span>
         <div class="footer-links">
-          <a href={photographer.instagram}>Instagram</a>
-          <a href={`mailto:${photographer.email}`}>{isHungarian ? "E MAIL" : "E-mail"}</a>
+          <span>{isHungarian ? "Kapcsolat:" : "Contact:"}</span>
+          <a href={photographer.instagram} target="_blank" rel="noreferrer">instagram.com/aurea_fotografia_</a>
+          <a href={`mailto:${photographer.email}`}>{photographer.email}</a>
         </div>
       </div>
     </footer>

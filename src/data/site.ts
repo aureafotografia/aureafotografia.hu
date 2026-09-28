@@ -3,7 +3,7 @@ export type Locale = "hu" | "en";
 export const photographer = {
   name: "Kulcsár-Horváth Alexandra",
   brand: "Aurea Fotográfia",
-  instagram: "https://www.instagram.com/",
+  instagram: "https://www.instagram.com/aurea_fotografia_/",
   email: "alexandra.kulcsarhorvath@gmail.com",
 };
 

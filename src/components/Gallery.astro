@@ -27,20 +27,23 @@ interface Props {
   locale: Locale;
   slug: string;
   title: string;
+  imageLabels?: string[];
 }
 
-const { locale, slug, title } = Astro.props;
+const { locale, slug, title, imageLabels = [] } = Astro.props;
 const galleryKey = slug === "uzleti-portre" ? "uzleti" : slug;
 const images = (galleryManifest.galleries?.[galleryKey as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
 const isHungarian = locale === "hu";
-const imageAlt = (index: number) => isHungarian ? `${title} fotó ${index + 1}` : `${title} photograph ${index + 1}`;
+const imageAlt = (index: number) => imageLabels[index]
+  ? `${title} · ${imageLabels[index]}`
+  : isHungarian ? `${title} fotó ${index + 1}` : `${title} photograph ${index + 1}`;
 const sizes = "(min-width: 801px) 33vw, 92vw";
 const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.map((set) => `${set[format].src} ${set[format].width}w`).join(", ");
 ---
 
 {images.length ? (
   <>
-    <div class="gallery-grid" aria-label={isHungarian ? `${title} képgaléria` : `${title} photo gallery`}>
+    <div class={`gallery-grid${galleryKey === "uzleti" ? " gallery-grid--masonry" : ""}`} data-masonry-gallery={galleryKey === "uzleti" ? "true" : undefined} aria-label={isHungarian ? `${title} képgaléria` : `${title} photo gallery`}>
       {images.map((image, index) => {
         const alt = imageAlt(index);
         return (
@@ -77,8 +80,98 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
   </div>
 )}
 
-{images.length > 0 && (
-  <script>
+<script is:inline>
+    const masonryGalleries = document.querySelectorAll("[data-masonry-gallery]");
+
+    const layoutMasonryGallery = (gallery) => {
+      const items = Array.from(gallery.querySelectorAll(".gallery-tile"));
+      if (!items.length || !gallery.clientWidth) return;
+
+      const previousScroll = gallery.scrollLeft;
+      const galleryWidth = gallery.clientWidth;
+      const isMobile = window.matchMedia("(max-width: 760px)").matches;
+      const requestedHeight = isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
+      const gap = 5;
+      let cursor = 0;
+      let columnIndex = 0;
+
+      gallery.replaceChildren();
+      gallery.style.height = `${requestedHeight}px`;
+      const galleryHeight = gallery.clientHeight;
+
+      while (cursor < items.length) {
+        const remaining = items.length - cursor;
+        const groupSize = columnIndex % 3 === 2 || remaining === 1 ? 1 : Math.min(2, remaining);
+        const columnItems = items.slice(cursor, cursor + groupSize);
+        const ratios = columnItems.map((item) => {
+          const image = item.querySelector("img");
+          return Number(image?.getAttribute("width")) / Number(image?.getAttribute("height")) || 1;
+        });
+        const inverseRatio = ratios.reduce((sum, ratio) => sum + (1 / ratio), 0);
+        const columnWidth = (galleryHeight - gap * (groupSize - 1)) / inverseRatio;
+        const column = document.createElement("div");
+        column.className = "gallery-masonry-column";
+
+        columnItems.forEach((item, index) => {
+          const height = columnWidth / ratios[index];
+          item.style.width = `${columnWidth}px`;
+          item.style.height = `${height}px`;
+          item.style.minHeight = "0";
+          column.append(item);
+        });
+
+        gallery.append(column);
+        cursor += groupSize;
+        columnIndex += 1;
+      }
+
+      gallery.scrollLeft = previousScroll;
+    };
+
+    masonryGalleries.forEach((gallery) => {
+      const frame = document.createElement("div");
+      frame.className = "gallery-masonry-frame";
+      const previous = document.createElement("button");
+      previous.className = "gallery-masonry-control gallery-masonry-control--previous";
+      previous.type = "button";
+      previous.setAttribute("aria-label", "Korábbi képek");
+      previous.textContent = "←";
+      const next = document.createElement("button");
+      next.className = "gallery-masonry-control gallery-masonry-control--next";
+      next.type = "button";
+      next.setAttribute("aria-label", "Következő képek");
+      next.textContent = "→";
+      gallery.parentNode?.insertBefore(frame, gallery);
+      frame.append(previous, gallery, next);
+      gallery.tabIndex = 0;
+
+      const updateControls = () => {
+        const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+        previous.hidden = maxScroll <= 2 || gallery.scrollLeft <= 2;
+        next.hidden = maxScroll <= 2 || gallery.scrollLeft >= maxScroll - 2;
+      };
+      const moveGallery = (direction) => {
+        gallery.scrollBy({ left: direction * gallery.clientWidth * 0.78, behavior: "smooth" });
+      };
+
+      previous.addEventListener("click", () => moveGallery(-1));
+      next.addEventListener("click", () => moveGallery(1));
+      gallery.addEventListener("scroll", updateControls, { passive: true });
+      gallery.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          moveGallery(event.key === "ArrowLeft" ? -1 : 1);
+        }
+      });
+
+      layoutMasonryGallery(gallery);
+      updateControls();
+      new ResizeObserver(() => {
+        layoutMasonryGallery(gallery);
+        updateControls();
+      }).observe(gallery);
+    });
+
     const dialog = document.querySelector("[data-gallery-dialog]");
     const lightboxImage = dialog?.querySelector("[data-lightbox-image]");
 
@@ -101,5 +194,4 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
         if (event.target === dialog) dialog.close();
       });
     }
-  </script>
-)}
+</script>
