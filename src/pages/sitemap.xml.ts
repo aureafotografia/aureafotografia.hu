@@ -3,6 +3,8 @@ const siteUrl = "https://aureafotografia.hu";
 const routes = [
   "/",
   "/en",
+  "/arak",
+  "/en/prices",
   "/munkak/eskuvo-fotozas",
   "/munkak/paros-fotozas",
   "/munkak/kismama-fotozas",

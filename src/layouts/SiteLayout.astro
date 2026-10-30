@@ -61,8 +61,8 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
   <body>
     <slot />
     <script>
-      document.querySelectorAll("details.nav-menu, details.language-menu").forEach((menu) => {
-        let closeTimer;
+      document.querySelectorAll<HTMLDetailsElement>("details.nav-menu, details.language-menu").forEach((menu) => {
+        let closeTimer: number | undefined;
         const openMenu = () => {
           window.clearTimeout(closeTimer);
           menu.open = true;
@@ -78,7 +78,7 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
         menu.addEventListener("pointerleave", closeMenu);
         menu.addEventListener("focusin", openMenu);
         menu.addEventListener("focusout", (event) => {
-          if (!menu.contains(event.relatedTarget)) closeMenu();
+          if (!(event.relatedTarget instanceof Node) || !menu.contains(event.relatedTarget)) closeMenu();
         });
       });
     </script>

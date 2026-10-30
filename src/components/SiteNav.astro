@@ -1,18 +1,19 @@
 ---
 import { categories } from "../data/categories";
-import { copy, photographer, type Locale } from "../data/site";
+import { copy, type Locale } from "../data/site";
 
 interface Props {
   locale: Locale;
   categorySlug?: string;
+  pricesPage?: boolean;
 }
 
-const { locale, categorySlug } = Astro.props;
+const { locale, categorySlug, pricesPage = false } = Astro.props;
 const isHungarian = locale === "hu";
 const content = copy[locale];
 const homeHref = isHungarian ? "/" : "/en";
-const bookingHref = categorySlug ? "#category-contact" : (isHungarian ? "#csomagok" : "#packages");
-const alternateHref = categorySlug
+const bookingHref = pricesPage ? "#prices-contact" : categorySlug ? "#category-contact" : (isHungarian ? "#csomagok" : "#packages");
+const alternateHref = pricesPage ? (isHungarian ? "/en/prices" : "/arak") : categorySlug
   ? (isHungarian ? `/en/work/${categories.find((item) => item.slug === categorySlug)?.slugEn}` : `/munkak/${categorySlug}`)
   : content.alternateHref;
 ---
@@ -30,7 +31,8 @@ const alternateHref = categorySlug
         {categories.map((category) => <a href={isHungarian ? `/munkak/${category.slug}` : `/en/work/${category.slugEn}`}>{category[locale].title}</a>)}
       </div>
     </details>
-    <a href={isHungarian ? (categorySlug ? "/#rolam" : "#rolam") : (categorySlug ? "/en#about" : "#about")}>{isHungarian ? "Rólam" : "About"}</a>
+    <a href={isHungarian ? ((categorySlug || pricesPage) ? "/#rolam" : "#rolam") : ((categorySlug || pricesPage) ? "/en#about" : "#about")}>{isHungarian ? "Rólam" : "About"}</a>
+    <a class="nav-prices" href={isHungarian ? "/arak" : "/en/prices"} aria-current={pricesPage ? "page" : undefined}>{isHungarian ? "Árak" : "Prices"}</a>
     <a class="nav-booking" href={bookingHref}>{isHungarian ? "Foglalás" : "Booking"}</a>
     <details class="language-menu">
       <summary aria-label={isHungarian ? "Nyelv választása" : "Choose language"}>{isHungarian ? "HU" : "EN"} <i class="ph ph-caret-down" aria-hidden="true"></i></summary>

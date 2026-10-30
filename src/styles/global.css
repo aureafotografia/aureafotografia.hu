@@ -2015,3 +2015,11 @@ img,
 .visual-card--main {
   background-image: url("/images/aurea-hero-wedding.png") !important;
 }
+
+/* Keep pricing and booking reachable in the compact navigation. */
+@media (max-width: 800px) {
+  .shared-site-header { flex-wrap: wrap; gap: 20px; }
+  .shared-site-header .site-nav { flex-wrap: wrap; }
+  .reference-home .shared-site-header .site-nav > .nav-prices,
+  .reference-home .shared-site-header .site-nav > .nav-booking { display: inline-flex; }
+}
