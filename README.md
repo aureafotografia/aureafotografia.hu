@@ -20,7 +20,9 @@ npm run build
 npm run preview -- --host 0.0.0.0
 ```
 
-The static build is written to `dist/`. Development, checking, and building run the image sync first; the initial sync can take several minutes.
+The static build is written to `dist/`. Development, checking, and building run image sync first. Sync reuses existing generated assets when original image contents, the generator, encoder versions, and manifest are unchanged and all expected outputs exist with the recorded sizes. Its cache is ignored under `.astro/`; unchanged runs do not rewrite the manifest. The initial sync or an invalidated cache can take several minutes.
+
+Fresh deployment environments still need to generate assets if generated files and their cache were not retained. The application cache does not configure Cloudflare's build-cache retention. Run `npm run test:gallery` to check cache reuse and invalidation.
 
 ## Source map
 

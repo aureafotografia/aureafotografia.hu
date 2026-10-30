@@ -8,11 +8,41 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = path.join(root, "content", "galleries");
 const outputRoot = path.join(root, "public", "images", "generated", "galleries");
 const manifestPath = path.join(root, "src", "data", "gallery-manifest.json");
+const cachePath = path.join(root, ".astro", "gallery-sync-cache.json");
 const publicPrefix = "/images/generated/galleries";
 const widthCandidates = [480, 800, 1200, 1600, 2400];
 const supportedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 
 const hashFor = async (filePath) => crypto.createHash("sha1").update(await fs.readFile(filePath)).digest("hex").slice(0, 10);
+const digest = (value) => crypto.createHash("sha256").update(value).digest("hex");
+const readJson = async (filePath) => {
+  try {
+    return JSON.parse(await fs.readFile(filePath, "utf8"));
+  } catch (error) {
+    if (error.code === "ENOENT" || error instanceof SyntaxError) return null;
+    throw error;
+  }
+};
+// Ignore the generation timestamp so restoring a tracked manifest preserves the cache.
+const manifestDigest = (manifest) => digest(JSON.stringify({ version: manifest.version, galleries: manifest.galleries }));
+const outputFiles = (manifest) => Object.values(manifest.galleries).flat().flatMap((entry) =>
+  [...entry.regular, entry.full].flatMap((set) => Object.values(set).map((variant) =>
+    path.join(root, "public", variant.src.slice(1)))));
+
+const cacheIsValid = async (cache, manifest, inputHash) => {
+  if (!cache || !manifest || cache.inputHash !== inputHash || cache.manifestHash !== manifestDigest(manifest)) return false;
+  const files = outputFiles(manifest);
+  if (!Array.isArray(cache.outputs) || cache.outputs.length !== files.length) return false;
+  return (await Promise.all(files.map(async (file, index) => {
+    try {
+      const stat = await fs.stat(file);
+      return stat.isFile() && stat.size > 0 && stat.size === cache.outputs[index];
+    } catch (error) {
+      if (error.code === "ENOENT") return false;
+      throw error;
+    }
+  }))).every(Boolean);
+};
 
 const sourceFiles = async (directory, relative = "") => {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -102,10 +132,21 @@ const buildEntry = async (relative) => {
 
 const main = async () => {
   await fs.mkdir(sourceRoot, { recursive: true });
+  const files = await sourceFiles(sourceRoot);
+  const sourceHashes = await Promise.all(files.map(async (file) => [file, digest(await fs.readFile(path.join(sourceRoot, file)))]));
+  const inputHash = digest(JSON.stringify({
+    sources: sourceHashes,
+    generator: digest(await fs.readFile(fileURLToPath(import.meta.url))),
+    encoders: sharp.versions,
+  }));
+  const [cache, previousManifest] = await Promise.all([readJson(cachePath), readJson(manifestPath)]);
+  if (await cacheIsValid(cache, previousManifest, inputHash)) {
+    console.log(`Gallery images unchanged; reused generated assets (${files.length} source images).`);
+    return;
+  }
   await fs.rm(outputRoot, { recursive: true, force: true });
   await fs.mkdir(outputRoot, { recursive: true });
 
-  const files = await sourceFiles(sourceRoot);
   const entries = await mapLimit(files, 3, buildEntry);
   const galleries = {};
   for (const entry of entries) {
@@ -117,6 +158,9 @@ const main = async () => {
 
   const manifest = { version: 1, generatedAt: new Date().toISOString(), galleries };
   await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  const outputs = await Promise.all(outputFiles(manifest).map(async (file) => (await fs.stat(file)).size));
+  await fs.mkdir(path.dirname(cachePath), { recursive: true });
+  await fs.writeFile(cachePath, JSON.stringify({ inputHash, manifestHash: manifestDigest(manifest), outputs }), "utf8");
   console.log(`Gallery images are up to date (${files.length} source images across ${Object.keys(galleries).length} galleries).`);
 };
 

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:gallery": "node --test scripts/generate-images.test.mjs",
     "dev": "npm run gallery:sync && astro dev",
     "build": "npm run gallery:sync && astro build",
     "preview": "astro preview",
