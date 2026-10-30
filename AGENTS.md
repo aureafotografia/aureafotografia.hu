@@ -23,7 +23,7 @@
 - Use Node.js 24 (Pages is pinned to 24.19.0) and `npm ci`. Astro produces a static site in `dist`; no Cloudflare adapter is needed.
 - In the managed cloud environment, use `npm_config_cache=/workspace/.npm-cache` and `ASTRO_TELEMETRY_DISABLED=1` to avoid writes to the restricted home directory.
 - Run `npm run check` and `npm run build` for application changes; run `npm run test:gallery` when modifying image generation. Documentation-only changes need relevant documentation and diff checks.
-- Gallery sync reuses unchanged generated assets when its ignored `.astro/gallery-sync-cache.json` and output files are retained. First generation or a fresh build without cache can take several minutes. Do not commit generated variants, dependencies, caches, or `dist`. Preserve original photographs.
+- Gallery sync reuses unchanged local assets. Fresh Cloudflare Pages builds restore matching published images from the production site with SHA-256 verification; see README.md and DEPLOYMENT.md. Changed inputs or unavailable/invalid assets fall back to generation, which can take several minutes. Do not commit generated variants, dependencies, caches, or `dist`. Preserve original photographs.
 - Gallery generation may rewrite the tracked manifest timestamp. Avoid committing timestamp-only churn; preserve pre-existing manifest changes.
 - For approved releases, monitor the Cloudflare Pages GitHub check and verify the public production URLs. A push is not proof of a successful deployment. Report pushed, building, deployed, and live-verified states accurately; inspect actual logs on failure, or state when log access is unavailable.
 - Do not submit test contact-form messages without authorization. Preserve the existing Web3Forms configuration.

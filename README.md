@@ -22,7 +22,7 @@ npm run preview -- --host 0.0.0.0
 
 The static build is written to `dist/`. Development, checking, and building run image sync first. Sync reuses existing generated assets when original image contents, the generator, encoder versions, and manifest are unchanged and all expected outputs exist with the recorded sizes. Its cache is ignored under `.astro/`; unchanged runs do not rewrite the manifest. The initial sync or an invalidated cache can take several minutes.
 
-Fresh deployment environments still need to generate assets if generated files and their cache were not retained. The application cache does not configure Cloudflare's build-cache retention. Run `npm run test:gallery` to check cache reuse and invalidation.
+Cloudflare Pages builds (`CF_PAGES=1`) without local assets restore unchanged variants from the existing production site, using `/images/generated/gallery-sync-cache.json`. The published metadata includes the source/generator/encoder fingerprint, manifest, sizes, and SHA-256 hashes. Every downloaded image is verified before use; incomplete downloads are staged outside public assets and discarded on failure. A source or encoder change, first deployment, or unavailable/invalid cache falls back to generation. This works without relying on Cloudflare build-cache retention. Local runs use their local cache by default; set `GALLERY_CACHE_ORIGIN=https://aureafotografia.hu` to explicitly test production restoration, or set it to an empty string to disable remote restoration. Run `npm run test:gallery` for local and clean-build cache tests.
 
 ## Source map
 

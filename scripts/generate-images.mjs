@@ -9,6 +9,8 @@ const sourceRoot = path.join(root, "content", "galleries");
 const outputRoot = path.join(root, "public", "images", "generated", "galleries");
 const manifestPath = path.join(root, "src", "data", "gallery-manifest.json");
 const cachePath = path.join(root, ".astro", "gallery-sync-cache.json");
+const publishedCachePath = path.join(root, "public", "images", "generated", "gallery-sync-cache.json");
+const cacheOrigin = process.env.GALLERY_CACHE_ORIGIN ?? (process.env.CF_PAGES === "1" ? "https://aureafotografia.hu" : "");
 const publicPrefix = "/images/generated/galleries";
 const widthCandidates = [480, 800, 1200, 1600, 2400];
 const supportedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
@@ -100,11 +102,83 @@ const mapLimit = async (items, limit, worker) => {
   const run = async () => {
     while (cursor < items.length) {
       const index = cursor++;
-      results[index] = await worker(items[index]);
+      results[index] = await worker(items[index], index);
     }
   };
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
   return results;
+};
+
+const saveCache = async (inputHash, manifest) => {
+  const files = await Promise.all(outputFiles(manifest).map(async (file) => {
+    const bytes = await fs.readFile(file);
+    return { src: `/${path.relative(path.join(root, "public"), file).split(path.sep).join("/")}`, size: bytes.length, sha256: digest(bytes) };
+  }));
+  await fs.mkdir(path.dirname(cachePath), { recursive: true });
+  await fs.writeFile(cachePath, JSON.stringify({ inputHash, manifestHash: manifestDigest(manifest), outputs: files.map((file) => file.size) }));
+  await fs.mkdir(path.dirname(publishedCachePath), { recursive: true });
+  await fs.writeFile(publishedCachePath, JSON.stringify({ version: 1, inputHash, manifest, files }));
+};
+
+const download = async (url) => {
+  const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return Buffer.from(await response.arrayBuffer());
+};
+
+const restorePublishedCache = async (inputHash) => {
+  if (!cacheOrigin) return false;
+  let staging;
+  try {
+    const metadata = JSON.parse((await download(new URL("/images/generated/gallery-sync-cache.json", cacheOrigin))).toString("utf8"));
+    if (metadata.version !== 1 || metadata.inputHash !== inputHash) {
+      console.log("Published gallery cache does not match current inputs; generating images.");
+      return false;
+    }
+    const expected = outputFiles(metadata.manifest);
+    if (expected.length !== metadata.files.length) throw new Error("Invalid cached file list");
+    // Derive allowed paths from the manifest and confine all writes to the gallery directory.
+    for (const [index, file] of metadata.files.entries()) {
+      const relative = path.relative(outputRoot, expected[index]);
+      if (!file.src.startsWith(`${publicPrefix}/`) || relative.startsWith("..") || path.isAbsolute(relative)
+        || path.join(root, "public", file.src.slice(1)) !== expected[index]
+        || !Number.isInteger(file.size) || file.size <= 0 || !/^[a-f0-9]{64}$/.test(file.sha256)) {
+        throw new Error("Invalid cached asset metadata");
+      }
+    }
+    await fs.mkdir(path.dirname(cachePath), { recursive: true });
+    staging = await fs.mkdtemp(path.join(path.dirname(cachePath), "gallery-restore-"));
+    let downloadFailure;
+    const downloads = await mapLimit(metadata.files, 6, async (file, index) => {
+      if (downloadFailure) return downloadFailure;
+      try {
+        const bytes = await download(new URL(file.src, cacheOrigin));
+        if (bytes.length !== file.size || digest(bytes) !== file.sha256) throw new Error(`Cached asset integrity mismatch: ${file.src}`);
+        const target = path.join(staging, path.relative(outputRoot, expected[index]));
+        await fs.mkdir(path.dirname(target), { recursive: true });
+        await fs.writeFile(target, bytes);
+        return null;
+      } catch (error) {
+        downloadFailure = error;
+        return error;
+      }
+    });
+    const failure = downloads.find(Boolean);
+    if (failure) throw failure;
+    await fs.mkdir(path.dirname(outputRoot), { recursive: true });
+    await fs.rm(outputRoot, { recursive: true, force: true });
+    await fs.rename(staging, outputRoot);
+    staging = null;
+    await fs.writeFile(manifestPath, `${JSON.stringify(metadata.manifest, null, 2)}\n`);
+    await saveCache(inputHash, metadata.manifest);
+    console.log(`Restored ${metadata.files.length} verified gallery assets from production; no images encoded.`);
+    return true;
+  } catch (error) {
+    console.log(`Published gallery cache unavailable (${error.message}); generating images.`);
+    return false;
+  } finally {
+    if (staging) await fs.rm(staging, { recursive: true, force: true });
+  }
 };
 
 const buildEntry = async (relative) => {
@@ -141,9 +215,12 @@ const main = async () => {
   }));
   const [cache, previousManifest] = await Promise.all([readJson(cachePath), readJson(manifestPath)]);
   if (await cacheIsValid(cache, previousManifest, inputHash)) {
+    // Ensure the next deployment exposes cache metadata even when local outputs are reused.
+    await saveCache(inputHash, previousManifest);
     console.log(`Gallery images unchanged; reused generated assets (${files.length} source images).`);
     return;
   }
+  if (await restorePublishedCache(inputHash)) return;
   await fs.rm(outputRoot, { recursive: true, force: true });
   await fs.mkdir(outputRoot, { recursive: true });
 
@@ -158,9 +235,7 @@ const main = async () => {
 
   const manifest = { version: 1, generatedAt: new Date().toISOString(), galleries };
   await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
-  const outputs = await Promise.all(outputFiles(manifest).map(async (file) => (await fs.stat(file)).size));
-  await fs.mkdir(path.dirname(cachePath), { recursive: true });
-  await fs.writeFile(cachePath, JSON.stringify({ inputHash, manifestHash: manifestDigest(manifest), outputs }), "utf8");
+  await saveCache(inputHash, manifest);
   console.log(`Gallery images are up to date (${files.length} source images across ${Object.keys(galleries).length} galleries).`);
 };
 
