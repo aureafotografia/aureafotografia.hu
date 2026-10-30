@@ -29,7 +29,9 @@ All source gallery photographs and public homepage/brand assets belong in the pr
 
 ## Hosting
 
-The existing `.openai/hosting.json` points to the original hosting project. Keep it as reference; verify access from the destination account before attempting a deployment. This migration prepares source control, not a production hosting or domain transfer.
+Cloudflare Pages Git integration is now configured for `aureafotografia/aureafotografia.hu`, branch `main`, at https://aureafotografia-hu.pages.dev. The owner confirmed the first successful deployment at commit `b2df90f`. Approved pushes to `main` trigger automatic builds and deployments. Follow [DEPLOYMENT.md](DEPLOYMENT.md) for settings and verification; a push alone is not proof of a live deployment.
+
+The production domains still point to old OpenAI Sites hosting. `.openai/hosting.json` is historical reference only. Do not use Sites, manually upload files, run `wrangler deploy`, or create a Worker for current releases. Do not change DNS, attach custom domains, alter email records, or remove the old site without explicit approval.
 
 ## Working preferences
 
