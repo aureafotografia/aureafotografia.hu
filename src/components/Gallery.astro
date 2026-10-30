@@ -31,7 +31,11 @@ interface Props {
 }
 
 const { locale, slug, title, imageLabels = [] } = Astro.props;
-const galleryKey = slug === "uzleti-portre" ? "uzleti" : slug;
+const galleryAliases: Record<string, string> = {
+  "eskuvo-fotozas": "eskuvo",
+  "uzleti-portre": "uzleti",
+};
+const galleryKey = galleryAliases[slug] ?? slug;
 const images = (galleryManifest.galleries?.[galleryKey as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
 const isHungarian = locale === "hu";
 const imageAlt = (index: number) => imageLabels[index]
