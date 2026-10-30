@@ -31,7 +31,7 @@ All source gallery photographs and public homepage/brand assets belong in the pr
 
 Cloudflare Pages Git integration is now configured for `aureafotografia/aureafotografia.hu`, branch `main`, at https://aureafotografia-hu.pages.dev. The owner confirmed the first successful deployment at commit `b2df90f`. Approved pushes to `main` trigger automatic builds and deployments. Follow [DEPLOYMENT.md](DEPLOYMENT.md) for settings and verification; a push alone is not proof of a live deployment.
 
-The production domains still point to old OpenAI Sites hosting. `.openai/hosting.json` is historical reference only. Do not use Sites, manually upload files, run `wrangler deploy`, or create a Worker for current releases. Do not change DNS, attach custom domains, alter email records, or remove the old site without explicit approval.
+The production migration is complete: https://aureafotografia.hu and https://www.aureafotografia.hu now serve the existing Pages project over HTTPS. The last owner-verified deployed commit is `b2df90fd30b2c9f55c448ccd9b8e5b5c2a3fd476`. Pull latest `main` before changes; run `npm run check` and `npm run build` for application changes, then verify deployments and production URLs. Gallery generation makes builds take several minutes. `.openai/hosting.json` is historical reference only. Do not use Sites, manually upload files, run `wrangler deploy`, or create a Worker for current releases. Do not create another hosting project, change DNS/email records, or remove the old site. See DEPLOYMENT.md for owner-confirmed post-cutover checks and the original-machine-only rollback reference.
 
 ## Working preferences
 

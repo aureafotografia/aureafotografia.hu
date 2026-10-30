@@ -1,7 +1,7 @@
 # Aurea Fotográfia
 
 Bilingual Hungarian/English photography portfolio for Kulcsár-Horváth Alexandra.
-Existing production domain (still on old hosting): https://aureafotografia.hu
+Production URLs (Cloudflare Pages): https://aureafotografia.hu and https://www.aureafotografia.hu
 
 Cloudflare Pages deployment: https://aureafotografia-hu.pages.dev
 
@@ -39,7 +39,7 @@ See `content/galleries/README.md` for gallery maintenance. Generated variants, d
 
 The contact form uses Web3Forms. `.env.example` documents `PUBLIC_WEB3FORMS_ACCESS_KEY`, a public client-side form identifier. The component currently includes the same fallback identifier. Do not submit test inquiries without authorization.
 
-Cloudflare Pages deploys this repository automatically when approved changes reach `main`. See [DEPLOYMENT.md](DEPLOYMENT.md) for the verified project settings, release workflow, and domain restrictions. The production domains have not been switched to Pages.
+Cloudflare Pages deploys this repository automatically when approved changes reach `main`. See [DEPLOYMENT.md](DEPLOYMENT.md) for the verified project settings, release workflow, and domain restrictions. Both production domains now serve the Pages site over HTTPS.
 
 `.openai/hosting.json` is retained only as the old OpenAI Sites hosting reference; it does not configure the current Pages deployment. Do not change DNS, attach custom domains, alter email records, or remove the old site without explicit approval.
 
