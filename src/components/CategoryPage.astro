@@ -218,7 +218,7 @@ const packages = isBusinessPage
             <p>{isBusinessPage ? "Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban." : content.detail}</p>
           </div>}
           <Gallery locale={locale} slug={category.slug} title={content.title} imageLabels={content.slots} />
-        {!isBusinessPage && <p class="gallery-note">{isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work."}</p>}
+        {!isBusinessPage && <p class="gallery-note">{category.slug === "eskuvo-fotozas" ? (isHungarian ? "Görgess oldalra a további képekért. Kattints egy fotóra a nagyításhoz." : "Scroll sideways to explore. Select a photograph to view it larger.") : (isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work.")}</p>}
         </div>
       </section>
 

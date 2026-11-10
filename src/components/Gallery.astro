@@ -36,18 +36,33 @@ const galleryAliases: Record<string, string> = {
   "uzleti-portre": "uzleti",
 };
 const galleryKey = galleryAliases[slug] ?? slug;
-const images = (galleryManifest.galleries?.[galleryKey as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
+const galleryImages = (galleryManifest.galleries?.[galleryKey as keyof typeof galleryManifest.galleries] || []) as GalleryImage[];
 const isHungarian = locale === "hu";
-const imageAlt = (index: number) => imageLabels[index]
+const isWedding = galleryKey === "eskuvo";
+const weddingOrder = [
+  "017- Dia - Matteo.jpg", "405-EFI03802.jpg", "8EF527A7-8DA2-4D10-BA69-8482164B031E(2).JPEG",
+  "06D5FEF8-21D4-4091-A10E-6BD120115958.JPG", "DSC01999.jpg", "004- Lina-Zoli.JPG",
+  "396-EFI03788 2.jpg", "025- Dia - Matteo.jpg", "6A0CF119-B7B7-4F8B-907A-E17BC07F70DF.JPG",
+  "01DE5791-549A-48E8-9B20-0F1AB492057F(1).JPEG", "398-IMG_7666.jpg", "020- Dia - Matteo.jpg",
+  "DSC02141.jpg", "4F3BE073-CBF6-4144-A23B-A7AECA60FBB5(1).JPEG", "015- Dia - Matteo.jpg",
+  "27FD80F6-EF50-4CA7-8CD4-A3413E461B7A.JPG",
+];
+const rank = (image: GalleryImage) => {
+  const position = weddingOrder.indexOf(image.file.split("/").pop() || "");
+  return position < 0 ? weddingOrder.length : position;
+};
+const images = isWedding ? [...galleryImages].sort((a, b) => rank(a) - rank(b)) : galleryImages;
+const isMasonry = isWedding || galleryKey === "uzleti";
+const imageAlt = (index: number) => !isWedding && imageLabels[index]
   ? `${title} · ${imageLabels[index]}`
   : isHungarian ? `${title} fotó ${index + 1}` : `${title} photograph ${index + 1}`;
-const sizes = "(min-width: 801px) 33vw, 92vw";
+const sizes = isWedding ? "(min-width: 801px) 25vw, 55vw" : "(min-width: 801px) 33vw, 92vw";
 const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.map((set) => `${set[format].src} ${set[format].width}w`).join(", ");
 ---
 
 {images.length ? (
   <>
-    <div class={`gallery-grid${galleryKey === "uzleti" ? " gallery-grid--masonry" : ""}`} data-masonry-gallery={galleryKey === "uzleti" ? "true" : undefined} aria-label={isHungarian ? `${title} képgaléria` : `${title} photo gallery`}>
+    <div class={`gallery-grid${isMasonry ? " gallery-grid--masonry" : ""}`} data-masonry-gallery={isMasonry ? "true" : undefined} data-wedding-gallery={isWedding ? "true" : undefined} data-locale={locale} aria-label={isHungarian ? `${title} képgaléria` : `${title} photo gallery`}>
       {images.map((image, index) => {
         const alt = imageAlt(index);
         return (
@@ -94,7 +109,8 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
       const previousScroll = gallery.scrollLeft;
       const galleryWidth = gallery.clientWidth;
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const requestedHeight = isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
+      const isWedding = gallery.hasAttribute("data-wedding-gallery");
+      const requestedHeight = isWedding ? (isMobile ? 420 : 600) : isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
       const gap = 5;
       let cursor = 0;
       let columnIndex = 0;
@@ -105,7 +121,7 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
 
       while (cursor < items.length) {
         const remaining = items.length - cursor;
-        const groupSize = columnIndex % 3 === 2 || remaining === 1 ? 1 : Math.min(2, remaining);
+        const groupSize = isWedding ? Math.min(isMobile || columnIndex % 3 === 2 ? 2 : 3, remaining) : columnIndex % 3 === 2 || remaining === 1 ? 1 : Math.min(2, remaining);
         const columnItems = items.slice(cursor, cursor + groupSize);
         const ratios = columnItems.map((item) => {
           const image = item.querySelector("img");
@@ -138,12 +154,12 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
       const previous = document.createElement("button");
       previous.className = "gallery-masonry-control gallery-masonry-control--previous";
       previous.type = "button";
-      previous.setAttribute("aria-label", "Korábbi képek");
+      previous.setAttribute("aria-label", gallery.dataset.locale === "hu" ? "Korábbi képek" : "Previous photographs");
       previous.textContent = "←";
       const next = document.createElement("button");
       next.className = "gallery-masonry-control gallery-masonry-control--next";
       next.type = "button";
-      next.setAttribute("aria-label", "Következő képek");
+      next.setAttribute("aria-label", gallery.dataset.locale === "hu" ? "Következő képek" : "Next photographs");
       next.textContent = "→";
       gallery.parentNode?.insertBefore(frame, gallery);
       frame.append(previous, gallery, next);

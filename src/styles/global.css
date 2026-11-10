@@ -2023,3 +2023,21 @@ img,
   .reference-home .shared-site-header .site-nav > .nav-prices,
   .reference-home .shared-site-header .site-nav > .nav-booking { display: inline-flex; }
 }
+
+/* Wedding contact sheet: original proportions, compact tiles and horizontal browsing. */
+.category-reference-gallery .gallery-masonry-frame:has([data-wedding-gallery]) {
+  margin-left: 0;
+  max-width: 100%;
+  width: 100%;
+}
+.category-reference-gallery [data-wedding-gallery] {
+  scrollbar-width: thin;
+  scrollbar-color: #9eafa9 transparent;
+  padding-bottom: 12px;
+  width: 100%;
+}
+.category-reference-gallery [data-wedding-gallery]::-webkit-scrollbar { display: block; height: 6px; }
+.category-reference-gallery [data-wedding-gallery]::-webkit-scrollbar-thumb { background: #9eafa9; }
+@media (prefers-reduced-motion: reduce) {
+  [data-wedding-gallery] .gallery-tile img { transition: none; }
+}
