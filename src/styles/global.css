@@ -129,7 +129,8 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
 .gallery-tile--2 { background: linear-gradient(155deg, #fff8e6, #e3c06a); grid-column: span 7; min-height: 330px; }
 .gallery-tile--3 { background: linear-gradient(145deg, #f4fffc, #b1dbc7); grid-column: span 4; min-height: 360px; }
 .gallery-tile--4 { background: linear-gradient(155deg, #edfdfd, #8dceca); grid-column: span 8; min-height: 360px; }
-.gallery-note { color: var(--muted); font-size: 0.78rem; margin: 20px 0 0; }
+.gallery-note { align-items: center; background: rgba(255,255,255,.55); border: 1px solid rgba(41,75,79,.2); border-radius: 999px; color: #294b4f; display: flex; font-size: 0.82rem; gap: 10px; margin: 22px auto 0; padding: 10px 16px; width: fit-content; }
+.gallery-note::before { color: #294b4f; content: "←  →"; font-size: 1rem; font-weight: 700; letter-spacing: .12em; }
 .gallery-empty { background: var(--paper-soft); border: 1px dashed var(--line); border-radius: 24px; grid-column: span 12; padding: 56px 28px; text-align: center; }
 .gallery-empty p { color: var(--muted); font-size: 1.05rem; margin: 14px auto 18px; }
 .gallery-empty code { background: var(--gold-soft); border-radius: 999px; color: var(--ink); display: inline-block; font-family: var(--sans); font-size: 0.82rem; padding: 8px 13px; }
@@ -1104,29 +1105,36 @@ body .shared-site-header .site-nav a.nav-booking:hover {
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
-  scrollbar-width: none;
+  scrollbar-color: #315a63 rgba(49,90,99,.13);
+  scrollbar-width: thin;
   touch-action: pan-x pan-y;
   width: 100%;
   margin-left: 0;
+  cursor: grab;
+  padding-bottom: 10px;
 }
-.category-reference-gallery .gallery-grid--masonry::-webkit-scrollbar { display: none; }
+.category-reference-gallery .gallery-grid--masonry::-webkit-scrollbar { height: 9px; }
+.category-reference-gallery .gallery-grid--masonry::-webkit-scrollbar-track { background: rgba(49,90,99,.13); border-radius: 999px; }
+.category-reference-gallery .gallery-grid--masonry::-webkit-scrollbar-thumb { background: #315a63; border: 2px solid #e5f1f2; border-radius: 999px; }
+.category-reference-gallery .gallery-grid--masonry:active { cursor: grabbing; }
 .category-reference-gallery .gallery-masonry-control {
   align-items: center;
-  background: #fbfaf6;
-  border: 0;
-  box-shadow: 0 3px 12px rgb(41 75 79 / 18%);
-  color: #294b4f;
+  background: rgba(251,250,246,.96);
+  border: 1px solid rgba(41,75,79,.36);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgb(41 75 79 / 24%);
+  color: #20373b;
   cursor: pointer;
   display: grid;
-  font: 400 1.8rem/1 var(--sans);
-  height: 44px;
+  font: 500 1.8rem/1 var(--sans);
+  height: 52px;
   justify-content: center;
   padding: 0;
   place-items: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
+  width: 52px;
   z-index: 2;
 }
 .category-reference-gallery .gallery-masonry-control:hover,
@@ -1135,8 +1143,8 @@ body .shared-site-header .site-nav a.nav-booking:hover {
   outline: 2px solid #294b4f;
   outline-offset: 2px;
 }
-.category-reference-gallery .gallery-masonry-control--previous { left: 12px; }
-.category-reference-gallery .gallery-masonry-control--next { right: 12px; }
+.category-reference-gallery .gallery-masonry-control--previous { left: 16px; }
+.category-reference-gallery .gallery-masonry-control--next { right: 16px; }
 .category-reference-gallery .gallery-masonry-control[hidden] { display: none; }
 .category-reference-gallery .gallery-grid--masonry:focus-visible {
   outline: 2px solid #294b4f;
@@ -1175,6 +1183,7 @@ body .shared-site-header .site-nav a.nav-booking:hover {
     width: calc(100vw - 36px);
   }
   .category-reference-gallery .gallery-masonry-control { display: none; }
+  .gallery-note { border-radius: 14px; margin-left: 0; }
 }
 @media (max-width: 800px) {
   .category-business-story-grid { grid-template-columns: 1fr; }

@@ -40,12 +40,15 @@ const galleryImages = (galleryManifest.galleries?.[galleryKey as keyof typeof ga
 const isHungarian = locale === "hu";
 const isWedding = galleryKey === "eskuvo";
 const weddingOrder = [
-  "017- Dia - Matteo.jpg", "405-EFI03802.jpg", "8EF527A7-8DA2-4D10-BA69-8482164B031E(2).JPEG",
-  "06D5FEF8-21D4-4091-A10E-6BD120115958.JPG", "DSC01999.jpg", "004- Lina-Zoli.JPG",
-  "396-EFI03788 2.jpg", "025- Dia - Matteo.jpg", "6A0CF119-B7B7-4F8B-907A-E17BC07F70DF.JPG",
-  "01DE5791-549A-48E8-9B20-0F1AB492057F(1).JPEG", "398-IMG_7666.jpg", "020- Dia - Matteo.jpg",
-  "DSC02141.jpg", "4F3BE073-CBF6-4144-A23B-A7AECA60FBB5(1).JPEG", "015- Dia - Matteo.jpg",
-  "27FD80F6-EF50-4CA7-8CD4-A3413E461B7A.JPG",
+  "IMG_7132.JPEG", "017- Dia - Matteo.jpg", "IMG_1595.JPG", "405-EFI03802.jpg",
+  "IMG_2510.JPEG", "FP4 - Alexandra - jegyes 2-128.jpg", "8EF527A7-8DA2-4D10-BA69-8482164B031E(2).JPEG", "IMG_2361.JPG",
+  "004- Lina-Zoli.JPG", "IMG_1599.JPG", "06D5FEF8-21D4-4091-A10E-6BD120115958.JPG", "IMG_2333.jpg",
+  "396-EFI03788 2.jpg", "FP4 - Alexandra - jegyes 2-130.jpg", "IMG_1596.JPG", "025- Dia - Matteo.jpg",
+  "4F3BE073-CBF6-4144-A23B-A7AECA60FBB5(1).JPEG", "IMG_6581.JPEG", "398-IMG_7666.jpg", "IMG_1598.JPG",
+  "01DE5791-549A-48E8-9B20-0F1AB492057F(1).JPEG", "IMG_2338.JPG", "FP4 - Alexandra - jegyes 2-134.jpg", "020- Dia - Matteo.jpg",
+  "DSC01999.jpg", "IMG_1597.JPG", "015- Dia - Matteo.jpg", "FP4 - Alexandra - jegyes 2-139.jpg",
+  "FP4 - Alexandra - jegyes 2-141.jpg",
+  "IMG_2339.JPG", "DSC02141.jpg", "6A0CF119-B7B7-4F8B-907A-E17BC07F70DF.JPG", "27FD80F6-EF50-4CA7-8CD4-A3413E461B7A.JPG",
 ];
 const rank = (image: GalleryImage) => {
   const position = weddingOrder.indexOf(image.file.split("/").pop() || "");
@@ -110,7 +113,7 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
       const galleryWidth = gallery.clientWidth;
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const isWedding = gallery.hasAttribute("data-wedding-gallery");
-      const requestedHeight = isWedding ? (isMobile ? 420 : 600) : isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
+      const requestedHeight = isWedding ? (isMobile ? 465 : 680) : isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
       const gap = 5;
       let cursor = 0;
       let columnIndex = 0;
@@ -164,6 +167,32 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
       gallery.parentNode?.insertBefore(frame, gallery);
       frame.append(previous, gallery, next);
       gallery.tabIndex = 0;
+
+      let pointerStart = null;
+      let suppressClick = false;
+      gallery.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "mouse" || event.button !== 0) return;
+        pointerStart = { x: event.clientX, scrollLeft: gallery.scrollLeft };
+        suppressClick = false;
+      });
+      gallery.addEventListener("pointermove", (event) => {
+        if (!pointerStart || event.pointerType !== "mouse") return;
+        const distance = event.clientX - pointerStart.x;
+        if (Math.abs(distance) < 5 && !suppressClick) return;
+        suppressClick = true;
+        gallery.scrollLeft = pointerStart.scrollLeft - distance;
+      });
+      const endPointerDrag = () => {
+        pointerStart = null;
+        if (suppressClick) window.setTimeout(() => { suppressClick = false; }, 0);
+      };
+      gallery.addEventListener("pointerup", endPointerDrag);
+      gallery.addEventListener("pointercancel", endPointerDrag);
+      gallery.addEventListener("click", (event) => {
+        if (!suppressClick) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }, true);
 
       const updateControls = () => {
         const maxScroll = gallery.scrollWidth - gallery.clientWidth;
