@@ -15,12 +15,19 @@ interface Props {
 const { locale, category } = Astro.props;
 const content = category[locale];
 const isHungarian = locale === "hu";
+const isWeddingCategory = category.slug === "eskuvo-fotozas";
+const isWeddingPage = isWeddingCategory && isHungarian;
 const isBusinessCategory = category.slug === "uzleti-portre";
-const description = isBusinessCategory
+const description = isWeddingPage
+  ? "Editorial és dokumentarista esküvői fotózás Budapesten és a Balatonnál. Természetes pillanatok, művészi portrék és személyes történetek, akár két fotóssal."
+  : isBusinessCategory
   ? isHungarian
     ? "Üzleti portré és business fotózás Budapesten: természetes, professzionális képek LinkedInhez, CV-hez, weboldalhoz és personal brandinghez."
     : "Business portrait photography in Budapest: natural, professional images for LinkedIn, CVs, websites and personal branding."
   : `${photographer.brand}, ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
+const pageTitle = isWeddingPage
+  ? "Esküvői fotózás Budapest és Balaton | AUREA Fotográfia"
+  : `${content.title} · ${photographer.brand}`;
 const categoryImages: Record<string, string> = {
   "eskuvo-fotozas": "/images/homepage/wedding.jpg",
   "kismama-fotozas": "/images/homepage/maternity.jpg",
@@ -119,9 +126,14 @@ const packages = isBusinessPage
       { name: "Standard", price: "59 000 HUF", description: "The most popular package for a fuller story.", includes: ["2–3 outfits", "20–24 edited photographs", "Online gallery"] },
       { name: "Signature", price: "79 000 HUF", description: "More time, more presence and more of the story kept.", includes: ["Multiple outfits", "36+ edited photographs", "Online gallery"] },
     ];
+const weddingPackages = [
+  { name: "Kis csomag", title: "Szertartás fotózási csomag", description: "A szertartás megörökítése a választott helyszínen, csoportképekkel és egy rövid páros portréfotózással.", price: "109 000 Ft", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "2 fotós", "Legfeljebb 2 óra", "Egy helyszín", "100–300 fénykép", "Utazás 50 km-en belül"] },
+  { name: "Közepes csomag", title: "Szertartás és ünneplés fotózási csomag", description: "Fotózás a szertartástól a mulatságig, csoportképekkel és egy rövid páros portréfotózással.", price: "269 000 Ft", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "Fogadás", "Mulatság", "2 fotós", "Legfeljebb 6 óra", "Legfeljebb 2 helyszín", "400–800 fénykép", "Utazás 50 km-en belül"] },
+  { name: "Nagy csomag", title: "Egész napos esküvői fotózási csomag", description: "A teljes esküvői napot lefedő csomag, amely az előkészületek kulisszák mögötti pillanatait és egy teljes kreatív páros fotózást is tartalmaz.", price: "319 000 Ft", includes: ["Szertartás", "Csoportképek", "Fogadás", "Mulatság", "Előkészületek", "Teljes kreatív páros fotózás", "2 fotós", "Legfeljebb 10 óra", "Több helyszín", "600–1000 fénykép", "Utazás 50 km-en belül"] },
+];
 ---
 
-<SiteLayout locale={locale} title={`${content.title} · ${photographer.brand}`} description={description} canonicalPath={canonicalPath} alternatePath={alternatePath} socialImage={image} socialImageAlt={socialImageAlt} structuredData={structuredData}>
+<SiteLayout locale={locale} title={pageTitle} description={description} canonicalPath={canonicalPath} alternatePath={alternatePath} socialImage={image} socialImageAlt={socialImageAlt} structuredData={structuredData}>
   <div class="site-shell category-shell">
     <SiteNav locale={locale} categorySlug={category.slug} />
 
@@ -129,9 +141,16 @@ const packages = isBusinessPage
       <section class="page-section category-reference-intro" aria-labelledby="category-title">
         <div class="page-section__inner">
           <div class="category-reference-intro__copy">
-            <p class="eyebrow">{isBusinessPage ? "ÜZLETI PORTRÉ FOTÓZÁS · ÖNBIZALOM · HIVATÁS" : `${content.eyebrow} · ${content.meta}`}</p>
-            <h1 id="category-title">{content.title}</h1>
-            <p>{isBusinessPage ? "Mert mielőtt megszólalnál, a képed már mesél rólad." : content.intro}</p>
+            <p class="eyebrow">{isBusinessPage ? "ÜZLETI PORTRÉ FOTÓZÁS · ÖNBIZALOM · HIVATÁS" : isWeddingPage ? "AUREA FOTOGRÁFIA · ESKÜVŐI TÖRTÉNETEK" : `${content.eyebrow} · ${content.meta}`}</p>
+            <h1 id="category-title">{isWeddingPage ? "Időtlen elegancia. Őszinte pillanatok. Valódi történetek." : content.title}</h1>
+            {isWeddingPage ? (
+              <>
+                <p class="wedding-hero-tagline"><strong class="wedding-highlight">Editorial és dokumentarista esküvői fotográfia, két alkotó szemszögéből.</strong></p>
+                <p class="wedding-hero-intro">Hiszem, hogy a legszebb esküvői fotók nem csupán megmutatnak egy pillanatot, hanem évekkel később is képesek visszaadni azt az érzést, amit akkor átéltetek.</p>
+                <p class="wedding-hero-intro">Az esküvői fotózásban Aczél Dániellel, az Aether Art Space alkotójával dolgozom együtt. Két különböző látásmóddal, de közös szenvedéllyel meséljük el a történeteteket, természetesen, személyesen és művészi érzékenységgel.</p>
+                <a class="button-link wedding-hero-cta" href="#category-contact">Meséljetek nekem a történetetekről!</a>
+              </>
+            ) : <p>{isBusinessPage ? "Mert mielőtt megszólalnál, a képed már mesél rólad." : content.intro}</p>}
           </div>
         </div>
       </section>
@@ -142,13 +161,23 @@ const packages = isBusinessPage
             <img src={image} alt={content.title} loading="lazy" />
           </div>
           <div class="category-story-copy">
-            <p class="eyebrow">{isBusinessPage ? "ELSŐ BENYOMÁS" : isHungarian ? "A történetetek ritmusa" : "The rhythm of your story"}</p>
-            <h2 id="category-story-title">{isBusinessPage ? "Szerinted számít az első benyomás?" : content.detail}</h2>
+            <p class="eyebrow">{isBusinessPage ? "ELSŐ BENYOMÁS" : isWeddingPage ? "A fotográfia számomra értékteremtés" : isHungarian ? "A történetetek ritmusa" : "The rhythm of your story"}</p>
+            <h2 id="category-story-title">{isBusinessPage ? "Szerinted számít az első benyomás?" : isWeddingPage ? "Ismerjetek meg!" : content.detail}</h2>
             {isBusinessPage ? (
               <>
                 <p>És szerinted megtörténhet az első benyomás már online, vagy akár egy CV láttán?</p>
                 <p>Én azt gondolom, hogy igen.</p>
                 <p>A munkáltatók, az üzleti partnerek és a kliensek már azelőtt érzéseket és benyomásokat társítanak hozzánk, hogy egyáltalán találkoznánk velünk. A megjelenésünk az online térben, a LinkedIn profilunk, a CVnk vagy éppen egy rólunk készült fénykép mind hozzájárul ahhoz, milyen kép alakul ki rólunk.</p>
+              </>
+            ) : isWeddingPage ? (
+              <>
+                <p>Számomra a fotográfia sokkal több, mint gyönyörű képek készítése. Szenvedély, önkifejezés és mindenekelőtt értékteremtés.</p>
+                <p>Azért választottam ezt az utat, mert szeretnék valami maradandót adni az embereknek. Olyan emlékeket, amelyek nem csupán ma szépek, hanem évtizedek múlva is jelentéssel bírnak.</p>
+                <p><strong class="wedding-highlight">Minden pár más, és éppen ettől különleges minden történet.</strong></p>
+                <p>Mielőtt a fényképezőgép mögé állnék, szeretnélek megismerni benneteket. Kíváncsi vagyok, hogyan találkoztatok, mi köt össze titeket, milyen a személyiségetek, és hogyan képzelitek el az esküvőtöket.</p>
+                <p>Szeretem ezeket a beszélgetéseket, mert hiszem, hogy az igazán személyes képekhez először az embereket kell megismerni.</p>
+                <p>Nem szeretnék rátok erőltetni egy előre meghatározott stílust. Fontos számomra, hogy a fotózás a ti ízlésetekhez, igényeitekhez és személyiségetekhez igazodjon, miközben a saját művészi látásmódommal teszem teljessé a történeteteket.</p>
+                <p class="wedding-question"><strong>Milyen képeken szeretnétek viszontlátni magatokat? Elegáns, magazinba illő portrékon, spontán, érzelmekkel teli pillanatokban, vagy éppen a kettő különleges találkozásában?</strong></p>
               </>
             ) : (
               <>
@@ -159,6 +188,47 @@ const packages = isBusinessPage
           </div>
         </div>
       </section>
+
+      {isWeddingPage && <div class="wedding-editorial-sections">
+        <section class="page-section wedding-feature-section">
+          <div class="page-section__inner wedding-feature-layout">
+            <figure class="wedding-feature-image"><img src="/images/generated/galleries/eskuvo/dsc07016--1200w--4080bcf9b0.jpg" alt="Meghitt, természetes esküvői pillanat" loading="lazy" /></figure>
+            <div class="wedding-feature-copy">
+              <p class="eyebrow">KÉT ALKOTÓ · KÉT NÉZŐPONT</p>
+              <h2>Két alkotó. Két nézőpont. Egy közös szenvedély.</h2>
+              <p>Az esküvői fotózásban Aczél Dániellel, az Aether Art Space budapesti fotóstúdió alkotójával dolgozom együtt.</p>
+              <p>Mindkettőnk számára szenvedély a fotográfia. Közös munkánk alapja az alkotás szeretete, az egymást kiegészítő látásmód és az a törekvés, hogy valami igazán maradandót hozzunk létre.</p>
+              <p>Két fotósként ugyanazt a történetet különböző perspektívákból mutathatjuk meg. Miközben egyikünk egy meghitt pillanatra figyel, a másik egy másik részletet, reakciót vagy érzelmet örökíthet meg.</p>
+              <p>Így a napotok nem csupán események sorozataként, hanem teljes, sokszínű és személyes történetként elevenedhet meg a képeken.</p>
+              <p><strong class="wedding-highlight">Két különböző látásmód, amely egyetlen történetté áll össze. A ti történeteteké.</strong></p>
+            </div>
+          </div>
+        </section>
+        <section class="page-section wedding-feature-section wedding-feature-section--reverse">
+          <div class="page-section__inner wedding-feature-layout">
+            <div class="wedding-feature-copy">
+              <p class="eyebrow">EDITORIAL ELEGANCIA · DOKUMENTARISTA TÖRTÉNETMESÉLÉS</p>
+              <h2>Editorial elegancia és dokumentarista történetmesélés</h2>
+              <p>Különösen közel áll hozzám az editorial fotográfia világa. Szeretem a divatfotózásból inspirálódó kompozíciókat, a fények játékát, az elegáns részleteket és az időtlen, művészi portrékat.</p>
+              <p>De ami igazán feltölt, az a dokumentarista fotográfia: a pillanatok, amelyeket nem lehet megtervezni. Egy lopott pillantás, egy váratlan nevetés, egy meghatott ölelés vagy egy apró gesztus, amely talán mindenki másnak észrevétlen marad.</p>
+              <p>Nem szeretném, hogy az esküvőtök egy egész napos, beállított fotózássá váljon. Azt szeretném, hogy megéljétek minden percét, miközben megörökítem mindazt, ami igazán fontos.</p>
+              <p><strong class="wedding-highlight">Az editorial képek esztétikája és a dokumentarista fotográfia őszintesége együtt meséli el a történeteteket.</strong></p>
+            </div>
+            <figure class="wedding-feature-image"><img src="/images/generated/galleries/eskuvo/dsc06941--1200w--4080bcf9b0.jpg" alt="Őszinte, dokumentarista esküvői pillanat" loading="lazy" /></figure>
+          </div>
+        </section>
+        <section class="page-section wedding-memories-section">
+          <div class="page-section__inner wedding-memories-inner">
+            <p class="eyebrow">IDŐTÁLLÓ EMLÉKEK</p>
+            <h2>Több mint fényképek. Emlékek, amelyek veletek maradnak.</h2>
+            <p>Számomra a fotózás legnagyobb értéke az, hogy képes megőrizni valamit, ami egyébként visszahozhatatlan. Egy érzést. Egy találkozást. Egy ölelést. Egy olyan pillanatot, amelynek az igazi jelentőségét talán csak évekkel később értjük meg.</p>
+            <p>Nem egyszerűen szép képeket szeretnék készíteni nektek. Olyan értéket szeretnék átadni, amelyet újra és újra elővehettek, amelyhez történetek kapcsolódnak, és amely egyszer majd a családotok történetének is része lesz.</p>
+            <p><strong class="wedding-highlight">A legszebb képek nemcsak azt mutatják meg, hogyan nézett ki egy pillanat, hanem azt is, milyen érzés volt benne lenni.</strong></p>
+            <p>Ha úgy érzitek, hogy ez a szemlélet közel áll hozzátok, meséljetek nekem a történetetekről. Örömmel ismerlek meg benneteket, és együtt megálmodhatjuk, hogyan meséljék el a képek a ti történeteteket.</p>
+            <p class="wedding-signature">AUREA Fotográfia by Alexandra <span>Your Light. Your Story.</span></p>
+          </div>
+        </section>
+      </div>}
 
       {isBusinessPage && (
         <div class="category-business-story">
@@ -229,9 +299,10 @@ const packages = isBusinessPage
             <h2 id="category-packages-title">{isBusinessPage ? "Válaszd azt, amelyik a szakmai jelenlétedhez illik." : isHungarian ? "Válasszátok azt, ami hozzátok illik." : "Choose what feels right for you."}</h2>
           </div>
           <div class="category-packages-grid">
-            {packages.map((pkg, index) => (
+            {(isWeddingPage ? weddingPackages : packages).map((pkg, index) => (
               <article class={`category-package-card${index === 1 ? " category-package-card--featured" : ""}`}>
                 <h3>{pkg.name}</h3>
+                {"title" in pkg && <h4 class="wedding-package-title">{pkg.title}</h4>}
                 <p class="category-package-description">{pkg.description}</p>
                 <p class="category-package-price">{pkg.price}</p>
                 <div class="category-package-details">
@@ -245,6 +316,17 @@ const packages = isBusinessPage
           </div>
         </div>
       </section>
+
+      {isWeddingPage && <section class="page-section wedding-seo-section">
+        <div class="page-section__inner wedding-seo-copy">
+          <p class="eyebrow">BUDAPEST · BALATON · ORSZÁGSZERTE</p>
+          <h2>Esküvői fotózás Budapesten, a Balatonnál és országszerte</h2>
+          <p>Az AUREA Fotográfia természetes, érzelmekben gazdag és művészi esküvői fotózást kínál Budapesten, a Balatonnál és Magyarország egész területén. Fotográfiai stílusom az editorial esküvői fotózás eleganciáját ötvözi a dokumentarista esküvőfotózás spontán, őszinte pillanataival.</p>
+          <p>Szolgáltatásaim közé tartozik az esküvői fotózás, a kreatív esküvői fotózás, a jegyesfotózás, a páros fotózás és az intim esküvők megörökítése.</p>
+          <p>Az esküvői fotózás során Aczél Dániellel, az Aether Art Space budapesti fotóstúdió alkotójával is együtt dolgozom. A kétfotós esküvői fotózás lehetőséget ad arra, hogy a nagy nap legfontosabb eseményeit, érzelmeit és apró részleteit több nézőpontból örökítsük meg.</p>
+          <p>Ha természetes, romantikus, elegáns és időtálló esküvői képeket kerestek, keressetek bizalommal. Esküvői fotózás Budapesten, a Balaton környékén, vidéki és külföldi helyszíneken is, előzetes egyeztetés alapján.</p>
+        </div>
+      </section>}
 
       {isBusinessPage && (
         <section class="page-section category-business-seo" aria-labelledby="business-seo-title">
