@@ -19,14 +19,14 @@ const isWeddingCategory = category.slug === "eskuvo-fotozas";
 const isWeddingPage = isWeddingCategory && isHungarian;
 const isBusinessCategory = category.slug === "uzleti-portre";
 const description = isWeddingPage
-  ? "Editorial és dokumentarista esküvői fotózás Budapesten és a Balatonnál. Természetes pillanatok, művészi portrék és személyes történetek, akár két fotóssal."
+  ? "Editoriális és dokumentarista esküvői fotózás Budapesten és országosan, két fotóssal. Kreatív páros portrék, természetes pillanatok és analóg esküvői képek."
   : isBusinessCategory
   ? isHungarian
     ? "Üzleti portré és business fotózás Budapesten: természetes, professzionális képek LinkedInhez, CV-hez, weboldalhoz és personal brandinghez."
     : "Business portrait photography in Budapest: natural, professional images for LinkedIn, CVs, websites and personal branding."
   : `${photographer.brand}, ${content.eyebrow.toLowerCase()} Budapest és környékén.`;
 const pageTitle = isWeddingPage
-  ? "Esküvői fotózás Budapest és Balaton | AUREA Fotográfia"
+  ? "Esküvői fotózás Budapesten és országosan | AUREA Fotográfia"
   : `${content.title} · ${photographer.brand}`;
 const categoryImages: Record<string, string> = {
   "eskuvo-fotozas": "/images/generated/galleries/eskuvo/dsc07129--full--318a1bda5f.jpg",
@@ -138,24 +138,28 @@ const weddingPackages = [
     <SiteNav locale={locale} categorySlug={category.slug} />
 
     <main>
-      <section class={`page-section category-reference-intro${isWeddingPage ? " category-reference-intro--wedding" : ""}`} aria-labelledby="category-title">
+      <section class="page-section category-reference-intro" aria-labelledby="category-title">
         <div class="page-section__inner">
           <div class="category-reference-intro__copy">
-            <p class="eyebrow">{isBusinessPage ? "ÜZLETI PORTRÉ FOTÓZÁS · ÖNBIZALOM · HIVATÁS" : isWeddingPage ? "AUREA FOTOGRÁFIA · ESKÜVŐI TÖRTÉNETEK" : `${content.eyebrow} · ${content.meta}`}</p>
-            <h1 id="category-title">{isWeddingPage ? <><span>Időtlen elegancia.</span><span>Őszinte pillanatok.</span><span>Valódi történetek.</span></> : content.title}</h1>
-            {isWeddingPage ? (
-              <>
-                <p class="wedding-hero-tagline">Editorial és dokumentarista esküvői fotográfia, két alkotó szemszögéből.</p>
-                <p class="wedding-hero-intro">Hiszem, hogy a legszebb esküvői fotók nem csupán megmutatnak egy pillanatot, hanem évekkel később is képesek visszaadni azt az érzést, amit akkor átéltetek.</p>
-                <p class="wedding-hero-intro">Az esküvői fotózásban Aczél Dániellel, az Aether Art Space alkotójával dolgozom együtt. Két különböző látásmóddal, de közös szenvedéllyel meséljük el a történeteteket, természetesen, személyesen és művészi érzékenységgel.</p>
-                <a class="button-link wedding-hero-cta" href="#category-contact">Meséljetek nekem a történetetekről!</a>
-                <a class="wedding-gallery-link" href="#category-gallery">Ugrás a galériához</a>
-              </>
-            ) : <p>{isBusinessPage ? "Mert mielőtt megszólalnál, a képed már mesél rólad." : content.intro}</p>}
+            <p class="eyebrow">{isBusinessPage ? "ÜZLETI PORTRÉ FOTÓZÁS · ÖNBIZALOM · HIVATÁS" : isWeddingPage ? "Két fotós · Kreatív páros portrék · Analóg esküvői fotók" : `${content.eyebrow} · ${content.meta}`}</p>
+            <h1 id="category-title">{isWeddingPage ? "Esküvői fotózás" : content.title}</h1>
+            <p>{isWeddingPage ? "Editoriális és dokumentarista esküvői fotózás Budapesten és országosan." : isBusinessPage ? "Mert mielőtt megszólalnál, a képed már mesél rólad." : content.intro}</p>
           </div>
-          {isWeddingPage && <figure class="wedding-hero-image"><img src="/images/generated/galleries/eskuvo/dsc07129--full--318a1bda5f.jpg" alt="Színes, egész alakos esküvői portré a sziklák között, nyitott égbolttal" fetchpriority="high" /></figure>}
         </div>
       </section>
+
+      {isWeddingPage && <section class="page-section category-reference-intro category-reference-intro--wedding" aria-labelledby="wedding-intro-title">
+        <div class="page-section__inner">
+          <div class="category-reference-intro__copy">
+            <h2 id="wedding-intro-title">Időtlen elegancia. Őszinte pillanatok. Valódi történetek.</h2>
+            <p class="wedding-hero-intro">Hiszem, hogy a legszebb esküvői fotók nem csupán megmutatnak egy pillanatot, hanem évekkel később is képesek visszaadni azt az érzést, amit akkor átéltetek.</p>
+            <p class="wedding-hero-intro">Az esküvői fotózásban Aczél Dániellel, az Aether Art Space alkotójával dolgozom együtt. Két különböző látásmóddal, de közös szenvedéllyel meséljük el a történeteteket, természetesen, személyesen és művészi érzékenységgel.</p>
+            <a class="button-link wedding-hero-cta" href="#category-contact">Meséljetek nekem a történetetekről!</a>
+            <a class="wedding-gallery-link" href="#category-gallery">Ugrás a galériához</a>
+          </div>
+          <figure class="wedding-hero-image"><img src="/images/generated/galleries/eskuvo/dsc07129--full--318a1bda5f.jpg" alt="Színes, egész alakos esküvői portré a sziklák között, nyitott égbolttal" fetchpriority="high" /></figure>
+        </div>
+      </section>}
 
       <section class={`page-section category-story-section${isBusinessPage ? " category-business-story-section" : ""}`} aria-labelledby="category-story-title">
         <div class="page-section__inner category-story-layout">
