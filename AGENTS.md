@@ -29,4 +29,10 @@
 - Do not submit test contact-form messages without authorization. Preserve the existing Web3Forms configuration.
 - Browser control and public preview tools depend on the session. Do not claim access to the owner's browser or offer cloud-localhost URLs as user-accessible previews.
 
+## Preview shortcut
+
+- When the owner says `PREVIEW`, start or reuse a development preview of the current working tree with `npm run dev -- --host 0.0.0.0`, then open it in the cloud browser or the session's supported preview panel when available. Keep the preview running while the owner reviews changes.
+- `PREVIEW` means preview only. Do not push, deploy, or publish as part of this request.
+- If this session cannot open the preview, report the blocker; do not present a cloud-localhost URL as a user-accessible link.
+
 See `DEPLOYMENT.md` for account/project details, build settings, and historical rollback references. Its recorded verification commits are historical evidence, not a substitute for checking the latest release.
