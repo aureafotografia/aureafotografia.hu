@@ -23,7 +23,7 @@ const packages = hu ? [
 ];
 ---
 
-<SiteLayout locale={locale} title={`${title} · ${photographer.brand}`} description={description} canonicalPath={hu ? "/arak" : "/en/prices"} alternatePath={hu ? "/en/prices" : "/arak"}>
+<SiteLayout locale={locale} title={`${title} · ${photographer.brand}`} description={description} breadcrumbLabel={title} canonicalPath={hu ? "/arak" : "/en/prices"} alternatePath={hu ? "/en/prices" : "/arak"}>
   <div class="site-shell category-shell">
     <SiteNav locale={locale} pricesPage />
     <main>

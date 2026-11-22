@@ -9,16 +9,87 @@ interface Props {
   alternatePath?: string;
   socialImage?: string;
   socialImageAlt?: string;
-  structuredData?: Record<string, unknown>;
+  breadcrumbLabel?: string;
+  serviceName?: string;
 }
 
-const { locale, title, description, canonicalPath, alternatePath, socialImage = "/images/aurea-logo.png", socialImageAlt = title, structuredData } = Astro.props;
+const { locale, title, description, canonicalPath, alternatePath, socialImage = "/images/aurea-logo.png", socialImageAlt = title, breadcrumbLabel, serviceName } = Astro.props;
 const siteUrl = "https://aureafotografia.hu";
 const defaultPath = locale === "hu" ? "/" : "/en";
 const defaultAlternatePath = locale === "hu" ? "/en" : "/";
-const canonical = new URL(canonicalPath ?? defaultPath, siteUrl).href;
-const alternate = new URL(alternatePath ?? defaultAlternatePath, siteUrl).href;
+const normalizedPath = (path: string) => path === "/" ? "/" : `${path.replace(/\/+$/, "")}/`;
+const canonical = new URL(normalizedPath(canonicalPath ?? defaultPath), siteUrl).href;
+const alternate = new URL(normalizedPath(alternatePath ?? defaultAlternatePath), siteUrl).href;
 const socialImageUrl = new URL(socialImage, siteUrl).href;
+const socialImageType = ({ png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", avif: "image/avif" } as Record<string, string>)[socialImage.split(".").at(-1)?.toLowerCase() ?? ""];
+const breadcrumbId = `${canonical}#breadcrumb`;
+const serviceId = `${canonical}#service`;
+const pageStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: photographer.brand,
+      inLanguage: ["hu", "en"],
+      publisher: { "@id": `${siteUrl}/#photographer` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#photographer`,
+      name: photographer.name,
+      jobTitle: "Photographer",
+      url: `${siteUrl}/`,
+      worksFor: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: photographer.brand,
+      url: `${siteUrl}/`,
+      email: photographer.email,
+      sameAs: [photographer.instagram],
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: locale,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      primaryImageOfPage: { "@id": `${socialImageUrl}#primaryimage` },
+      ...(breadcrumbLabel && { breadcrumb: { "@id": breadcrumbId } }),
+      ...(serviceName && { mainEntity: { "@id": serviceId } }),
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${socialImageUrl}#primaryimage`,
+      contentUrl: socialImageUrl,
+      url: socialImageUrl,
+      caption: socialImageAlt,
+    },
+    ...(breadcrumbLabel ? [{
+      "@type": "BreadcrumbList",
+      "@id": breadcrumbId,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: locale === "hu" ? "Kezdőlap" : "Home", item: new URL(normalizedPath(defaultPath), siteUrl).href },
+        { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: canonical },
+      ],
+    }] : []),
+    ...(serviceName ? [{
+      "@type": "Service",
+      "@id": serviceId,
+      name: serviceName,
+      url: canonical,
+      description,
+      image: socialImageUrl,
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: { "@type": "City", name: "Budapest" },
+    }] : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -37,7 +108,7 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale} href={canonical} />
     <link rel="alternate" hreflang={locale === "hu" ? "en" : "hu"} href={alternate} />
-    <link rel="alternate" hreflang="x-default" href="https://aureafotografia.hu/" />
+    <link rel="alternate" hreflang="x-default" href={locale === "hu" ? canonical : alternate} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={photographer.brand} />
     <meta property="og:title" content={title} />
@@ -47,15 +118,13 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
     <meta property="og:locale:alternate" content={locale === "hu" ? "en_GB" : "hu_HU"} />
     <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:alt" content={socialImageAlt} />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="2390" />
-    <meta property="og:image:height" content="3585" />
+    {socialImageType && <meta property="og:image:type" content={socialImageType} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
     <meta name="twitter:image:alt" content={socialImageAlt} />
-    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />
     <title>{title}</title>
   </head>
   <body>

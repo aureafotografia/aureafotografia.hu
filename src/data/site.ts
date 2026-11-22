@@ -11,7 +11,7 @@ export const copy = {
   hu: {
     languageName: "Magyar",
     alternateLabel: "EN",
-    alternateHref: "/en",
+    alternateHref: "/en/",
     nav: [
       { label: "Portfólió", href: "#munkak" },
       { label: "Rólam", href: "#rolam" },

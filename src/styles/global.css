@@ -180,9 +180,6 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
 .reference-home .site-nav a { color: var(--ink); }
 .reference-home .site-nav a:hover, .reference-home .language-link { color: #17383c; }
 .reference-home .site-nav a.nav-booking:hover { color: #fff !important; }
-.hero-panel { filter: saturate(.72) contrast(.95); }
-.hero-panel--side { opacity: .46; }
-.hero-panel--main { opacity: .96; }
 .reference-intro h1, .about-kicker, .section-heading h2, .testimonials-section h2, .contact-section h2 { color: var(--ink); }
 .reference-intro .eyebrow, .reference-home .eyebrow { color: #5b7a7b; }
 .reference-home .hero-overlay .eyebrow { color: #fff; }
@@ -191,7 +188,6 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
 .story-grid, .about-section, .services-section, .contact-section { background: var(--paper); }
 .story-card, .story-card span { color: var(--ink); }
 .story-card img, .about-image img, .service-row img { filter: saturate(.72) contrast(.96); }
-.about-section { padding-top: 150px; }
 .service-row { border-color: var(--line); color: var(--ink); }
 .service-row span:not(.service-arrow) { color: #6f8788; }
 .testimonials-section { background: var(--paper-aqua); }
@@ -1619,9 +1615,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .reference-home .wordmark, .reference-home .wordmark span { color: var(--ink); }
 .reference-home .site-nav a { color: var(--ink); }
 .reference-home .site-nav a:hover, .reference-home .language-link { color: #17383c; }
-.hero-panel { filter: saturate(.72) contrast(.95); }
-.hero-panel--side { opacity: .46; }
-.hero-panel--main { opacity: .96; }
 .reference-intro h1, .about-kicker, .section-heading h2, .testimonials-section h2, .contact-section h2 { color: var(--ink); }
 .reference-intro .eyebrow, .reference-home .eyebrow { color: #5b7a7b; }
 .reference-intro > p:not(.eyebrow), .contact-lead, .about-copy > p:not(.eyebrow):not(.about-kicker), .testimonial-grid blockquote { color: var(--ink-soft); }
@@ -1629,7 +1622,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .story-grid, .about-section, .services-section, .contact-section { background: var(--paper); }
 .story-card, .story-card span { color: var(--ink); }
 .story-card img, .about-image img, .service-row img { filter: saturate(.72) contrast(.96); }
-.about-section { padding-top: 150px; }
 .service-row { border-color: var(--line); color: var(--ink); }
 .service-row span:not(.service-arrow) { color: #6f8788; }
 .testimonials-section { background: var(--paper-aqua); }
@@ -1640,8 +1632,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .reference-home .button-link:hover { background: #20373b; color: #fff; }
 .reference-home .site-footer { background: var(--paper); border-color: var(--line); }
 .reference-home .footer-meta, .reference-home .footer-links a { color: #6f8788; }
-
-@media (max-width: 800px) { .about-section { padding-top: 100px; } }
 
 /* Shared header final source of truth. */
 .reference-home .shared-site-header,
@@ -2101,4 +2091,31 @@ img,
 }
 @media (prefers-reduced-motion: reduce) {
   [data-wedding-gallery] .gallery-tile img { transition: none; }
+}
+
+/* Homepage media, responsive cards, and image layout stability. */
+.reference-home .hero-panel--main {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  will-change: transform;
+}
+.reference-home .hero-panel--main img { display: block; height: 100%; object-fit: cover; width: 100%; }
+.reference-home .story-card { min-width: 0; }
+.reference-home .story-card picture,
+.reference-home .about-image picture { display: block; width: 100%; }
+.reference-home .story-card img { aspect-ratio: 2 / 3; display: block; height: auto; width: 100%; }
+.reference-home .about-image img { display: block; height: auto; width: 100%; }
+.reference-home .story-card:focus-visible { outline-offset: 4px; }
+
+@media (max-width: 800px) {
+  .reference-home .story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reference-home .about-section { align-items: start; }
+}
+
+@media (max-width: 520px) {
+  .reference-home .story-grid { grid-template-columns: 1fr; }
+  .reference-home .story-card { max-width: 420px; width: 100%; }
 }

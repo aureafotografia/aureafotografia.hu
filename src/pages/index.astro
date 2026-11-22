@@ -4,22 +4,14 @@ import { copy, photographer } from "../data/site";
 import { categories } from "../data/categories";
 import ContactSection from "../components/ContactSection.astro";
 import SiteNav from "../components/SiteNav.astro";
+import { Picture } from "astro:assets";
+import { homepageAboutImage, homepageCategoryImages, homepageHeroImage } from "../data/homepage-images";
 import "../styles/global.css";
 
 const content = copy.hu;
 const description = "Aurea Fotográfia — esküvői, portré- és életképfotózás Budapest és környékén.";
-const image = "/images/homepage/about-alexandra.jpg";
-const heroImage = "/images/homepage/hero.jpg";
 const homepageCategorySlugs = ["eskuvo-fotozas", "kismama-fotozas", "uzleti-portre", "csaladi-fotozas", "paros-fotozas", "sport-fotozas"];
 const homepageCategories = homepageCategorySlugs.map((slug) => categories.find((category) => category.slug === slug)!);
-const categoryImages: Record<string, string> = {
-  "eskuvo-fotozas": "/images/homepage/wedding.jpg",
-  "kismama-fotozas": "/images/homepage/maternity.jpg",
-  "uzleti-portre": "/images/homepage/business.jpg",
-  "csaladi-fotozas": "/images/homepage/family.jpg",
-  "paros-fotozas": "/images/homepage/couple.jpg",
-  "sport-fotozas": "/images/homepage/sport.jpg",
-};
 const testimonials = ["Alexandra úgy volt jelen, mintha mindig is hozzánk tartozott volna. A képeken minden fontos pillanatunk visszaköszön.", "Természetes, érzékeny és hihetetlenül figyelmes munka. Pont ilyen emlékeket szerettünk volna hazavinni.", "Nem csak fotókat kaptunk, hanem egy történetet arról, ahogy aznap együtt voltunk."];
 ---
 
@@ -27,12 +19,12 @@ const testimonials = ["Alexandra úgy volt jelen, mintha mindig is hozzánk tart
   <div class="site-shell reference-home">
     <SiteNav locale="hu" />
     <main>
-      <section class="reference-hero" aria-label="Aurea Fotográfia"><div class="hero-panel hero-panel--main" style={`background-image: url(${heroImage})`}></div><div class="hero-overlay"><p class="eyebrow">{content.heroEyebrow}</p><h1 id="hero-title">{content.heroTitle.replaceAll("\n", " ")}</h1><p class="hero-subtitle">{content.heroSubtitle}</p></div></section>
+      <section class="reference-hero" aria-label="Aurea Fotográfia"><Picture src={homepageHeroImage} alt="" width={2400} widths={[800, 1200, 1600, 2400]} sizes="100vw" formats={["avif", "webp"]} fallbackFormat="jpg" loading="eager" fetchpriority="high" decoding="async" pictureAttributes={{ class: "hero-panel hero-panel--main" }} /><div class="hero-overlay"><p class="eyebrow">{content.heroEyebrow}</p><h1 id="hero-title">{content.heroTitle.replaceAll("\n", " ")}</h1><p class="hero-subtitle">{content.heroSubtitle}</p></div></section>
       <section class="reference-intro" aria-labelledby="hero-title"><p>{content.heroBody}</p></section>
       <section class="story-grid container" id="munkak" aria-label="Válogatott történetek">
-        {homepageCategories.map((category, index) => <a class={`story-card story-card--${index + 1}`} href={`/munkak/${category.slug}`}><img src={categoryImages[category.slug]} alt={`${category.hu.title} fotó`} loading={index > 1 ? "lazy" : "eager"} /><span>{category.hu.title}</span><small>{category.hu.meta}</small></a>)}
+        {homepageCategories.map((category, index) => <a class={`story-card story-card--${index + 1}`} href={`/munkak/${category.slug}/`}><Picture src={homepageCategoryImages[category.slug as keyof typeof homepageCategoryImages]} alt={`${category.hu.title} fotó`} width={1200} widths={[480, 800, 1200]} sizes="(max-width: 520px) 100vw, (max-width: 800px) 50vw, 33vw" formats={["avif", "webp"]} fallbackFormat="jpg" loading={index > 1 ? "lazy" : "eager"} decoding="async" fetchpriority="low" /><span>{category.hu.title}</span><small>{category.hu.meta}</small></a>)}
       </section>
-      <section class="about-section container" id="rolam" aria-labelledby="about-title"><div class="about-image"><img src={image} alt="Alexandra fényképezőgéppel a szabadban" loading="lazy" /></div><div class="about-copy"><p class="eyebrow">{content.introLabel}</p><p class="about-kicker" id="about-title">{content.introTitle}</p><p>{content.introBody}</p></div></section>
+      <section class="about-section container" id="rolam" aria-labelledby="about-title"><div class="about-image"><Picture src={homepageAboutImage} alt="Alexandra fényképezőgéppel a szabadban" width={1200} widths={[480, 800, 1200]} sizes="(max-width: 800px) 100vw, 45vw" formats={["avif", "webp"]} fallbackFormat="jpg" loading="lazy" decoding="async" /></div><div class="about-copy"><p class="eyebrow">{content.introLabel}</p><p class="about-kicker" id="about-title">{content.introTitle}</p><p>{content.introBody}</p></div></section>
       <section class="testimonials-section" aria-labelledby="testimonials-title"><div class="container"><p class="eyebrow">Visszajelzések</p><h2 id="testimonials-title">Amit a párok mondanak</h2><div class="testimonial-grid">{testimonials.map((testimonial) => <blockquote>“{testimonial}”</blockquote>)}</div></div></section>
       <ContactSection locale="hu" />
     </main>
@@ -48,7 +40,10 @@ const testimonials = ["Alexandra úgy volt jelen, mintha mindig is hozzánk tart
 
   const updateParallax = () => {
     frame = 0;
-    if (!hero || !panel || reducedMotion.matches) return;
+    if (!hero || !panel || reducedMotion.matches) {
+      if (panel) panel.style.transform = `scale(${window.innerWidth <= 800 ? 1.12 : 1.22})`;
+      return;
+    }
     const bounds = hero.getBoundingClientRect();
     const progress = Math.max(0, Math.min(1, (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height)));
     const shift = (progress - 0.5) * 220;

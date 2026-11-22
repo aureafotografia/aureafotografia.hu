@@ -20,6 +20,14 @@ const contactId = id ?? (isHungarian ? "csomagok" : "packages");
   <h2 id={`${contactId}-title`}>{isHungarian ? "Van egy történeted. Mesélj róla." : "Tell me what matters right now."}</h2>
   <p class="contact-lead">{isHungarian ? "Fotózást tervezel? Írj nekem, és beszéljük át, hogyan képzelted el." : "Every session has its own rhythm. Write a few lines and we will find the right story together."}</p>
   {isHungarian && <p class="contact-closing">A többit majd együtt kitaláljuk.</p>}
+  {!id && <p id="contact-sent" class="contact-confirmation" role="status" tabindex="-1">
+    {isHungarian ? "Köszönöm, az üzeneted megérkezett. Hamarosan válaszolok." : "Thank you, your inquiry was sent. I’ll be in touch soon."}
+  </p>}
   <ContactForm locale={locale} buttonLabel={buttonLabel} />
   {galleryLinkLabel && galleryHref && <a class="wedding-gallery-link" href={galleryHref}>{galleryLinkLabel}</a>}
 </section>
+
+<style>
+  .contact-confirmation:not(:target) { display: none; }
+  .contact-confirmation { font-weight: 600; scroll-margin-block-start: 2rem; }
+</style>
