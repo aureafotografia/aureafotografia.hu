@@ -145,7 +145,7 @@ const weddingPackages = [
       {isWeddingPage && <div class="wedding-editorial-sections">
         <section class="page-section wedding-feature-section">
           <div class="page-section__inner wedding-feature-layout">
-            <figure class="wedding-feature-image"><img src="/images/generated/galleries/eskuvo/dsc07016--1200w--4080bcf9b0.jpg" alt={t("Meghitt, természetes esküvői pillanat", "A quiet, candid wedding moment")} loading="lazy" /></figure>
+            <figure class="wedding-feature-image wedding-feature-image--photographers"><img src="/images/generated/galleries/eskuvo/dsc07016--1200w--4080bcf9b0.jpg" alt={t("Meghitt, természetes esküvői pillanat", "A quiet, candid wedding moment")} loading="lazy" /></figure>
             <div class="wedding-feature-copy">
               <p class="eyebrow">{t("KÉT ALKOTÓ · KÉT NÉZŐPONT", "TWO PHOTOGRAPHERS · TWO PERSPECTIVES")}</p>
               <h2>{t("Két alkotó. Két nézőpont. Egy közös szenvedély.", "Two photographers. Two perspectives. One shared passion.")}</h2>
@@ -247,7 +247,6 @@ const weddingPackages = [
             <p>{content.detail}</p>
           </div>}
           <Gallery locale={locale} slug={category.slug} title={content.title} imageLabels={content.slots} />
-        {!isBusinessPage && <p class="gallery-note">{category.slug === "eskuvo-fotozas" ? (isHungarian ? "Húzd a csempéket oldalra, vagy használd a nyilakat. Kattints egy fotóra a nagyításhoz." : "Drag the tiles sideways or use the arrows. Select a photograph to view it larger.") : (isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work.")}</p>}
         </div>
       </section>
 
