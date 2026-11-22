@@ -39,4 +39,23 @@ const alternateHref = pricesPage ? (isHungarian ? "/en/prices/" : "/arak/") : ca
       <div class="language-menu__panel"><a href={alternateHref}>{isHungarian ? "EN" : "HU"}</a></div>
     </details>
   </nav>
+  <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation">
+    <span class="sr-only">{isHungarian ? "Menü megnyitása" : "Open menu"}</span>
+    <span class="mobile-nav-toggle__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+  <button class="mobile-nav-backdrop" type="button" aria-label={isHungarian ? "Menü bezárása" : "Close menu"} hidden></button>
+  <aside class="mobile-nav-drawer" id="mobile-navigation" aria-label={isHungarian ? "Mobil navigáció" : "Mobile navigation"} aria-hidden="true" inert>
+    <div class="mobile-nav-drawer__header">
+      <span>{isHungarian ? "Navigáció" : "Navigation"}</span>
+      <button class="mobile-nav-close" type="button" aria-label={isHungarian ? "Menü bezárása" : "Close menu"}>×</button>
+    </div>
+    <nav class="mobile-nav-links" aria-label={isHungarian ? "Oldalak" : "Pages"}>
+      <span class="mobile-nav-label">{isHungarian ? "Portfólió" : "Work"}</span>
+      {categories.map((category) => <a href={isHungarian ? `/munkak/${category.slug}` : `/en/work/${category.slugEn}`}>{category[locale].title}</a>)}
+      <a href={isHungarian ? ((categorySlug || pricesPage) ? "/#rolam" : "#rolam") : ((categorySlug || pricesPage) ? "/en#about" : "#about")}>{isHungarian ? "Rólam" : "About"}</a>
+      <a href={isHungarian ? "/arak" : "/en/prices"} aria-current={pricesPage ? "page" : undefined}>{isHungarian ? "Árak" : "Prices"}</a>
+      <a class="mobile-nav-booking" href={bookingHref}>{isHungarian ? "Foglalás" : "Booking"}</a>
+      <a class="mobile-nav-language" href={alternateHref}>{isHungarian ? "English" : "Magyar"}</a>
+    </nav>
+  </aside>
 </header>

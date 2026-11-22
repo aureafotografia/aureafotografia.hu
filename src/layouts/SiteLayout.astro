@@ -150,6 +150,69 @@ const pageStructuredData = {
           if (!(event.relatedTarget instanceof Node) || !menu.contains(event.relatedTarget)) closeMenu();
         });
       });
+
+      const mobileToggle = document.querySelector<HTMLButtonElement>(".mobile-nav-toggle");
+      const mobileDrawer = document.querySelector<HTMLElement>(".mobile-nav-drawer");
+      const mobileBackdrop = document.querySelector<HTMLButtonElement>(".mobile-nav-backdrop");
+
+      if (mobileToggle && mobileDrawer && mobileBackdrop) {
+        document.body.append(mobileBackdrop, mobileDrawer);
+        const closeMobileMenu = (returnFocus = false) => {
+          mobileToggle.setAttribute("aria-expanded", "false");
+          mobileToggle.querySelector(".sr-only")!.textContent = document.documentElement.lang === "hu" ? "Menü megnyitása" : "Open menu";
+          mobileDrawer.setAttribute("aria-hidden", "true");
+          mobileDrawer.inert = true;
+          mobileDrawer.removeAttribute("role");
+          mobileDrawer.removeAttribute("aria-modal");
+          mobileBackdrop.hidden = true;
+          document.body.style.overflow = "";
+          if (returnFocus) mobileToggle.focus();
+        };
+        const openMobileMenu = () => {
+          mobileToggle.setAttribute("aria-expanded", "true");
+          mobileToggle.querySelector(".sr-only")!.textContent = document.documentElement.lang === "hu" ? "Menü bezárása" : "Close menu";
+          mobileDrawer.setAttribute("aria-hidden", "false");
+          mobileDrawer.inert = false;
+          mobileDrawer.setAttribute("role", "dialog");
+          mobileDrawer.setAttribute("aria-modal", "true");
+          mobileBackdrop.hidden = false;
+          document.body.style.overflow = "hidden";
+          mobileDrawer.querySelector<HTMLElement>(".mobile-nav-close")?.focus();
+        };
+
+        mobileToggle.addEventListener("click", () => {
+          if (mobileToggle.getAttribute("aria-expanded") === "true") closeMobileMenu();
+          else openMobileMenu();
+        });
+        mobileBackdrop.addEventListener("click", () => closeMobileMenu(true));
+        mobileDrawer.querySelector(".mobile-nav-close")?.addEventListener("click", () => closeMobileMenu(true));
+        mobileDrawer.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMobileMenu()));
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && mobileToggle.getAttribute("aria-expanded") === "true") {
+            closeMobileMenu(true);
+            return;
+          }
+
+          if (event.key === "Tab" && mobileToggle.getAttribute("aria-expanded") === "true") {
+            const focusableItems = mobileDrawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+            const firstItem = focusableItems[0];
+            const lastItem = focusableItems[focusableItems.length - 1];
+            if (!mobileDrawer.contains(document.activeElement)) {
+              event.preventDefault();
+              firstItem?.focus();
+            } else if (event.shiftKey && document.activeElement === firstItem) {
+              event.preventDefault();
+              lastItem?.focus();
+            } else if (!event.shiftKey && document.activeElement === lastItem) {
+              event.preventDefault();
+              firstItem?.focus();
+            }
+          }
+        });
+        window.matchMedia("(min-width: 801px)").addEventListener("change", (event) => {
+          if (event.matches) closeMobileMenu();
+        });
+      }
     </script>
   </body>
 </html>
