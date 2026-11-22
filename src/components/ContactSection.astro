@@ -6,11 +6,9 @@ interface Props {
   locale: Locale;
   id?: string;
   buttonLabel?: string;
-  galleryLinkLabel?: string;
-  galleryHref?: string;
 }
 
-const { locale, id, buttonLabel, galleryLinkLabel, galleryHref } = Astro.props;
+const { locale, id, buttonLabel } = Astro.props;
 const isHungarian = locale === "hu";
 const contactId = id ?? (isHungarian ? "csomagok" : "packages");
 ---
@@ -24,7 +22,6 @@ const contactId = id ?? (isHungarian ? "csomagok" : "packages");
     {isHungarian ? "Köszönöm, az üzeneted megérkezett. Hamarosan válaszolok." : "Thank you, your inquiry was sent. I’ll be in touch soon."}
   </p>}
   <ContactForm locale={locale} buttonLabel={buttonLabel} />
-  {galleryLinkLabel && galleryHref && <a class="wedding-gallery-link" href={galleryHref}>{galleryLinkLabel}</a>}
 </section>
 
 <style>

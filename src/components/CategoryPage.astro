@@ -47,7 +47,7 @@ const packages = isBusinessPage
   ? [
       { name: "PROFILE", price: "39 000 HUF", description: t("Néhány jól használható portré a szakmai megjelenésedhez.", "A small set of versatile portraits for your professional profile."), includes: [t("1 szett", "1 look"), t("10 és 12 közötti szerkesztett fotó", "10–12 edited photographs"), t("Online galéria", "Online gallery")] },
       { name: "STANDARD", price: "59 000 HUF", description: t("Több, mint egy portré: képek rólad és arról, ahogyan dolgozol.", "Portraits and photographs that show how you work."), includes: [t("2 vagy 3 szett", "2 or 3 looks"), t("20 és 24 közötti szerkesztett fotó", "20–24 edited photographs"), t("Online galéria", "Online gallery")] },
-      { name: "SIGNATURE", price: "79 000 HUF", description: t("A teljes szakmai történeted képekben.", "Your full professional story in photographs."), includes: [t("TÖBB SZETT", "MULTIPLE LOOKS"), t("36+ SZERKESZTETT FOTÓ", "36+ EDITED PHOTOGRAPHS"), t("BUSINESS ÉS PERSONAL BRANDING KÉPEK", "BUSINESS AND PERSONAL BRANDING IMAGES"), t("ONLINE GALÉRIA", "ONLINE GALLERY")] },
+      { name: "SIGNATURE", price: "79 000 HUF", description: t("A teljes szakmai történeted képekben.", "Your full professional story in photographs."), includes: [t("Több szett", "Multiple looks"), t("36+ szerkesztett fotó", "36+ edited photographs"), t("Business és personal branding képek", "Business and personal branding images"), t("Online galéria", "Online gallery")] },
     ]
   : isHungarian
   ? [
@@ -303,7 +303,7 @@ const weddingPackages = [
         </section>
       )}
 
-      <ContactSection locale={locale} id="category-contact" buttonLabel={isBusinessPage ? t("FOGLALÁS", "BOOK NOW") : undefined} galleryLinkLabel={isWeddingPage ? t("Ugrás a galériához", "Jump to the gallery") : undefined} galleryHref={isWeddingPage ? "#category-gallery" : undefined} />
+      <ContactSection locale={locale} id="category-contact" buttonLabel={isBusinessPage ? t("FOGLALÁS", "BOOK NOW") : undefined} />
     </main>
 
     <footer class="site-footer container">

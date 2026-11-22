@@ -2064,6 +2064,22 @@ img,
   transition: background-color .2s ease, color .2s ease;
 }
 .category-shell .wedding-gallery-link:hover { background: #345341 !important; color: #fff !important; }
+.category-shell .wedding-hero-cta,
+.category-shell .wedding-gallery-link,
+.category-shell .category-package-details .button-link,
+.category-shell .contact-form__submit {
+  align-items: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: .75rem !important;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: .1em !important;
+  line-height: 1.35;
+  min-height: 48px;
+  padding: 12px 16px !important;
+  text-align: center;
+}
 .category-shell .wedding-question { margin-top: 28px; }
 .wedding-feature-section { padding-bottom: clamp(54px, 7vw, 100px); padding-top: clamp(54px, 7vw, 100px); }
 .wedding-editorial-sections > .wedding-feature-section:first-child { --section-surface: #eef5ef; }
@@ -2105,10 +2121,24 @@ img,
   .category-shell:has(.wedding-editorial-sections) .category-package-details li {
     font-size: 1rem !important;
     letter-spacing: normal !important;
-    line-height: 1.6;
+    line-height: 1.4;
     padding: 8px 0 8px 2px;
     text-transform: none !important;
   }
+  .category-shell:has(.wedding-editorial-sections) .category-reference-gallery:has([data-wedding-gallery]) { padding-right: 0 !important; }
+  .category-shell:has(.wedding-editorial-sections) .category-reference-gallery .gallery-masonry-frame:has([data-wedding-gallery]) {
+    margin-left: -18px;
+    width: calc(100vw - 18px);
+  }
+  .category-shell:has(.wedding-editorial-sections) .category-reference-gallery [data-wedding-gallery] { width: 100% !important; }
+  .category-shell:has(.wedding-editorial-sections) .wedding-hero-cta,
+  .category-shell:has(.wedding-editorial-sections) .wedding-gallery-link,
+  .category-shell:has(.wedding-editorial-sections) .category-package-details .button-link,
+  .category-shell:has(.wedding-editorial-sections) .contact-form__submit {
+    display: flex;
+    width: 100%;
+  }
+  .category-shell:has(.wedding-editorial-sections) .category-package-details .button-link { align-self: stretch; }
   .category-shell .category-reference-intro--wedding .page-section__inner, .wedding-memories-layout { grid-template-columns: 1fr; }
   .category-shell .wedding-hero-image { grid-row: 1; margin: 0 auto 12px; max-width: 620px; width: 100%; }
   .category-shell .category-reference-intro--wedding .category-reference-intro__copy h1 { font-size: clamp(1.85rem, 7vw, 2.8rem); grid-template-columns: 1fr; }
@@ -2154,7 +2184,7 @@ img,
 :root { --page-content-gutter: clamp(18px, 6vw, 80px); }
 .reference-home { overflow-x: clip !important; overflow-y: visible !important; }
 
-.mobile-nav-toggle, .mobile-nav-backdrop, .mobile-nav-drawer { display: none; }
+.mobile-nav-controls, .mobile-nav-toggle, .mobile-nav-backdrop, .mobile-nav-drawer { display: none; }
 
 @media (max-width: 800px) {
   :root { --page-content-gutter: clamp(18px, 6vw, 48px); }
@@ -2247,4 +2277,152 @@ img,
 
 @media (prefers-reduced-motion: reduce) {
   .mobile-nav-toggle__icon i, .mobile-nav-drawer { transition: none; }
+}
+
+/* Keep package details readable across category and pricing cards. */
+.category-shell .category-package-details ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+}
+.category-shell .category-package-details li {
+  font-size: 1rem !important;
+  letter-spacing: normal !important;
+  line-height: 1.4;
+  padding: 8px 0 8px 2px;
+  text-transform: none !important;
+}
+
+/* Consistent, compact section rhythm on phones across the site. */
+@media (max-width: 800px) {
+  .reference-home .reference-intro {
+    padding: 48px 20px 52px;
+  }
+  .reference-home .story-grid {
+    padding-bottom: 52px;
+  }
+  .reference-home .about-section {
+    gap: 24px;
+    padding-bottom: 52px;
+    padding-top: 0;
+  }
+  .reference-home .about-copy > p:not(.eyebrow):not(.about-kicker) {
+    margin-bottom: 0;
+  }
+  .reference-home .testimonials-section {
+    padding: 48px 0 56px;
+  }
+  .reference-home .testimonials-section h2 {
+    margin: 18px auto 32px;
+  }
+  .reference-home .testimonial-grid {
+    gap: 22px;
+  }
+  .site-shell .contact-section {
+    padding-bottom: 56px !important;
+    padding-top: 48px !important;
+  }
+
+  .category-shell .page-section {
+    padding-bottom: 48px !important;
+    padding-top: 48px !important;
+  }
+  .category-shell .category-story-layout {
+    gap: 24px;
+  }
+  .category-shell .category-story-layout .category-story-copy {
+    padding: 0 !important;
+  }
+  .category-shell .category-reference-gallery-heading {
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+}
+
+/* Keep the shared header attached to the viewport without creating a
+   horizontal scroll container around sticky positioning. */
+html,
+body,
+.site-shell {
+  overflow-x: clip;
+}
+.site-shell { overflow-y: visible; }
+.shared-site-header {
+  position: sticky !important;
+  top: 0;
+  transition: box-shadow 180ms ease;
+}
+.shared-site-header::before {
+  transition: background-color 180ms ease;
+}
+.shared-site-header.is-scrolled {
+  box-shadow: 0 8px 24px rgba(14, 31, 34, .18);
+}
+body .reference-home .shared-site-header.is-scrolled::before,
+body .category-shell .shared-site-header.is-scrolled::before {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: rgba(32, 55, 59, .84) !important;
+}
+
+@media (max-width: 800px) {
+  .site-header.shared-site-header {
+    min-height: 76px !important;
+    position: sticky !important;
+  }
+  .shared-site-header .wordmark {
+    left: 50%;
+    position: absolute !important;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .mobile-nav-controls {
+    align-items: stretch;
+    border: 1px solid rgba(247, 252, 253, .48);
+    display: flex;
+    height: 44px;
+    margin-left: auto;
+    position: relative;
+    z-index: 2;
+  }
+  .mobile-language-menu { position: relative; }
+  .mobile-language-menu summary {
+    align-items: center;
+    color: #f7fcfd;
+    cursor: pointer;
+    display: flex;
+    font-size: .68rem;
+    gap: 5px;
+    height: 100%;
+    justify-content: center;
+    letter-spacing: .12em;
+    list-style: none;
+    min-width: 48px;
+    padding: 0 8px;
+  }
+  .mobile-language-menu summary::-webkit-details-marker { display: none; }
+  .mobile-language-menu summary .ph { font-size: .68rem; }
+  .mobile-language-menu__panel {
+    background: #20373b;
+    border: 1px solid rgba(247, 252, 253, .2);
+    left: 0;
+    min-width: 64px;
+    padding: 10px 12px;
+    position: absolute;
+    top: calc(100% + 8px);
+    z-index: 1003;
+  }
+  .mobile-language-menu__panel a {
+    color: #f7fcfd;
+    display: block;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-align: center;
+  }
+  .mobile-nav-toggle {
+    border: 0;
+    border-left: 1px solid rgba(247, 252, 253, .48);
+    height: 42px;
+    margin: 0;
+    width: 48px;
+  }
 }

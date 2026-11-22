@@ -130,6 +130,15 @@ const pageStructuredData = {
   <body>
     <slot />
     <script>
+      const sharedHeader = document.querySelector<HTMLElement>(".shared-site-header");
+      if (sharedHeader) {
+        const updateHeaderState = () => {
+          sharedHeader.classList.toggle("is-scrolled", window.scrollY > 12);
+        };
+        updateHeaderState();
+        window.addEventListener("scroll", updateHeaderState, { passive: true });
+      }
+
       document.querySelectorAll<HTMLDetailsElement>("details.nav-menu, details.language-menu").forEach((menu) => {
         let closeTimer: number | undefined;
         const openMenu = () => {
