@@ -60,10 +60,22 @@ const packages = isBusinessPage
       { name: "Signature", price: "79 000 HUF", description: "More time, more presence and more of the story kept.", includes: ["Multiple outfits", "36+ edited photographs", "Online gallery"] },
     ];
 const weddingPackages = [
-  { name: "Kis csomag", title: "Szertartás fotózási csomag", description: "A szertartás megörökítése a választott helyszínen, csoportképekkel és egy rövid páros portréfotózással.", price: "109 000 Ft", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "2 fotós", "Legfeljebb 2 óra", "Egy helyszín", "100–300 fénykép", "Utazás 50 km-en belül"] },
-  { name: "Közepes csomag", title: "Szertartás és ünneplés fotózási csomag", description: "Fotózás a szertartástól a mulatságig, csoportképekkel és egy rövid páros portréfotózással.", price: "269 000 Ft", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "Fogadás", "Mulatság", "2 fotós", "Legfeljebb 6 óra", "Legfeljebb 2 helyszín", "400–800 fénykép", "Utazás 50 km-en belül"] },
-  { name: "Nagy csomag", title: "Egész napos esküvői fotózási csomag", description: "A teljes esküvői napot lefedő csomag, amely az előkészületek kulisszák mögötti pillanatait és egy teljes kreatív páros fotózást is tartalmaz.", price: "319 000 Ft", includes: ["Szertartás", "Csoportképek", "Fogadás", "Mulatság", "Előkészületek", "Teljes kreatív páros fotózás", "2 fotós", "Legfeljebb 10 óra", "Több helyszín", "600–1000 fénykép", "Utazás 50 km-en belül"] },
-];
+  {
+    price: "109 000",
+    hu: { name: "Kis csomag", title: "Szertartás fotózási csomag", description: "A szertartás megörökítése a választott helyszínen, csoportképekkel és egy rövid páros portréfotózással.", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "2 fotós", "Legfeljebb 2 óra", "Egy helyszín", "100–300 fénykép", "Utazás 50 km-en belül"] },
+    en: { name: "Small package", title: "Ceremony photography", description: "Coverage of the ceremony at your chosen venue, including group photos and a short couples portrait session.", includes: ["Ceremony", "Group photos", "Short couples portrait session", "2 photographers", "Up to 2 hours", "One location", "100–300 photographs", "Travel within 50 km"] },
+  },
+  {
+    price: "269 000",
+    hu: { name: "Közepes csomag", title: "Szertartás és ünneplés fotózási csomag", description: "Fotózás a szertartástól a mulatságig, csoportképekkel és egy rövid páros portréfotózással.", includes: ["Szertartás", "Csoportképek", "Rövid páros portréfotózás", "Fogadás", "Mulatság", "2 fotós", "Legfeljebb 6 óra", "Legfeljebb 2 helyszín", "400–800 fénykép", "Utazás 50 km-en belül"] },
+    en: { name: "Medium package", title: "Ceremony and celebration photography", description: "Coverage from the ceremony through the party, including group photos and a short couples portrait session.", includes: ["Ceremony", "Group photos", "Short couples portrait session", "Reception", "Party", "2 photographers", "Up to 6 hours", "Up to 2 locations", "400–800 photographs", "Travel within 50 km"] },
+  },
+  {
+    price: "319 000",
+    hu: { name: "Nagy csomag", title: "Egész napos esküvői fotózási csomag", description: "A teljes esküvői napot lefedő csomag, amely az előkészületek kulisszák mögötti pillanatait és egy teljes kreatív páros fotózást is tartalmaz.", includes: ["Szertartás", "Csoportképek", "Fogadás", "Mulatság", "Előkészületek", "Teljes kreatív páros fotózás", "2 fotós", "Legfeljebb 10 óra", "Több helyszín", "600–1000 fénykép", "Utazás 50 km-en belül"] },
+    en: { name: "Large package", title: "Full day wedding photography", description: "Coverage of the full wedding day, including preparations and a full creative couples portrait session.", includes: ["Ceremony", "Group photos", "Reception", "Party", "Preparations", "Full creative couples portrait session", "2 photographers", "Up to 10 hours", "Multiple locations", "600–1000 photographs", "Travel within 50 km"] },
+  },
+].map((pkg) => ({ ...pkg[locale], price: `${pkg.price} ${isHungarian ? "Ft" : "HUF"}` }));
 ---
 
 <SiteLayout locale={locale} title={pageTitle} description={description} canonicalPath={canonicalPath} alternatePath={alternatePath} socialImage={image} socialImageAlt={socialImageAlt} breadcrumbLabel={content.title} serviceName={content.title}>
@@ -245,7 +257,7 @@ const weddingPackages = [
             <h2 id="category-packages-title">{isBusinessPage ? "Válaszd azt, amelyik a szakmai jelenlétedhez illik." : isHungarian ? "Válasszátok azt, ami hozzátok illik." : "Choose what feels right for you."}</h2>
           </div>
           <div class="category-packages-grid">
-            {(isWeddingPage ? weddingPackages : packages).map((pkg, index) => (
+            {(isWeddingCategory ? weddingPackages : packages).map((pkg, index) => (
               <article class={`category-package-card${index === 1 ? " category-package-card--featured" : ""}`}>
                 <h3>{pkg.name}</h3>
                 {"title" in pkg && <h4 class="wedding-package-title">{pkg.title}</h4>}
