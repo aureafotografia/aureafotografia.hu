@@ -55,13 +55,14 @@ export const copy = {
     ],
     heroEyebrow: "AUREA FOTOGRÁFIA · by Alexandra",
     heroTitle: "Your Light. Your Story.",
+    heroSubtitle: "A moment that feels like you.",
     heroBody:
-      "Wedding, portrait and lifestyle photography shaped by natural gestures, attention and real presence.",
+      "I love photographing the moments when you’re most yourself. Whether it’s love, family, motherhood, your wedding day or the work you do, I look for the little details that make the story yours. I want your photographs to bring back what happened and what it meant to you.",
     heroCta: "Explore the work",
     introLabel: "About",
-    introTitle: "I am not here to pose you. I am here to notice you.",
+    introTitle: "The moments you can’t plan are the ones worth keeping.",
     introBody:
-      "I’m Alexandra. I look for the quiet moments: a half-smile, a touch, a small gesture that makes an image unmistakably yours.",
+      "Photography has always been how I express myself best. I love carefully composed images with an editorial feel, and I’m always looking for the moments you can’t plan: a glance, a touch, a laugh or a little detail someone else might miss. Those are the things that make up a story for me.",
     introLink: "More about me",
     workLabel: "Selected work",
     workTitle: "Stories, exactly as they happened.",
