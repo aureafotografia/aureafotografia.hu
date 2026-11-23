@@ -2435,3 +2435,20 @@ body .category-shell .shared-site-header.is-scrolled::before {
   .mobile-nav-controls .mobile-language-menu__panel { left: 0; }
   .wedding-feature-image--photographers img { object-position: center 20%; }
 }
+
+/* Let the wedding image strip reach the viewport edge at every width. */
+.category-shell:has(.wedding-editorial-sections) .category-reference-gallery:has([data-wedding-gallery]) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.category-shell:has(.wedding-editorial-sections) .category-reference-gallery .gallery-masonry-frame:has([data-wedding-gallery]) {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+  width: calc(50vw + 50%);
+}
+@media (max-width: 800px) {
+  .category-shell:has(.wedding-editorial-sections) .category-reference-gallery .gallery-masonry-frame:has([data-wedding-gallery]) {
+    width: calc(100vw - 18px);
+  }
+}
