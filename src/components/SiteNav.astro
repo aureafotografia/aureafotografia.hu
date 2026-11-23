@@ -41,7 +41,7 @@ const alternateHref = pricesPage ? (isHungarian ? "/en/prices/" : "/arak/") : ca
   </nav>
   <div class="mobile-nav-controls">
     <details class="mobile-language-menu">
-      <summary aria-label={isHungarian ? "Nyelv választása" : "Choose language"}>{isHungarian ? "HU" : "EN"}<i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+      <summary aria-label={isHungarian ? "Nyelv választása" : "Choose language"}>{isHungarian ? "HU" : "EN"}</summary>
       <div class="mobile-language-menu__panel"><a href={alternateHref}>{isHungarian ? "EN" : "HU"}</a></div>
     </details>
     <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation">

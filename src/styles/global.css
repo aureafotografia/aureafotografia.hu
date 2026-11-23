@@ -2374,14 +2374,20 @@ body .category-shell .shared-site-header.is-scrolled::before {
     position: absolute !important;
     top: 50%;
     transform: translate(-50%, -50%);
+    gap: 2px !important;
+  }
+  .shared-site-header .wordmark .wordmark-subtitle,
+  .shared-site-header .wordmark .wordmark-byline {
+    line-height: 1 !important;
+    margin: 0 !important;
   }
   .mobile-nav-controls {
-    align-items: stretch;
-    border: 1px solid rgba(247, 252, 253, .48);
+    align-items: center;
     display: flex;
-    height: 44px;
-    margin-left: auto;
-    position: relative;
+    inset: 0;
+    justify-content: space-between;
+    pointer-events: none;
+    position: absolute !important;
     z-index: 2;
   }
   .mobile-language-menu { position: relative; }
@@ -2390,17 +2396,17 @@ body .category-shell .shared-site-header.is-scrolled::before {
     color: #f7fcfd;
     cursor: pointer;
     display: flex;
-    font-size: .68rem;
-    gap: 5px;
-    height: 100%;
-    justify-content: center;
-    letter-spacing: .12em;
+    font-size: .95rem;
+    font-weight: 700;
+    height: 44px;
+    justify-content: flex-start;
+    letter-spacing: .1em;
     list-style: none;
-    min-width: 48px;
-    padding: 0 8px;
+    min-width: 56px;
+    padding: 0 8px 0 0;
+    pointer-events: auto;
   }
   .mobile-language-menu summary::-webkit-details-marker { display: none; }
-  .mobile-language-menu summary .ph { font-size: .68rem; }
   .mobile-language-menu__panel {
     background: #20373b;
     border: 1px solid rgba(247, 252, 253, .2);
@@ -2409,6 +2415,7 @@ body .category-shell .shared-site-header.is-scrolled::before {
     padding: 10px 12px;
     position: absolute;
     top: calc(100% + 8px);
+    pointer-events: auto;
     z-index: 1003;
   }
   .mobile-language-menu__panel a {
@@ -2419,10 +2426,12 @@ body .category-shell .shared-site-header.is-scrolled::before {
     text-align: center;
   }
   .mobile-nav-toggle {
-    border: 0;
-    border-left: 1px solid rgba(247, 252, 253, .48);
-    height: 42px;
+    border: 1px solid rgba(247, 252, 253, .48);
+    height: 44px;
     margin: 0;
     width: 48px;
   }
+  .mobile-nav-toggle { pointer-events: auto; }
+  .mobile-nav-controls .mobile-language-menu__panel { left: 0; }
+  .wedding-feature-image--photographers img { object-position: center 20%; }
 }
