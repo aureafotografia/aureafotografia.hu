@@ -1,5 +1,6 @@
 ---
 import { photographer, type Locale } from "../data/site";
+import GoogleReviewsBadge from "../components/GoogleReviewsBadge.astro";
 
 interface Props {
   locale: Locale;
@@ -129,6 +130,7 @@ const pageStructuredData = {
   </head>
   <body>
     <slot />
+    <GoogleReviewsBadge locale={locale} />
     <script>
       const sharedHeader = document.querySelector<HTMLElement>(".shared-site-header");
       if (sharedHeader) {

@@ -876,6 +876,15 @@ body .shared-site-header .site-nav a.nav-booking:hover {
   font-size: 1.65rem;
   margin: 0;
 }
+.category-package-currency {
+  color: #5b7a7b;
+  font-family: var(--sans);
+  font-size: 0.58em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-left: 0.45em;
+  vertical-align: 0.12em;
+}
 .category-package-description {
   color: #5f7373;
   font-family: var(--serif);
