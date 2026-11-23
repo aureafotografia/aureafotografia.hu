@@ -16,13 +16,13 @@ const description = hu
   ? "Fotózási csomagok és árak. Válaszd ki az elképzeléseidhez illő csomagot, és tervezzük meg együtt a fotózást."
   : "Photography packages and prices. Choose a package that suits your needs and let’s plan your session together.";
 const packages = hu ? [
-  { name: "Mini", price: "39 000 HUF", description: "Könnyed fotózás egy kisebb, gondosan válogatott képsorozathoz.", includes: ["1 szett", "10–12 szerkesztett fotó", "Online galéria"] },
-  { name: "Standard", price: "59 000 HUF", description: "Több lehetőség és változatosabb képek az elképzeléseidhez igazítva.", includes: ["2–3 szett", "20–24 szerkesztett fotó", "Online galéria"] },
-  { name: "Signature", price: "79 000 HUF", description: "Egy átfogó képsorozat, több térrel az ötleteknek és a részleteknek.", includes: ["Több szett", "36+ szerkesztett fotó", "Online galéria"] },
+  { name: "Mini", price: "39 000", currency: "HUF", description: "Könnyed fotózás egy kisebb, gondosan válogatott képsorozathoz.", includes: ["1 szett", "10–12 szerkesztett fotó", "Online galéria"] },
+  { name: "Standard", price: "59 000", currency: "HUF", description: "Több lehetőség és változatosabb képek az elképzeléseidhez igazítva.", includes: ["2–3 szett", "20–24 szerkesztett fotó", "Online galéria"] },
+  { name: "Signature", price: "79 000", currency: "HUF", description: "Egy átfogó képsorozat, több térrel az ötleteknek és a részleteknek.", includes: ["Több szett", "36+ szerkesztett fotó", "Online galéria"] },
 ] : [
-  { name: "Mini", price: "39 000 HUF", description: "A relaxed session for a small, carefully curated collection of images.", includes: ["1 look", "10–12 edited photographs", "Online gallery"] },
-  { name: "Standard", price: "59 000 HUF", description: "More possibilities and a varied collection tailored to your ideas.", includes: ["2–3 looks", "20–24 edited photographs", "Online gallery"] },
-  { name: "Signature", price: "79 000 HUF", description: "A comprehensive collection with more room for ideas and details.", includes: ["Multiple looks", "36+ edited photographs", "Online gallery"] },
+  { name: "Mini", price: "39 000", currency: "HUF", description: "A relaxed session for a small, carefully curated collection of images.", includes: ["1 look", "10–12 edited photographs", "Online gallery"] },
+  { name: "Standard", price: "59 000", currency: "HUF", description: "More possibilities and a varied collection tailored to your ideas.", includes: ["2–3 looks", "20–24 edited photographs", "Online gallery"] },
+  { name: "Signature", price: "79 000", currency: "HUF", description: "A comprehensive collection with more room for ideas and details.", includes: ["Multiple looks", "36+ edited photographs", "Online gallery"] },
 ];
 ---
 
@@ -50,7 +50,7 @@ const packages = hu ? [
               <article class={`category-package-card${index === 1 ? " category-package-card--featured" : ""}`}>
                 <h3>{pkg.name}</h3>
                 <p class="category-package-description">{pkg.description}</p>
-                <p class="category-package-price">{pkg.price}</p>
+                <p class="category-package-price">{pkg.price}<span class="category-package-currency">{pkg.currency}</span></p>
                 <div class="category-package-details">
                   <ul>{pkg.includes.map((item) => <li>{item}</li>)}</ul>
                   <a class="button-link" href="#prices-contact">{hu ? "Foglalás" : "Book now"}</a>
