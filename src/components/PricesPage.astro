@@ -9,6 +9,9 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const hu = locale === "hu";
 const title = hu ? "Árak" : "Prices";
+const pageTitle = hu
+  ? `Fotózási árak és csomagok Budapesten | ${photographer.brand}`
+  : `Photography prices and packages in Budapest | ${photographer.brand}`;
 const description = hu
   ? "Fotózási csomagok és árak. Válaszd ki az elképzeléseidhez illő csomagot, és tervezzük meg együtt a fotózást."
   : "Photography packages and prices. Choose a package that suits your needs and let’s plan your session together.";
@@ -23,7 +26,7 @@ const packages = hu ? [
 ];
 ---
 
-<SiteLayout locale={locale} title={`${title} · ${photographer.brand}`} description={description} breadcrumbLabel={title} canonicalPath={hu ? "/arak" : "/en/prices"} alternatePath={hu ? "/en/prices" : "/arak"}>
+<SiteLayout locale={locale} title={pageTitle} description={description} breadcrumbLabel={title} canonicalPath={hu ? "/arak" : "/en/prices"} alternatePath={hu ? "/en/prices" : "/arak"}>
   <div class="site-shell category-shell">
     <SiteNav locale={locale} pricesPage />
     <main>
