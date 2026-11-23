@@ -7,17 +7,13 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const formattedDate = new Date(`${googleReviews.asOfDate}T00:00:00Z`).toLocaleDateString(
-  locale === "hu" ? "hu-HU" : "en-US",
-  locale === "hu"
-    ? { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }
-    : { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" },
-);
-const reviewLabel = locale === "hu" ? "értékelés" : "reviews";
-const asOfLabel = locale === "hu" ? "állapot" : "as of";
+const ratingLabel = `${googleReviews.rating.toFixed(1)} / 5`;
+const accessibleRating = locale === "hu"
+  ? `${googleReviews.rating.toFixed(1).replace(".", ",")} az 5-ből`
+  : `${googleReviews.rating.toFixed(1)} out of 5`;
 const accessibleLabel = locale === "hu"
-  ? `A(z) ${googleReviews.businessName}, ${googleReviews.location} Google-értékelései: ${googleReviews.rating} az 5-ből, ${googleReviews.reviewCount} ${reviewLabel}, ${formattedDate} állapot szerint. Megnyitás a Google Térképen új lapon.`
-  : `${googleReviews.businessName}, ${googleReviews.location} Google reviews: ${googleReviews.rating} out of 5, ${googleReviews.reviewCount} ${reviewLabel}, ${asOfLabel} ${formattedDate}. Open the Google Maps listing in a new tab.`;
+  ? `A(z) ${googleReviews.businessName}, ${googleReviews.location} Google-értékelése: ${accessibleRating}. Megnyitás a Google Térképen új lapon.`
+  : `${googleReviews.businessName}, ${googleReviews.location} Google rating: ${accessibleRating}. Open the Google Maps listing in a new tab.`;
 ---
 
 <a
@@ -35,8 +31,7 @@ const accessibleLabel = locale === "hu"
   </svg>
   <span class="google-reviews-badge__copy">
     <span class="google-reviews-badge__stars" aria-hidden="true">★★★★★</span>
-    <span class="google-reviews-badge__rating">Google <strong>{googleReviews.rating}</strong></span>
-    <span class="google-reviews-badge__count">{googleReviews.reviewCount} {reviewLabel} · {asOfLabel} {formattedDate}</span>
+    <span class="google-reviews-badge__rating">Google <strong>{ratingLabel}</strong></span>
   </span>
 </a>
 
@@ -79,8 +74,6 @@ const accessibleLabel = locale === "hu"
   .google-reviews-badge__stars { color: #f6c445; font-size: 15px; letter-spacing: 1px; line-height: 1.15; }
   .google-reviews-badge__rating { font-size: 13px; font-weight: 500; }
   .google-reviews-badge__rating strong { font-size: 14px; font-weight: 700; }
-  .google-reviews-badge__count { color: rgba(255, 255, 255, 0.72); font-size: 10px; }
-
   @media (max-width: 480px) {
     .google-reviews-badge {
       bottom: calc(10px + env(safe-area-inset-bottom, 0px));
@@ -92,7 +85,6 @@ const accessibleLabel = locale === "hu"
     .google-reviews-badge__stars { font-size: 13px; letter-spacing: .7px; }
     .google-reviews-badge__rating { font-size: 12px; }
     .google-reviews-badge__rating strong { font-size: 13px; }
-    .google-reviews-badge__count { font-size: 9px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
