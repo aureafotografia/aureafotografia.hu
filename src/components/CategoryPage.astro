@@ -155,7 +155,6 @@ const weddingPackages = [
             <p class="wedding-hero-intro">Hiszem, hogy a legszebb esküvői fotók nem csupán megmutatnak egy pillanatot, hanem évekkel később is képesek visszaadni azt az érzést, amit akkor átéltetek.</p>
             <p class="wedding-hero-intro">Az esküvői fotózásban Aczél Dániellel, az Aether Art Space alkotójával dolgozom együtt. Két különböző látásmóddal, de közös szenvedéllyel meséljük el a történeteteket, természetesen, személyesen és művészi érzékenységgel.</p>
             <a class="button-link wedding-hero-cta" href="#category-contact">Meséljetek nekem a történetetekről!</a>
-            <a class="wedding-gallery-link" href="#category-gallery">Ugrás a galériához</a>
           </div>
           <figure class="wedding-hero-image"><img src="/images/generated/galleries/eskuvo/dsc07129--full--318a1bda5f.jpg" alt="Színes, egész alakos esküvői portré a sziklák között, nyitott égbolttal" fetchpriority="high" /></figure>
         </div>
@@ -282,12 +281,6 @@ const weddingPackages = [
                 <p>Egy állásinterjú, egy üzleti találkozó, egy új ügyfél vagy egy szakmai bemutatkozás esetében a professzionális megjelenés ennek fontos része lehet.</p>
               </div>
             </article>
-            <article class="category-business-story-section category-business-story-gallery" aria-labelledby="gallery-title">
-              <div class="category-business-story-copy">
-                <h3 id="gallery-title">A szakmaiság mellett az ember is látszik.</h3>
-                <p>Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban.</p>
-              </div>
-            </article>
             </div>
           </section>
         </div>
@@ -295,11 +288,11 @@ const weddingPackages = [
 
       <section class="page-section category-reference-gallery" id="category-gallery" aria-labelledby="gallery-title">
         <div class="page-section__inner">
-          {!isBusinessPage && <div class="category-reference-gallery-heading">
-            <p class="eyebrow">{isBusinessPage ? "GALÉRIA" : isHungarian ? "Válogatott képek" : "Selected images"}</p>
-            <h2 id="gallery-title">{isBusinessPage ? "A szakmaiság mellett az ember is látszik." : isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
-            <p>{isBusinessPage ? "Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban." : content.detail}</p>
-          </div>}
+          <div class="category-reference-gallery-heading">
+            <p class="eyebrow">{isBusinessCategory ? (isHungarian ? "Galéria" : "Gallery") : isHungarian ? "Válogatott képek" : "Selected images"}</p>
+            <h2 id="gallery-title">{isBusinessCategory ? (isHungarian ? "A szakmaiság mellett az ember is látszik." : "The person behind the expertise.") : isHungarian ? "A pillanatok, ahogy megtörténtek." : "The moments, exactly as they happened."}</h2>
+            <p>{isBusinessCategory ? (isHungarian ? "Természetes, professzionális és használható képek rólad, a munkádról és arról, ahogyan jelen vagy a saját hivatásodban." : "Natural, professional photographs that show you, your work and how you show up in your profession.") : content.detail}</p>
+          </div>
           <Gallery locale={locale} slug={category.slug} title={content.title} imageLabels={content.slots} />
         {!isBusinessPage && <p class="gallery-note">{category.slug === "eskuvo-fotozas" ? (isHungarian ? "Húzd a csempéket oldalra, vagy használd a nyilakat. Kattints egy fotóra a nagyításhoz." : "Drag the tiles sideways or use the arrows. Select a photograph to view it larger.") : (isHungarian ? "A galéria Alexandra válogatott munkáival frissül." : "The gallery will be refreshed with Alexandra’s selected work.")}</p>}
         </div>
@@ -327,7 +320,6 @@ const weddingPackages = [
               </article>
             ))}
           </div>
-          {isWeddingPage && <a class="wedding-gallery-link wedding-package-gallery-link" href="#category-gallery">Ugrás a galériához</a>}
         </div>
       </section>
 
