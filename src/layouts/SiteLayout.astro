@@ -1,5 +1,6 @@
 ---
 import { photographer, type Locale } from "../data/site";
+import GoogleReviewsBadge from "../components/GoogleReviewsBadge.astro";
 
 interface Props {
   locale: Locale;
@@ -9,16 +10,87 @@ interface Props {
   alternatePath?: string;
   socialImage?: string;
   socialImageAlt?: string;
-  structuredData?: Record<string, unknown>;
+  breadcrumbLabel?: string;
+  serviceName?: string;
 }
 
-const { locale, title, description, canonicalPath, alternatePath, socialImage = "/images/aurea-logo.png", socialImageAlt = title, structuredData } = Astro.props;
+const { locale, title, description, canonicalPath, alternatePath, socialImage = "/images/aurea-logo.png", socialImageAlt = title, breadcrumbLabel, serviceName } = Astro.props;
 const siteUrl = "https://aureafotografia.hu";
 const defaultPath = locale === "hu" ? "/" : "/en";
 const defaultAlternatePath = locale === "hu" ? "/en" : "/";
-const canonical = new URL(canonicalPath ?? defaultPath, siteUrl).href;
-const alternate = new URL(alternatePath ?? defaultAlternatePath, siteUrl).href;
+const normalizedPath = (path: string) => path === "/" ? "/" : `${path.replace(/\/+$/, "")}/`;
+const canonical = new URL(normalizedPath(canonicalPath ?? defaultPath), siteUrl).href;
+const alternate = new URL(normalizedPath(alternatePath ?? defaultAlternatePath), siteUrl).href;
 const socialImageUrl = new URL(socialImage, siteUrl).href;
+const socialImageType = ({ png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", avif: "image/avif" } as Record<string, string>)[socialImage.split(".").at(-1)?.toLowerCase() ?? ""];
+const breadcrumbId = `${canonical}#breadcrumb`;
+const serviceId = `${canonical}#service`;
+const pageStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: photographer.brand,
+      inLanguage: ["hu", "en"],
+      publisher: { "@id": `${siteUrl}/#photographer` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#photographer`,
+      name: photographer.name,
+      jobTitle: "Photographer",
+      url: `${siteUrl}/`,
+      worksFor: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: photographer.brand,
+      url: `${siteUrl}/`,
+      email: photographer.email,
+      sameAs: [photographer.instagram],
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: locale,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      primaryImageOfPage: { "@id": `${socialImageUrl}#primaryimage` },
+      ...(breadcrumbLabel && { breadcrumb: { "@id": breadcrumbId } }),
+      ...(serviceName && { mainEntity: { "@id": serviceId } }),
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${socialImageUrl}#primaryimage`,
+      contentUrl: socialImageUrl,
+      url: socialImageUrl,
+      caption: socialImageAlt,
+    },
+    ...(breadcrumbLabel ? [{
+      "@type": "BreadcrumbList",
+      "@id": breadcrumbId,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: locale === "hu" ? "Kezdőlap" : "Home", item: new URL(normalizedPath(defaultPath), siteUrl).href },
+        { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: canonical },
+      ],
+    }] : []),
+    ...(serviceName ? [{
+      "@type": "Service",
+      "@id": serviceId,
+      name: serviceName,
+      url: canonical,
+      description,
+      image: socialImageUrl,
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: { "@type": "City", name: "Budapest" },
+    }] : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -37,7 +109,7 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale} href={canonical} />
     <link rel="alternate" hreflang={locale === "hu" ? "en" : "hu"} href={alternate} />
-    <link rel="alternate" hreflang="x-default" href="https://aureafotografia.hu/" />
+    <link rel="alternate" hreflang="x-default" href={locale === "hu" ? canonical : alternate} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={photographer.brand} />
     <meta property="og:title" content={title} />
@@ -47,20 +119,28 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
     <meta property="og:locale:alternate" content={locale === "hu" ? "en_GB" : "hu_HU"} />
     <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:alt" content={socialImageAlt} />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="2390" />
-    <meta property="og:image:height" content="3585" />
+    {socialImageType && <meta property="og:image:type" content={socialImageType} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
     <meta name="twitter:image:alt" content={socialImageAlt} />
-    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />
     <title>{title}</title>
   </head>
   <body>
     <slot />
+    <GoogleReviewsBadge locale={locale} />
     <script>
+      const sharedHeader = document.querySelector<HTMLElement>(".shared-site-header");
+      if (sharedHeader) {
+        const updateHeaderState = () => {
+          sharedHeader.classList.toggle("is-scrolled", window.scrollY > 12);
+        };
+        updateHeaderState();
+        window.addEventListener("scroll", updateHeaderState, { passive: true });
+      }
+
       document.querySelectorAll<HTMLDetailsElement>("details.nav-menu, details.language-menu").forEach((menu) => {
         let closeTimer: number | undefined;
         const openMenu = () => {
@@ -81,6 +161,69 @@ const socialImageUrl = new URL(socialImage, siteUrl).href;
           if (!(event.relatedTarget instanceof Node) || !menu.contains(event.relatedTarget)) closeMenu();
         });
       });
+
+      const mobileToggle = document.querySelector<HTMLButtonElement>(".mobile-nav-toggle");
+      const mobileDrawer = document.querySelector<HTMLElement>(".mobile-nav-drawer");
+      const mobileBackdrop = document.querySelector<HTMLButtonElement>(".mobile-nav-backdrop");
+
+      if (mobileToggle && mobileDrawer && mobileBackdrop) {
+        document.body.append(mobileBackdrop, mobileDrawer);
+        const closeMobileMenu = (returnFocus = false) => {
+          mobileToggle.setAttribute("aria-expanded", "false");
+          mobileToggle.querySelector(".sr-only")!.textContent = document.documentElement.lang === "hu" ? "Menü megnyitása" : "Open menu";
+          mobileDrawer.setAttribute("aria-hidden", "true");
+          mobileDrawer.inert = true;
+          mobileDrawer.removeAttribute("role");
+          mobileDrawer.removeAttribute("aria-modal");
+          mobileBackdrop.hidden = true;
+          document.body.style.overflow = "";
+          if (returnFocus) mobileToggle.focus();
+        };
+        const openMobileMenu = () => {
+          mobileToggle.setAttribute("aria-expanded", "true");
+          mobileToggle.querySelector(".sr-only")!.textContent = document.documentElement.lang === "hu" ? "Menü bezárása" : "Close menu";
+          mobileDrawer.setAttribute("aria-hidden", "false");
+          mobileDrawer.inert = false;
+          mobileDrawer.setAttribute("role", "dialog");
+          mobileDrawer.setAttribute("aria-modal", "true");
+          mobileBackdrop.hidden = false;
+          document.body.style.overflow = "hidden";
+          mobileDrawer.querySelector<HTMLElement>(".mobile-nav-close")?.focus();
+        };
+
+        mobileToggle.addEventListener("click", () => {
+          if (mobileToggle.getAttribute("aria-expanded") === "true") closeMobileMenu();
+          else openMobileMenu();
+        });
+        mobileBackdrop.addEventListener("click", () => closeMobileMenu(true));
+        mobileDrawer.querySelector(".mobile-nav-close")?.addEventListener("click", () => closeMobileMenu(true));
+        mobileDrawer.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMobileMenu()));
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && mobileToggle.getAttribute("aria-expanded") === "true") {
+            closeMobileMenu(true);
+            return;
+          }
+
+          if (event.key === "Tab" && mobileToggle.getAttribute("aria-expanded") === "true") {
+            const focusableItems = mobileDrawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+            const firstItem = focusableItems[0];
+            const lastItem = focusableItems[focusableItems.length - 1];
+            if (!mobileDrawer.contains(document.activeElement)) {
+              event.preventDefault();
+              firstItem?.focus();
+            } else if (event.shiftKey && document.activeElement === firstItem) {
+              event.preventDefault();
+              lastItem?.focus();
+            } else if (!event.shiftKey && document.activeElement === lastItem) {
+              event.preventDefault();
+              firstItem?.focus();
+            }
+          }
+        });
+        window.matchMedia("(min-width: 801px)").addEventListener("change", (event) => {
+          if (event.matches) closeMobileMenu();
+        });
+      }
     </script>
   </body>
 </html>

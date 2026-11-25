@@ -202,7 +202,7 @@ const srcset = (image: GalleryImage, format: keyof FormatSet) => image.regular.m
       const galleryWidth = gallery.clientWidth;
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const isWedding = gallery.hasAttribute("data-wedding-gallery");
-      const requestedHeight = isWedding ? (isMobile ? 465 : 680) : isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
+      const requestedHeight = isWedding ? (isMobile ? 340 : 680) : isMobile ? Math.max(420, galleryWidth * 0.78) : Math.max(320, Math.min(560, galleryWidth * 0.52));
       const gap = 5;
       let cursor = 0;
       let columnIndex = 0;
